@@ -19,32 +19,32 @@ namespace LOLItems
     {
         public const string GUID = "Ricky2148.etg.LOLItems";
         public const string NAME = "League of legends Items";
-        public const string VERSION = "0.2.13";
+        public const string VERSION = "1.0.2";
         public const string TEXT_COLOR = "#FF007F";
 
         public void Start()
         {
             ETGModMainBehaviour.WaitForGameManagerStart(GMStart);
-            BladeOfTheRuinedKing.Init();
-            GuinsoosRageblade.Init();
-            KrakenSlayer.Init();
-            Hubris.Init();
-            ExperimentalHexplate.Init();
-            GuardianAngel.Init();
-            LiandrysTorment.Init();
-            Stridebreaker.Init();
-            SunfireAegis.Init();
-            Thornmail.Init();
-            ZhonyasHourglass.Init();
-            StatikkShiv.Init();
-            //Redemption.Init();
-            Manamune.Init();
-            Muramana.Init();
         }
 
         public void GMStart(GameManager g)
         {
+            BladeOfTheRuinedKing.Init();
             ExamplePassive.Register();
+            ExperimentalHexplate.Init();
+            GuardianAngel.Init();
+            GuinsoosRageblade.Init();
+            Hubris.Init();
+            KrakenSlayer.Init();
+            LiandrysTorment.Init();
+            Manamune.Init();
+            Muramana.Init();
+            StatikkShiv.Init();
+            Stridebreaker.Init();
+            SunfireAegis.Init();
+            Thornmail.Init();
+            ZhonyasHourglass.Init();
+            //Redemption.Init();
             SoundManager.LoadSoundbanksFromAssembly();
             Log($"{NAME} v{VERSION} started successfully.", TEXT_COLOR);
         }
