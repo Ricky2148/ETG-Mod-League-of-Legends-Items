@@ -6,7 +6,7 @@ using UnityEngine;
 using Alexandria.ItemAPI;
 using JetBrains.Annotations;
 
-// eventually have phantomhit projectile increase counts for other items
+// add a way for phantomhit extra projectiles to be modified by other items like scatter shot or helix bullets
 // i don't think the % offset for the delay is accounting for additional
 // rate of fire increases from other items
 
