@@ -1,0 +1,10 @@
+name,volume,loops,channel,limit
+
+kraken_slayer_passive_SFX, -7, 1, sound, 0
+experimental_hexplate_passive_effect_SFX, 0, 1, sound, 0
+stridebreaker_active_hit_SFX, -3, 1, sound, 0
+stridebreaker_active_SFX, 0, 1, sound, 0
+guardian_angel_passive_SFX, 3, 1, sound, 0
+zhonyas_hourglass_activation_SFX, 3, 1, sound, 0
+zhonyas_hourglass_ending_SFX, 3, 1, sound, 0
+statikk_shiv_lighning_SFX, -5, 1, sound, 0
