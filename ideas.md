@@ -17,3 +17,6 @@ galeforce: dmg, fire rate, active dashes player, fires 3 missiles that home on e
 puppeteer: fire rate, some extra stats?
     passive on-hit: each bullet applies stack to enemy, when max stacks, enemy is charmed and attacks enemies
 	when stacks take effect, item goes on cooldown for duration
+
+add league item shop into the game as a custom shopkeeper?
+	custom asset building
