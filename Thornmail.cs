@@ -11,13 +11,11 @@ using UnityEngine;
 
 namespace LOLItems
 {
-    internal class Thornmail : PassiveItem
+    internal class Thornmail : OnDamagedPassiveItem
     {
         // stats pool for item
         private static float HealthStat = 1f;
-        private static float HealthToGive = 1f;
-        private static float ArmorStat = 1f;
-        private bool hasGainedArmor = false;
+        private static int ArmorStat = 1;
 
         private static float ThornsDamage = 30f;
         private static float ThornsRadius = 10f;
@@ -39,6 +37,9 @@ namespace LOLItems
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
+            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+            item.ArmorToGainOnInitialPickup = ArmorStat;
+
             item.quality = PickupObject.ItemQuality.A;
         }
 
@@ -47,13 +48,6 @@ namespace LOLItems
             base.Pickup(player);
             Plugin.Log($"Player picked up Thornmail");
 
-            // increase player's max health and current health
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() + HealthStat, HealthToGive);
-            HealthToGive = 0f; // after the initial pickup, stop increasing current health upon pickup
-
-            if (!hasGainedArmor) player.healthHaver.Armor += ArmorStat;
-            hasGainedArmor = true;
-
             player.healthHaver.OnDamaged += OnPlayerDamaged;
         }
 
@@ -61,8 +55,6 @@ namespace LOLItems
         {
             base.DisableEffect(player);
             Plugin.Log($"Player dropped or got rid of Thornmail");
-
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() - HealthStat);
 
             player.healthHaver.OnDamaged -= OnPlayerDamaged;
         }

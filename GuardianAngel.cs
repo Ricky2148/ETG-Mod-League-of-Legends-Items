@@ -14,8 +14,7 @@ namespace LOLItems
     {
         // stats pool for item
         private static float DamageStat = 1.25f;
-        private static float ArmorStat = 2.0f;
-        private bool hasGainedArmor = false;
+        private static int ArmorStat = 2;
         private bool hasRevived = false;
         public static void Init()
         {
@@ -36,6 +35,8 @@ namespace LOLItems
 
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
+            item.ArmorToGainOnInitialPickup = ArmorStat;
+
             item.quality = PickupObject.ItemQuality.S;
         }
 
@@ -45,9 +46,6 @@ namespace LOLItems
             base.Pickup(player);
             Plugin.Log($"Player picked up Guardian Angel");
 
-            // increases player's armor only upon initial pickup
-            if (!hasGainedArmor) player.healthHaver.Armor += ArmorStat;
-            hasGainedArmor = true;
             player.healthHaver.OnPreDeath += Rebirth;
         }
 

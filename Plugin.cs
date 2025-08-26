@@ -46,6 +46,7 @@ namespace LOLItems
             ZhonyasHourglass.Init();
             //Redemption.Init();
             Collector.Init();
+            FrozenHeart.Init();
             SoundManager.LoadSoundbanksFromAssembly();
             Log($"{NAME} v{VERSION} started successfully.", TEXT_COLOR);
         }

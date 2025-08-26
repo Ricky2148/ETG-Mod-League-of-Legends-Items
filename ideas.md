@@ -9,7 +9,7 @@ rod of ages: increases dmg, health, ammo/clip capacity
 	
 runaan's hurricane: fire rate, shoots extra projectiles (boring)
 
-collector: dmg, execute enemies below % health, enemies drop extra casings on death
+IMPLEMENTED collector: dmg, execute enemies below % health, enemies drop extra casings on death
 
 everfrost: dmg, clip/ammo capacity, health
 	active fires cone out in front of player, center freezes enemies, edge chills enemies

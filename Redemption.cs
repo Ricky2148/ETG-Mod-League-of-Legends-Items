@@ -15,7 +15,6 @@ namespace LOLItems
     internal class Redemption : TargetedAttackPlayerItem
     {
         private static float HealthStat = 1f;
-        private static float HealthToGive = 1f;
 
         private static float InterventionPercentMaxHealth = 10f;
         private static float InterventionHealAmount = 0.5f;
@@ -45,6 +44,8 @@ namespace LOLItems
             item.minDistance = 0f;
             item.maxDistance = InterventionActivationRange;
 
+            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+
             item.quality = PickupObject.ItemQuality.A;
         }
 
@@ -52,16 +53,12 @@ namespace LOLItems
         {
             base.Pickup(player);
             Plugin.Log($"Player picked up Redemption");
-
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() + HealthStat, HealthToGive);
-            HealthToGive = 0f;
         }
 
         public DebrisObject Drop(PlayerController player)
         {
             Plugin.Log($"Player dropped or got rid of Redemption");
 
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() - HealthStat);
             return base.Drop(player);
         }
 

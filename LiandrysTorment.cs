@@ -8,7 +8,6 @@ using System.Text;
 using UnityEngine;
 
 //health, dmg, every bullet applies a burn effect that deals dmg over time, DOT is %max health of enemy (scales on bosses and mini bosses)
-// damage appears to be correct, but adding the burn effect vfx is also applying the actual burn damage
 // this applies the regular burn effect: damage, duration, and vfx all seem to match
 
 namespace LOLItems
@@ -18,7 +17,6 @@ namespace LOLItems
         // stats pool for item
         private static float DamageStat = 1.15f;
         private static float HealthStat = 1f;
-        private static float HealthToGive = 1f;
         private static float TormentPercentHealthDamage = 0.03f;
         private static float TormentDuration = 3f;
 
@@ -52,7 +50,8 @@ namespace LOLItems
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
             
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            
+            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+
             item.quality = PickupObject.ItemQuality.A;
         }
 
@@ -61,10 +60,7 @@ namespace LOLItems
         {
             base.Pickup(player);
             Plugin.Log($"Player picked up Liandry's Torment");
-            
-            // increase player's max health and current health
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() + HealthStat, HealthToGive);
-            HealthToGive = 0f; // after the initial pickup, stop increasing current health upon pickup
+
             player.PostProcessProjectile += OnPostProcessProjectile;
         }
 
@@ -73,7 +69,6 @@ namespace LOLItems
             base.DisableEffect(player);
             Plugin.Log($"Player dropped or got rid of Liandry's Torment");
             
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() - HealthStat);
             player.PostProcessProjectile -= OnPostProcessProjectile;
         }
 

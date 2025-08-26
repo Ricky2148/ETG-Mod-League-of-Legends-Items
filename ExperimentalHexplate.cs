@@ -16,7 +16,6 @@ namespace LOLItems
         private static float DamageStat = 1.1f;
         private static float RateOfFireStat = 1.1f;
         private static float HealthStat = 1f;
-        private static float HealthToGive = 1f;
         private static float OverdriveDuration = 8f;
         private static float OverdriveCooldown = 30f;
         private static float OverdriveRateOfFireStat = 1.5f;
@@ -42,6 +41,8 @@ namespace LOLItems
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
+            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+
             item.quality = PickupObject.ItemQuality.A;
         }
 
@@ -51,9 +52,6 @@ namespace LOLItems
             base.Pickup(player);
             Plugin.Log($"Player picked up Experimental Hexplate");
 
-            // increase player's max health and current health
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() + HealthStat, HealthToGive);
-            HealthToGive = 0f; // after the initial pickup, stop increasing current health upon pickup
             player.OnUsedPlayerItem += OnPlayerItemUsed;
         }
         public override void DisableEffect(PlayerController player)
@@ -61,7 +59,6 @@ namespace LOLItems
             base.DisableEffect(player);
             Plugin.Log($"Player dropped or got rid of Experimental Hexplate");
 
-            player.healthHaver.SetHealthMaximum(player.healthHaver.GetMaxHealth() - HealthStat);
             player.OnUsedPlayerItem -= OnPlayerItemUsed;
         }
 

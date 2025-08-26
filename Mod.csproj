@@ -36,7 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Collector.cs" />
+    <Compile Include="CustomAuraItem.cs" />
     <Compile Include="CustomLightningChainEnemiesModifier.cs" />
+    <Compile Include="FrozenHeart.cs" />
     <Compile Include="HelpfulMethods.cs" />
     <Compile Include="Muramana.cs" />
     <Compile Include="SunfireAegis.cs" />
@@ -56,9 +58,6 @@
     <Compile Include="Stridebreaker.cs" />
     <Compile Include="Thornmail.cs" />
     <Compile Include="ZhonyasHourglass.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\example_item_sprite.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -270,7 +269,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <EmbeddedResource Include="Resources\example_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\zekes_convergence_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\the_collector_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\everfrost_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\frozen_heart_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\galeforce_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\horizon_focus_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\navori_quickblades_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\puppeteer_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\rod_of_ages_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\runaans_hurricane_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\rylais_crystal_scepter_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\shadowflame_item_sprite.png" />
     <Content Include="Resources\Sounds\gen-gungeon-audio-bank.py" />
     <EmbeddedResource Include="Resources\passive_item_sprites\blade_of_the_ruined_king_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\experimental_hexplate_item_sprite.png" />
