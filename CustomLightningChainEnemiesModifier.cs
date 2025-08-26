@@ -1,6 +1,7 @@
 ﻿// Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 // ChainLightningModifier
 using HutongGames.PlayMaker.Actions;
+using LOLItems;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,15 +15,15 @@ public class CustomLightningChainEnemiesModifier : BraveBehaviour
 
     public bool RequiresSameProjectileClass;
 
-    public float maximumLinkDistance = 8f;
+    public float maximumLinkDistance;
 
-    public float damagePerHit = 5f;
+    public float damagePerHit;
 
     public float damageCooldown = 1f;
 
-    public float maxLinkCount = 5f;
+    public float maxLinkCount;
 
-    public string vfxPath = "statikk_shiv_lightning_SFX";
+    public List<string> sfxPath = new List<string>();
 
     /*[NonSerialized]
     public bool CanChainToAnyProjectile;
@@ -41,6 +42,9 @@ public class CustomLightningChainEnemiesModifier : BraveBehaviour
 
     [NonSerialized]
     public bool DamagesEnemies = true;
+
+    [NonSerialized]
+    public bool PlaysSFX = true;
 
     [Header("Dispersal")]
     public bool UsesDispersalParticles;
@@ -85,7 +89,7 @@ public class CustomLightningChainEnemiesModifier : BraveBehaviour
         // Build chain starting from the first hit enemy
         List<AIActor> chain = ChainEnemies(firstEnemy.CenterPosition);
 
-        AkSoundEngine.PostEvent(vfxPath, firstEnemy.gameObject);
+        if (PlaysSFX) PlayLightningSFX(firstEnemy);
 
         if (chain.Count > 0)
         {
@@ -93,6 +97,21 @@ public class CustomLightningChainEnemiesModifier : BraveBehaviour
             chain.Insert(0, firstEnemy);
             UpdateLinkChain(chain);
         }
+    }
+
+    public void updateSFXList(string[] newSFXList)
+    {
+        foreach (string i in newSFXList){
+            sfxPath.Add(i);
+        }
+    }
+
+    private void PlayLightningSFX(AIActor enemy)
+    {
+        var rand = new System.Random();
+        int sfxIndex = rand.Next(sfxPath.Count);
+        string sfxName = sfxPath[sfxIndex];
+        AkSoundEngine.PostEvent(sfxName, enemy.gameObject);
     }
 
 

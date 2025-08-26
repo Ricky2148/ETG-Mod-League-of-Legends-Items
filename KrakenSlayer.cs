@@ -19,6 +19,12 @@ namespace LOLItems
         private static float bringItDownDamageScale = 0.25f;
         private static float DamageStat = 1.25f;
         private static float RateOfFireStat = 1.25f;
+        private string[] sfxList = new string[]
+        {
+            "kraken_slayer_passive_SFX_1",
+            "kraken_slayer_passive_SFX_2",
+            "kraken_slayer_passive_SFX_3"
+        };
         public static void Init()
         {
             string itemName = "Kraken Slayer";
@@ -91,7 +97,8 @@ namespace LOLItems
             if (bringItDownCount >= 3)
             {
                 proj.sprite.color = Color.Lerp(proj.sprite.color, Color.cyan, 0.7f);
-                AkSoundEngine.PostEvent("kraken_slayer_passive_SFX", proj.gameObject);
+                //AkSoundEngine.PostEvent("kraken_slayer_passive_SFX", proj.gameObject);
+                PlayRandomSFX(proj, sfxList);
                 proj.OnHitEnemy += (projHit, enemy, fatal) =>
                 {
                     if (enemy != null && enemy.aiActor != null)
@@ -102,10 +109,8 @@ namespace LOLItems
                         // damage is 1/4 against bosses and sub-bosses
                         if (enemy.healthHaver.IsBoss || enemy.healthHaver.IsSubboss)
                         {
-                            damageToDeal *= 0.25f; 
+                            damageToDeal *= 0.25f;
                         }
-
-                        Plugin.Log($"Bring it down damage dealt: {damageToDeal}");
 
                         enemy.healthHaver.ApplyDamage(
                             damageToDeal,
@@ -124,6 +129,15 @@ namespace LOLItems
         private void OnGunReloaded(PlayerController player, Gun gun)
         {
             bringItDownCount = 0; // Reset the count when the gun is reloaded
+        }
+
+        private void PlayRandomSFX(Projectile proj, string[] sfxList)
+        {
+            var rand = new System.Random();
+            int sfxIndex = rand.Next(sfxList.Length);
+            string sfxName = sfxList[sfxIndex];
+            Plugin.Log($"Playing SFX: {sfxName}");
+            AkSoundEngine.PostEvent(sfxName, proj.gameObject);
         }
     }
 }

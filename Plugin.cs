@@ -45,6 +45,7 @@ namespace LOLItems
             Thornmail.Init();
             ZhonyasHourglass.Init();
             //Redemption.Init();
+            Collector.Init();
             SoundManager.LoadSoundbanksFromAssembly();
             Log($"{NAME} v{VERSION} started successfully.", TEXT_COLOR);
         }

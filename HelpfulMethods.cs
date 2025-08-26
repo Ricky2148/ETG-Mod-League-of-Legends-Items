@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace LOLItems
 {
@@ -19,6 +20,15 @@ namespace LOLItems
             {"tt_forge", "Forge / Floor 5"},
             {"tt_bullethell", "Bullet Hell / Floor 6"}
         };
+
+        private void PlayRandomSFX(AIActor enemy, string[] sfxList)
+        {
+            if (!string.IsNullOrEmpty(sfxList[0])) return;
+            System.Random rand = new System.Random();
+            int sfxIndex = rand.Next(sfxList.Length);
+            string sfxName = sfxList[sfxIndex];
+            AkSoundEngine.PostEvent(sfxName, enemy.gameObject);
+        }
 
         public float GetFloorValue()
         {

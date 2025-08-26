@@ -85,7 +85,14 @@ namespace LOLItems
                 chain.DispersalMaxCoherency = 0.7f;
                 chain.DispersalMinCoherency = 0.3f;
                 chain.UsesDispersalParticles = false;
-                chain.vfxPath = "statikk_shiv_lightning_SFX";
+                string[] sfxList = {
+                    "statikk_shiv_lightning_SFX_1",
+                    "statikk_shiv_lightning_SFX_2",
+                    "statikk_shiv_lightning_SFX_3",
+                    "statikk_shiv_lightning_SFX_4",
+                    "statikk_shiv_lightning_SFX_5"
+                };
+                chain.updateSFXList(sfxList);
                 ElectroSparkShotCount--;
             }
         }
