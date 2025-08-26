@@ -41,6 +41,7 @@
     <Compile Include="FrozenHeart.cs" />
     <Compile Include="HelpfulMethods.cs" />
     <Compile Include="Muramana.cs" />
+    <Compile Include="RodOfAges.cs" />
     <Compile Include="SunfireAegis.cs" />
     <Compile Include="BladeOfTheRuinedKing.cs" />
     <Compile Include="ExamplePassive.cs" />

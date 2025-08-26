@@ -47,6 +47,7 @@ namespace LOLItems
             //Redemption.Init();
             Collector.Init();
             FrozenHeart.Init();
+            RodOfAges.Init();
             SoundManager.LoadSoundbanksFromAssembly();
             Log($"{NAME} v{VERSION} started successfully.", TEXT_COLOR);
         }
