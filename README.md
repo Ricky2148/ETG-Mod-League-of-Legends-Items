@@ -1,20 +1,14 @@
 # What it does:
-Adds various different items from League of Legends into Enter the Gungeon!
+Adds various different items from ***League of Legends*** into Enter the Gungeon!
+> If you're curious how the items work, look up the original League of Legends item! All items are designed to be as similar to the original item.
 
-# Content:
-- Blade of the Ruined King
-- Experimental Hexplate
-- Guardian Angel
-- Guinsoo's Rageblade
-- Hubris
-- Kraken Slayer
-- Liandry's Torment
-- Manamune/Muramana
-- Statikk Shiv
-- Stridebreaker
-- Sunfire Aegis
-- Thornmail
-- Zhonya's Hourglass
+## Content:
+- **23 new items**, each one designed to feel like the original
 
-# Google Form
-If you have any questions, requests, or thoughts, you can let me know with this: https://forms.gle/ZyhbQFk5ms17oPHt8
+![']("Resources/itemdisplayscreenshot.png")
+
+## Contributors:
+- Dallan - Item Pixelart (*don't check what they were before he helped out*)
+
+### [Google Form](https://forms.gle/ZyhbQFk5ms17oPHt8)
+If you have any questions, requests, or thoughts, you can let me know through here.

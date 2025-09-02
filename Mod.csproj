@@ -34,31 +34,58 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Collector.cs" />
-    <Compile Include="CustomAuraItem.cs" />
-    <Compile Include="CustomLightningChainEnemiesModifier.cs" />
-    <Compile Include="FrozenHeart.cs" />
-    <Compile Include="HelpfulMethods.cs" />
-    <Compile Include="Muramana.cs" />
-    <Compile Include="RodOfAges.cs" />
-    <Compile Include="SunfireAegis.cs" />
-    <Compile Include="BladeOfTheRuinedKing.cs" />
+    <Compile Include="active_items\Galeforce.cs" />
+    <Compile Include="custom_class_data\Databases.cs" />
+    <Compile Include="custom_class_data\GameActorCrippleEffect.cs" />
+    <Compile Include="passive_items\Collector.cs" />
+    <Compile Include="custom_class_data\CustomAuraItem.cs" />
+    <Compile Include="custom_class_data\CustomLightningChainEnemiesModifier.cs" />
+    <Compile Include="passive_items\FrozenHeart.cs" />
+    <Compile Include="custom_class_data\HelpfulMethods.cs" />
+    <Compile Include="passive_items\HorizonFocus.cs" />
+    <Compile Include="passive_items\Muramana.cs" />
+    <Compile Include="passive_items\NavoriQuickblades.cs" />
+    <Compile Include="passive_items\Puppeteer.cs" />
+    <Compile Include="passive_items\RodOfAges.cs" />
+    <Compile Include="passive_items\RylaisCrystalScepter.cs" />
+    <Compile Include="passive_items\Shadowflame.cs" />
+    <Compile Include="passive_items\SunfireAegis.cs" />
+    <Compile Include="passive_items\BladeOfTheRuinedKing.cs" />
     <Compile Include="ExamplePassive.cs" />
-    <Compile Include="ExperimentalHexplate.cs" />
-    <Compile Include="GuardianAngel.cs" />
-    <Compile Include="Hubris.cs" />
-    <Compile Include="KrakenSlayer.cs" />
-    <Compile Include="LiandrysTorment.cs" />
-    <Compile Include="Manamune.cs" />
+    <Compile Include="passive_items\ExperimentalHexplate.cs" />
+    <Compile Include="passive_items\GuardianAngel.cs" />
+    <Compile Include="passive_items\Hubris.cs" />
+    <Compile Include="passive_items\KrakenSlayer.cs" />
+    <Compile Include="passive_items\LiandrysTorment.cs" />
+    <Compile Include="passive_items\Manamune.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GuinsoosRageblade.cs" />
-    <Compile Include="Redemption.cs" />
-    <Compile Include="StatikkShiv.cs" />
-    <Compile Include="Stridebreaker.cs" />
-    <Compile Include="Thornmail.cs" />
-    <Compile Include="ZhonyasHourglass.cs" />
+    <Compile Include="passive_items\GuinsoosRageblade.cs" />
+    <Compile Include="active_items\Redemption.cs" />
+    <Compile Include="passive_items\StatikkShiv.cs" />
+    <Compile Include="active_items\Stridebreaker.cs" />
+    <Compile Include="passive_items\Thornmail.cs" />
+    <Compile Include="active_items\ZhonyasHourglass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -265,17 +292,18 @@
     <None Include="ideas.md" />
     <None Include="manifest.json" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="Resources\Sounds\Sounds.bnk" />
-    <None Include="Resources\Sounds\Sounds.csv" />
+    <EmbeddedResource Include="Resources\Sounds\League of Legends Sound Bank.bnk" />
+    <None Include="Resources\Sounds\League of Legends Sound Bank.csv" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\active_item_sprites\galeforce_pixelart_sprite_small.png" />
     <Content Include="icon.ico" />
     <EmbeddedResource Include="Resources\example_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\zekes_convergence_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\the_collector_item_sprite.png" />
-    <EmbeddedResource Include="Resources\passive_item_sprites\everfrost_item_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\everfrost_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\frozen_heart_item_sprite.png" />
-    <EmbeddedResource Include="Resources\passive_item_sprites\galeforce_item_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\galeforce_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\horizon_focus_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\navori_quickblades_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\puppeteer_item_sprite.png" />
@@ -283,6 +311,65 @@
     <EmbeddedResource Include="Resources\passive_item_sprites\runaans_hurricane_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\rylais_crystal_scepter_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\shadowflame_item_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\blade_of_the_ruined_king_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\experimental_hexplate_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\guardian_angel_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\guinsoos_rageblade_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\hubris_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\liandrys_torment_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\manamune_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\statikk_shiv_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\sunfire_aegis_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\thornmail_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\zhonyas_hourglass_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\blade_of_the_ruined_king_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\experimental_hexplate_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\guardian_angel_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\guinsoos_rageblade_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\hubris_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\kraken_slayer_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\kraken_slayer_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\liandrys_torment_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\manamune_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\muramana_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\navori_quickblades_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\puppeteer_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\rod_of_ages_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\runaans_hurricane_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\runaans_hurricane_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\rylais_crystal_scepter_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\shadowflame_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\statikk_shiv_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\sunfire_aegis_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\thornmail_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\zekes_convergence_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\redemption_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\zhonyas_hourglass_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\redemption_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_pixelart_sprite_small_outline.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\zhonyas_hourglass_pixelart_sprite_small_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\guinsoos_rageblade_pixelart_sprite_small_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\kraken_slayer_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\manamune_pixelart_sprite_small_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\muramana_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\navori_quickblades_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\puppeteer_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\rod_of_ages_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\runaans_hurricane_pixelart_sprite_small_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\rylais_crystal_scepter_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\statikk_shiv_pixelart_sprite_small_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\thornmail_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\zekes_convergence_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\frozen_heart_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\horizon_focus_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\ludens_tempest_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\shadowflame_pixelart_sprite_outline.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\the_collector_pixelart_sprite_small.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\frozen_heart_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\the_collector_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\galeforce_pixelart_sprite.png" />
     <Content Include="Resources\Sounds\gen-gungeon-audio-bank.py" />
     <EmbeddedResource Include="Resources\passive_item_sprites\blade_of_the_ruined_king_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\experimental_hexplate_item_sprite.png" />
@@ -293,12 +380,12 @@
     <EmbeddedResource Include="Resources\passive_item_sprites\liandrys_torment_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\manamune_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\muramana_item_sprite.png" />
-    <EmbeddedResource Include="Resources\passive_item_sprites\redemption_item_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\redemption_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\statikk_shiv_item_sprite.png" />
-    <EmbeddedResource Include="Resources\passive_item_sprites\stridebreaker_item_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\sunfire_aegis_item_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\thornmail_item_sprite.png" />
-    <EmbeddedResource Include="Resources\passive_item_sprites\zhonyas_hourglass_item_sprite.png" />
+    <EmbeddedResource Include="Resources\active_item_sprites\zhonyas_hourglass_item_sprite.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

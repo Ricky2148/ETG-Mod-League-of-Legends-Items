@@ -51,12 +51,12 @@ namespace LOLItems
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
-            Plugin.Log($"Player picked up " + itemName);
+            Plugin.Log($"Player picked up {this.EncounterNameOrDisplayName}");
         }
 
         public override void DisableEffect(PlayerController player)
         {
-            Plugin.Log($"Player dropped or got rid of " + itemName);
+            Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
         }
     }
 }

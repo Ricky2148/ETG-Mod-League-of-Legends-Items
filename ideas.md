@@ -1,8 +1,8 @@
 ﻿NEW ITEMS:
 
-frozen heart: armor, ammo/clip capacity, decreases enemy fire rate in radius around player
+IMPLEMENTED frozen heart: armor, ammo/clip capacity, decreases enemy fire rate in radius around player
 
-rod of ages: increases dmg, health, ammo/clip capacity
+IMPLEMENTED rod of ages: increases dmg, health, ammo/clip capacity
 	stacks accumulate over time
 	at max stacks, player gets a random low tier pickup
 	passive effect of dmg taken -> ammo restore
@@ -14,26 +14,27 @@ IMPLEMENTED collector: dmg, execute enemies below % health, enemies drop extra c
 everfrost: dmg, clip/ammo capacity, health
 	active fires cone out in front of player, center freezes enemies, edge chills enemies
 
-galeforce: dmg, fire rate, active dashes player, fires 3 missiles that home on enemies
+IMPLEMENTED galeforce: dmg, fire rate, active dashes player, fires 3 missiles that home on enemies
+	no missing health scaling
 
-puppeteer: fire rate, some extra stats?
+IMPLEMENTED puppeteer: fire rate, some extra stats?
     passive on-hit: each bullet applies stack to enemy, when max stacks, enemy is charmed and attacks enemies
 	when stacks take effect, item goes on cooldown for duration
 
-navori quickblades: fire rate
+IMPLEMENTED navori quickblades: fire rate
 	passive on-hit: reduce current cooldown of active items by %amount per hit
 	(maybe add minimum reduction amount)
 
-rylai's crystal scepter: dmg, health,
+IMPLEMENTED rylai's crystal scepter: dmg, health,
 	passive on-hit: slows enemies for a short duration
 
-shadowflame: dmg,
+IMPLEMENTED shadowflame: dmg,
 	passive: increases dmg against enemies below % health
 
 zeke's convergence: health, armor
 	passive: creates aoe around player that slows and deals dmg upon item use
 
-horizon focus: dmg
+IMPLEMENTED horizon focus: dmg
 	passive: dmg increase based on distance from target
 
 maybe add luden's item:
@@ -45,7 +46,7 @@ add league item shop into the game as a custom shopkeeper?
 
 OPTIMIZATIONS/UPDATES:
 
-optimize kraken slayer level scaling on damage? 
+IMPLEMENTED optimize kraken slayer level scaling on damage? 
 	make it work for all floors and modded floors without explicitly setting the numbers
 
 optimize guinsoo's rageblade phantomHit?

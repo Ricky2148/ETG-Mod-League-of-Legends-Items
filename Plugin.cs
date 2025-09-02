@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Alexandria.SoundAPI;
+using LOLItems.passive_items;
+using LOLItems.active_items;
 
 //bother balancing these items later
 
@@ -19,7 +21,7 @@ namespace LOLItems
     {
         public const string GUID = "Ricky2148.etg.LOLItems";
         public const string NAME = "League of legends Items";
-        public const string VERSION = "1.0.2";
+        public const string VERSION = "1.1.0";
         public const string TEXT_COLOR = "#FF007F";
 
         public void Start()
@@ -45,9 +47,17 @@ namespace LOLItems
             Thornmail.Init();
             ZhonyasHourglass.Init();
             //Redemption.Init();
+
+            // new update?
             Collector.Init();
             FrozenHeart.Init();
             RodOfAges.Init();
+            HorizonFocus.Init();
+            Puppeteer.Init();
+            Galeforce.Init();
+            RylaisCrystalScepter.Init();
+            Shadowflame.Init();
+            NavoriQuickblades.Init();
             SoundManager.LoadSoundbanksFromAssembly();
             Log($"{NAME} v{VERSION} started successfully.", TEXT_COLOR);
         }
