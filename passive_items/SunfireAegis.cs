@@ -11,7 +11,7 @@ using UnityEngine;
 
 //health, armor, burn aura around player that deals set dmg per second to enemies in radius, scales with max health of player
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class SunfireAegis : AuraItem
     {

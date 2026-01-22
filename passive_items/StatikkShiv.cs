@@ -10,7 +10,7 @@ using UnityEngine;
 // try to use ComplexProjectileModifier?????
 // Almost functional
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class StatikkShiv : PassiveItem
     {

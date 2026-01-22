@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class Shadowflame : PassiveItem
     {

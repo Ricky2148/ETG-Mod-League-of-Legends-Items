@@ -13,7 +13,7 @@ using HutongGames.PlayMaker.Actions;
 //dmg increase, dmg increase increases per kill, scaling infinitely, but very slowly
 //maybe make the damage increase additive instead of multiplicative
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class Hubris : PassiveItem
     {

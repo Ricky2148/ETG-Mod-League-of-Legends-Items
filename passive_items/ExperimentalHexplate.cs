@@ -10,7 +10,7 @@ using LOLItems.custom_class_data;
 
 //health, dmg, and fire rate, extra dmg and fire rate when using an item
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class ExperimentalHexplate : PassiveItem
     {

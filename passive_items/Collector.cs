@@ -12,7 +12,7 @@ using UnityEngine;
 // increase rarity, nerf execute gold amount with rng chance instead of guarantee
 // increase execute threshold maybe
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class Collector : PassiveItem
     {

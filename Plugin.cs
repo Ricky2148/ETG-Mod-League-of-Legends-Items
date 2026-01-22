@@ -62,7 +62,6 @@ namespace LOLItems
             }
             */
 
-            //Whisper.Add();
             #region Items
             BladeOfTheRuinedKing.Init();
             ExperimentalHexplate.Init();
@@ -93,7 +92,7 @@ namespace LOLItems
 
             //testing
             //CarefreeMelody.Init();
-            //debugItem.Init();
+            debugItem.Init();
 
             //guon stones
             BraumsShield.Init();
@@ -112,7 +111,7 @@ namespace LOLItems
             TearOfTheGoddess.Init();
 
             //next update items
-            //DetonationOrb.Init();
+            DetonationOrb.Init();
             RefillablePotion.Init();
             TalismanOfAscension.Init();
             SilverBolts.Init();
@@ -132,6 +131,7 @@ namespace LOLItems
             VirtueForm2.Add();
             VirtueForm3.Add();
             SoulSpear.Add();
+            GauntletOfNeZuk.Add();
 
             #region NPCs
             Bubbs.Init();

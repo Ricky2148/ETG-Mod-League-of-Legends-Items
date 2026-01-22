@@ -11,7 +11,7 @@ using UnityEngine;
 // this applies the regular burn effect: damage, duration, and vfx all seem to match
 // look into changing the color of the fire
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class LiandrysTorment : PassiveItem
     {

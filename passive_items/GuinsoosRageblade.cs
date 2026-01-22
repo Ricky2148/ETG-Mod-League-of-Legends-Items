@@ -14,7 +14,7 @@ using UnityEngine;
 // rate of fire increases from other items
 // copy projectile before delay and send it out after to prevent error
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     public class GuinsoosRageblade : PassiveItem
     {

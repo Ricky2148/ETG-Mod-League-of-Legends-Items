@@ -10,7 +10,7 @@ using UnityEngine;
 
 //health, armor, every time the player is hit, deal set dmg to all enemies in a radius around the player, scales with max health of player
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class Thornmail : OnDamagedPassiveItem
     {

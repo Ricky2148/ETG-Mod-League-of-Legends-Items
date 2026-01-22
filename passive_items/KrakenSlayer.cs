@@ -10,7 +10,7 @@ using UnityEngine;
 
 // maybe adjust sound volume
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class KrakenSlayer : PassiveItem
     {

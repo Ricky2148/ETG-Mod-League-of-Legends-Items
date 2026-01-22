@@ -11,7 +11,7 @@ using static UnityEngine.UI.GridLayoutGroup;
 
 //add vfx and sfx during revive duration
 
-namespace LOLItems
+namespace LOLItems.active_items
 {
     internal class ZhonyasHourglass : PlayerItem
     {

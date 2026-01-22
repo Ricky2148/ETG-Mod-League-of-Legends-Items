@@ -14,7 +14,7 @@ using UnityEngine;
 // active should be a vfx that does nothing and a range check that applies a slow and damage to enemies in a circle around the player
 // maybe add the speed buff per enemy hit
 
-namespace LOLItems
+namespace LOLItems.active_items
 {
     internal class Stridebreaker : PlayerItem
     {

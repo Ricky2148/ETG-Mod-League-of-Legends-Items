@@ -15,7 +15,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 
-namespace LOLItems
+namespace LOLItems.active_items
 {
     internal class debugItem : PlayerItem
     {

@@ -9,7 +9,7 @@ using static tk2dSpriteCollectionDefinition;
 
 //fix interaction with beam weapons = they dont work at all lmao
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class BladeOfTheRuinedKing : PassiveItem
     {

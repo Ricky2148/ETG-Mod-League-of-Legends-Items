@@ -13,7 +13,7 @@ using UnityEngine;
 // sometimes can get hit immediately after revive ends, add extra iframes?
 // has a bug where the player gets stuck in last animation after invul ends, bug gets fixed by simply dodge rolling
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class GuardianAngel : PassiveItem
     {

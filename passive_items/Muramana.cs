@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     public class Muramana : PassiveItem
     {

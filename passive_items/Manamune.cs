@@ -14,7 +14,7 @@ using UnityEngine;
 
 // doesn't give the player muramana after having gotten it once before, this is true even over the course of multiple runs as long as the game is the same loaded instance
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     public class Manamune : PassiveItem
     {

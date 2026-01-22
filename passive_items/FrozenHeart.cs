@@ -11,7 +11,7 @@ using UnityEngine;
 // range around player that decreases enemy fire rate
 // not complete
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class FrozenHeart : AuraItem
     {

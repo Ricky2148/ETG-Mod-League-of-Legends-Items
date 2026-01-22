@@ -1,6 +1,7 @@
 ﻿using Alexandria;
 using Alexandria.ItemAPI;
 using Alexandria.VisualAPI;
+using LOLItems.custom_class_data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,6 +74,8 @@ namespace LOLItems.passive_items
 
         private Dictionary<AIActor, GameObject> activeVFXObjectList = new Dictionary<AIActor, GameObject>();
 
+        public static Vector3 vfxOffset = new Vector3(0 / 16f, 2 / 16f, 0);
+
         public static int ID;
 
         public static void Init()
@@ -108,10 +111,12 @@ namespace LOLItems.passive_items
                 true
             );
 
+            VFXAnchorModule anchor1 = IdleEffectVFX.GetOrAddComponent<VFXAnchorModule>();
+
             ExplodeEffectVFX = VFXBuilder.CreateVFX
             (
                 "the_bomb_explode_vfx",
-                IdleVFXSpritePath,
+                ExplodeVFXSpritePath,
                 10,
                 new IntVector2(0, 0),
                 tk2dBaseSprite.Anchor.MiddleCenter,
@@ -119,9 +124,11 @@ namespace LOLItems.passive_items
                 0,
                 -1,
                 Color.cyan,
-                tk2dSpriteAnimationClip.WrapMode.Loop,
+                tk2dSpriteAnimationClip.WrapMode.Once,
                 true
             );
+
+            VFXAnchorModule anchor2 = ExplodeEffectVFX.GetOrAddComponent<VFXAnchorModule>();
 
             item.quality = PickupObject.ItemQuality.A;
             ID = item.PickupObjectId;
@@ -255,18 +262,36 @@ namespace LOLItems.passive_items
                         {
                             dmgToStore *= 0.25f;
                         }
+
+                        //if dmgTrackingList doesn't contain the target, add the target and damage to dmgTrackerList and add target and null to timeTrackerList
                         if (!enemyTheBombDmgStored.ContainsKey(target))
                         {
                             enemyTheBombDmgStored.Add(target, dmgToStore);
                             enemyTheBombCoroutine.Add(target, null);
+                            GameObject vfxObject = UnityEngine.Object.Instantiate(IdleEffectVFX, target.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset, Quaternion.identity);
+                            var sprite = vfxObject.GetComponent<tk2dSprite>();
+
+                            if (sprite != null)
+                            {
+                                
+                            }
+
+                            vfxObject.GetComponent<VFXAnchorModule>().anchorAIActor = target;
+                            vfxObject.GetComponent<VFXAnchorModule>().offset = vfxOffset + new Vector3(0, target.specRigidbody.HitboxPixelCollider.UnitDimensions.y);
+
+                            Plugin.Log($"hitboxpixelcollider: {target.specRigidbody.HitboxPixelCollider.UnitDimensions}");
+
+                            activeVFXObjectList.Add(target, vfxObject);
                         }
+                        // if dmgTrackingList does contain the target, add dmgToStore to damage stored in dmgTrackerList
                         else
                         {
                             enemyTheBombDmgStored[target] += dmgToStore;
                         }
 
-                        //Plugin.Log($"enemyTheBombDmgStored: {enemyTheBombDmgStored[target]}, enemy hp: {target.healthHaver.GetCurrentHealth()}");
+                        Plugin.Log($"enemyTheBombDmgStored: {enemyTheBombDmgStored[target]}, enemy hp: {target.healthHaver.GetCurrentHealth()}");
 
+                        //detonate damage if dmg stored is greater than target's current health
                         if (enemyTheBombDmgStored[target] >= target.healthHaver.GetCurrentHealth() && target.healthHaver.GetCurrentHealth() != 0)
                         {
                             DetonateTheBomb(target);
@@ -285,6 +310,7 @@ namespace LOLItems.passive_items
                             enemyTheBombDmgStored.Remove(enemy.aiActor);
                             */
                         }
+                        // if dmg stored is not greater than enemy health, start timer and reset this timer with more applications
                         else
                         {
                             if (enemyTheBombCoroutine[target] != null)
@@ -300,7 +326,7 @@ namespace LOLItems.passive_items
 
         private System.Collections.IEnumerator TheBombCooldown(AIActor enemyActor) 
         {
-            //Plugin.Log("bomb cooldown start");
+            Plugin.Log("bomb cooldown start");
 
             yield return new WaitForSeconds(TheBombDuration);
 
@@ -311,7 +337,21 @@ namespace LOLItems.passive_items
 
         private void DetonateTheBomb(AIActor enemyActor)
         {
-            //Plugin.Log("bomb detonated");
+            Plugin.Log("bomb detonated");
+
+            /*
+            if (activeVFXObjectList[enemyActor] != null)
+            {
+                Destroy(activeVFXObjectList[enemyActor]);
+            }
+            activeVFXObjectList[enemyActor] = enemyActor.PlayEffectOnActor(ExplodeEffectVFX, new Vector3(0 / 16f, 0 / 16f, -2f), true, false, false);
+            */
+
+            if (activeVFXObjectList[enemyActor] != null)
+            {
+                Destroy(activeVFXObjectList[enemyActor]);
+                activeVFXObjectList.Remove(enemyActor);
+            }
 
             enemyActor.healthHaver.ApplyDamage(
                 enemyTheBombDmgStored[enemyActor],

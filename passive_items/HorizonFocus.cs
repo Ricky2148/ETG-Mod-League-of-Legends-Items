@@ -6,7 +6,7 @@ using UnityEngine;
 using Alexandria.ItemAPI;
 using Alexandria;
 
-namespace LOLItems
+namespace LOLItems.passive_items
 {
     internal class HorizonFocus : PassiveItem
     {
