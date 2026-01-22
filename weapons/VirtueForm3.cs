@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections;
-using Gungeon;
-using MonoMod;
-using UnityEngine;
+﻿using Alexandria.BreakableAPI;
 using Alexandria.ItemAPI;
+using Alexandria.Misc;
 using Alexandria.SoundAPI;
-using Alexandria.BreakableAPI;
 using BepInEx;
-using System.Collections.Generic;
-using LOLItems.custom_class_data;
 using Dungeonator;
+using Gungeon;
+using LOLItems.custom_class_data;
+using MonoMod;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace LOLItems.weapons
 {
@@ -221,6 +222,7 @@ namespace LOLItems.weapons
             gun.DefaultModule.customAmmoType = CustomClipAmmoTypeToolbox.AddCustomAmmoType("virtue_form3_ammo",
                 "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/virtue_form3_ammo_full", "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/virtue_form3_ammo_empty");
 
+            gun.gameObject.Attach<VirtueForm3AmmoDisplay>();
 
             gun.Volley.ModulesAreTiers = true;
             ProjectileModule mod1 = gun.DefaultModule;
@@ -475,6 +477,30 @@ namespace LOLItems.weapons
             {
                 return;
             }
+        }
+    }
+
+    internal class VirtueForm3AmmoDisplay : CustomAmmoDisplay
+    {
+        private Gun _gun;
+        private VirtueForm3 _virtueform3;
+        private PlayerController _owner;
+
+        private void Start()
+        {
+            this._gun = base.GetComponent<Gun>();
+            this._virtueform3 = this._gun.GetComponent<VirtueForm3>();
+            this._owner = this._gun.CurrentOwner as PlayerController;
+        }
+
+        public override bool DoCustomAmmoDisplay(GameUIAmmoController uic)
+        {
+            if (!this._owner || !this._virtueform3)
+            {
+                return false;
+            }
+            uic.GunAmmoCountLabel.Text = $"[color #FFD700]TRANSCENDENT[/color]\n{this._owner.VanillaAmmoDisplay()}";
+            return true;
         }
     }
 }

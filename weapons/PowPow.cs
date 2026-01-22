@@ -60,7 +60,7 @@ namespace LOLItems.weapons
         public bool RUNAANSBULLETSActivated = false;
         private static float RUNAANSBULLETSDamageStat = 1.82f;
 
-        private bool isFishbones = false;
+        public bool isFishbones = false;
 
         public static void Add()
         {
@@ -223,6 +223,9 @@ namespace LOLItems.weapons
              * The first entry takes one of the thirteen basic ammo types: 
              * SMALL_BULLET, MEDIUM_BULLET, BEAM, GRENADE, SHOTGUN, SMALL_BLASTER, MEDIUM_BLASTER, NAIL, MUSKETBALL, ARROW, MAGIC, BLUE_SHOTGUN, SKULL, FISH.*/
             gun.DefaultModule.ammoType = GameUIAmmoType.AmmoType.SMALL_BULLET;
+
+            gun.gameObject.Attach<PowPowAmmoDisplay>();
+
             /* If the ammo type you want isn't one of those thirteen, then instead use CUSTOM followed by the customAmmoType you want.
              * If you want to make your own customAmmoType then instead use use CUSTOM and then the AddCustomAmmoType.
              * AddCustomAmmoType takes a name for the ammo, then paths to the EMBEDDED filled and emptied ammo sprites.
@@ -723,6 +726,37 @@ namespace LOLItems.weapons
             base.Update();
             //Plugin.Log($"isFishbones toggled to: {!isFishbones}");
             isFishbones = !isFishbones;
+        }
+    }
+
+    internal class PowPowAmmoDisplay : CustomAmmoDisplay
+    {
+        private Gun _gun;
+        private PowPow _powpow;
+        private PlayerController _owner;
+
+        private void Start()
+        {
+            this._gun = base.GetComponent<Gun>();
+            this._powpow = this._gun.GetComponent<PowPow>();
+            this._owner = this._gun.CurrentOwner as PlayerController;
+        }
+
+        public override bool DoCustomAmmoDisplay(GameUIAmmoController uic)
+        {
+            if (!this._owner || !this._powpow)
+            {
+                return false;
+            }
+            if (!this._powpow.isFishbones)
+            {
+                uic.GunAmmoCountLabel.Text = $"[color #B266FF]Pow-Pow[/color]\n{this._owner.VanillaAmmoDisplay()}";
+            }
+            else
+            {
+                uic.GunAmmoCountLabel.Text = $"[color #FF6666]Fishbones[/color]\n{this._owner.VanillaAmmoDisplay()}";
+            }
+            return true;
         }
     }
 }

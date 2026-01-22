@@ -175,6 +175,14 @@ namespace LOLItems
                 false);
         }
 
+        public static GameObject Attach<T>(this GameObject go, Action<T> predicate = null, bool allowDuplicates = false) where T : MonoBehaviour
+        {
+            T component = allowDuplicates ? go.gameObject.AddComponent<T>() : go.gameObject.GetOrAddComponent<T>();
+            if (predicate != null)
+                predicate(component);
+            return go;
+        }
+
         public static void AddItemToSynergy(this PickupObject obj, CustomSynergyType type)
         {
             AddItemToSynergy(type, obj.PickupObjectId);

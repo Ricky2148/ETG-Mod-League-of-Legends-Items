@@ -40,8 +40,8 @@ namespace LOLItems.weapons
 
         private bool zealCapActivated = false;
 
-        private float DivineAscentExpTracker = 0f;
-        private float DivineAscentThreshold = 6000f;
+        public float DivineAscentExpTracker = 0f;
+        public float DivineAscentThreshold = 6000f;
 
         private Gun NextFormWeapon;
         private static GameObject AscensionIcon;
@@ -242,6 +242,7 @@ namespace LOLItems.weapons
             gun.DefaultModule.customAmmoType = CustomClipAmmoTypeToolbox.AddCustomAmmoType("virtue_form2_ammo",
                 "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/virtue_form2_ammo_full", "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/virtue_form1_ammo_empty");
 
+            gun.gameObject.Attach<VirtueForm2AmmoDisplay>();
 
             gun.Volley.ModulesAreTiers = true;
             ProjectileModule mod1 = gun.DefaultModule;
@@ -671,6 +672,30 @@ namespace LOLItems.weapons
                 //currentOwner.inventory.AddGunToInventory(NextFormWeapon, true);
                 currentOwner.GiveItem("LOLItems:virtueform3");
             }
+        }
+    }
+
+    internal class VirtueForm2AmmoDisplay : CustomAmmoDisplay
+    {
+        private Gun _gun;
+        private VirtueForm2 _virtueform2;
+        private PlayerController _owner;
+
+        private void Start()
+        {
+            this._gun = base.GetComponent<Gun>();
+            this._virtueform2 = this._gun.GetComponent<VirtueForm2>();
+            this._owner = this._gun.CurrentOwner as PlayerController;
+        }
+
+        public override bool DoCustomAmmoDisplay(GameUIAmmoController uic)
+        {
+            if (!this._owner || !this._virtueform2)
+            {
+                return false;
+            }
+            uic.GunAmmoCountLabel.Text = $"[color #FFFF66]EXP: {this._virtueform2.DivineAscentExpTracker.RoundToNearest(0)} / {this._virtueform2.DivineAscentThreshold.RoundToNearest(0)}[/color]\n{this._owner.VanillaAmmoDisplay()}";
+            return true;
         }
     }
 }

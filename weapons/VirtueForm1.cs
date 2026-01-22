@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections;
-using Gungeon;
-using MonoMod;
-using UnityEngine;
+﻿using Alexandria.BreakableAPI;
 using Alexandria.ItemAPI;
+using Alexandria.Misc;
 using Alexandria.SoundAPI;
-using Alexandria.BreakableAPI;
 using BepInEx;
-using System.Collections.Generic;
-using LOLItems.custom_class_data;
 using Dungeonator;
+using Gungeon;
+using LOLItems.custom_class_data;
+using MonoMod;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace LOLItems.weapons
 {
@@ -29,14 +30,14 @@ namespace LOLItems.weapons
         private Gun NextFormWeapon;
         private static GameObject AscensionIcon;
 
-        private float DivineAscentExpTracker = 0f;
+        public float DivineAscentExpTracker = 0f;
         //private int DivineAscentFormTracker = 0;
         /*private float[] DivineAscentThreshold =
         {
             500f,
             1000f
         };*/
-        private float DivineAscentThreshold = 3000f;
+        public float DivineAscentThreshold = 3000f;
 
         private static float projectileDamageStat = 8f;
         private static float projectileSpeedStat = 40f;
@@ -239,6 +240,8 @@ namespace LOLItems.weapons
             gun.DefaultModule.customAmmoType = CustomClipAmmoTypeToolbox.AddCustomAmmoType("virtue_form1_ammo",
                 "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/virtue_form1_ammo_full", "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/virtue_form1_ammo_empty");
 
+            gun.gameObject.Attach<VirtueForm1AmmoDisplay>();
+
             gun.shellsToLaunchOnFire = 0;
             gun.shellsToLaunchOnReload = 0;
             gun.clipsToLaunchOnReload = 0;
@@ -373,6 +376,30 @@ namespace LOLItems.weapons
                     break;
             }
             */
+        }
+    }
+
+    internal class VirtueForm1AmmoDisplay : CustomAmmoDisplay
+    {
+        private Gun _gun;
+        private VirtueForm1 _virtueform1;
+        private PlayerController _owner;
+
+        private void Start()
+        {
+            this._gun = base.GetComponent<Gun>();
+            this._virtueform1 = this._gun.GetComponent<VirtueForm1>();
+            this._owner = this._gun.CurrentOwner as PlayerController;
+        }
+
+        public override bool DoCustomAmmoDisplay(GameUIAmmoController uic)
+        {
+            if (!this._owner || !this._virtueform1)
+            {
+                return false;
+            }
+            uic.GunAmmoCountLabel.Text = $"[color #35D3AC]EXP: {this._virtueform1.DivineAscentExpTracker.RoundToNearest(0)} / {this._virtueform1.DivineAscentThreshold.RoundToNearest(0)}[/color]\n{this._owner.VanillaAmmoDisplay()}";
+            return true;
         }
     }
 }
