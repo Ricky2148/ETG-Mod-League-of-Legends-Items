@@ -16,6 +16,13 @@ using UnityEngine;
 
 namespace LOLItems.passive_items
 {
+    public class EnemyTheBombTracker
+    {
+        public float storedDamage;
+        public Coroutine timerCoroutine;
+        public GameObject activeVFXObject;
+    }
+
     internal class DetonationOrb : PassiveItem
     {
         public static string ItemName = "Detonation Orb";
@@ -28,46 +35,67 @@ namespace LOLItems.passive_items
 
         private Dictionary<AIActor, Coroutine> enemyTheBombCoroutine = new Dictionary<AIActor, Coroutine>();
 
-        private static List<string> IdleVFXSpritePath = new List<string>
+        /*private static List<string> IdleVFXSpritePath = new List<string>
         {
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_001",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_002",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_003",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_004",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_005",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_006",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_007",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_008",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_009",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_010",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_011",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_012",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_013",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_014",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_015",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_016",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_017",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_018",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_019",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_idle_020",
-        };
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_001",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_002",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_003",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_004",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_005",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_006",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_007",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_008",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_009",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_010",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_011",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_012",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_013",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_014",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_015",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_016",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_017",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_018",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_019",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_020",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_021",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_022",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_023",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_024",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_025",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_026",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_027",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_028",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_029",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_030",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_031",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_032",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_033",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_034",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_035",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_036",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_037",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_038",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_039",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_040",
+        };*/
+
+        private static List<string> IdleVFXSpritePath = "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle".GetResourceFrames(40);
 
         private static GameObject IdleEffectVFX;
 
         private static List<string> ExplodeVFXSpritePath = new List<string>
         {
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_001",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_002",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_003",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_004",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_005",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_006",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_007",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_008",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_009",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_010",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_011",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrb_effect_explode_012",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_001",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_002",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_003",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_004",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_005",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_006",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_007",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_008",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_009",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_010",
+            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_explode_011",
         };
 
         private static GameObject ExplodeEffectVFX;
@@ -94,13 +122,13 @@ namespace LOLItems.passive_items
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
             IdleEffectVFX = VFXBuilder.CreateVFX
             (
                 "the_bomb_idle_vfx",
                 IdleVFXSpritePath,
-                10,
+                16,
                 new IntVector2(0, 0),
                 tk2dBaseSprite.Anchor.MiddleCenter,
                 false,
@@ -117,7 +145,7 @@ namespace LOLItems.passive_items
             (
                 "the_bomb_explode_vfx",
                 ExplodeVFXSpritePath,
-                10,
+                16,
                 new IntVector2(0, 0),
                 tk2dBaseSprite.Anchor.MiddleCenter,
                 false,
@@ -130,7 +158,7 @@ namespace LOLItems.passive_items
 
             VFXAnchorModule anchor2 = ExplodeEffectVFX.GetOrAddComponent<VFXAnchorModule>();
 
-            item.quality = PickupObject.ItemQuality.A;
+            item.quality = PickupObject.ItemQuality.B;
             ID = item.PickupObjectId;
         }
 
@@ -352,6 +380,8 @@ namespace LOLItems.passive_items
                 Destroy(activeVFXObjectList[enemyActor]);
                 activeVFXObjectList.Remove(enemyActor);
             }
+
+            UnityEngine.Object.Instantiate(ExplodeEffectVFX, enemyActor.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset + new Vector3(0, enemyActor.specRigidbody.HitboxPixelCollider.UnitDimensions.y), Quaternion.identity);
 
             enemyActor.healthHaver.ApplyDamage(
                 enemyTheBombDmgStored[enemyActor],

@@ -183,6 +183,14 @@ namespace LOLItems
             return go;
         }
 
+        public static List<string> GetResourceFrames(this string baseString, int length)
+        {
+            List<string> theList = new(length);
+            for (int i = 1; i <= length; ++i)
+                theList.Add($"{baseString}_{i:D3}");
+            return theList;
+        }
+
         public static void AddItemToSynergy(this PickupObject obj, CustomSynergyType type)
         {
             AddItemToSynergy(type, obj.PickupObjectId);
