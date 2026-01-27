@@ -140,7 +140,7 @@ namespace LOLItems.active_items
                 -1,
                 Color.cyan,
                 tk2dSpriteAnimationClip.WrapMode.Once,
-                true
+                false
             );
 
             DamageEffectVFX = VFXBuilder.CreateVFX
@@ -155,7 +155,7 @@ namespace LOLItems.active_items
                 -1,
                 Color.cyan,
                 tk2dSpriteAnimationClip.WrapMode.Once,
-                true
+                false
             );
 
             HealEffectVFX = VFXBuilder.CreateVFX
@@ -170,7 +170,7 @@ namespace LOLItems.active_items
                 -1,
                 Color.cyan,
                 tk2dSpriteAnimationClip.WrapMode.Once,
-                true
+                false
             );
 
             ReticleVFX = VFXBuilder.CreateVFX

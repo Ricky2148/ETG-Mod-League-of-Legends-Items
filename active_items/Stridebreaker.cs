@@ -109,7 +109,7 @@ namespace LOLItems.active_items
                 -1,
                 Color.cyan,
                 tk2dSpriteAnimationClip.WrapMode.Once,
-                true
+                false
             );
 
             item.usableDuringDodgeRoll = true;
