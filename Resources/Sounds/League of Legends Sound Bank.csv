@@ -116,3 +116,5 @@ silverbolts_sfx_001, 10, 1, sound, 0
 silverbolts_sfx_002, 10, 1, sound, 0
 silverbolts_sfx_003, 10, 1, sound, 0
 silverbolts_sfx_004, 10, 1, sound, 0
+detOrb_SFX_explosion_001, 0, 1, sound, 0
+detOrb_SFX_loop_001, 0, 1, sound, 0

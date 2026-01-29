@@ -91,6 +91,7 @@ namespace LOLItems.passive_items
         private static List<string> IdleVFXSpritePath = "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle".GetResourceFrames(40);
 
         private static GameObject IdleEffectVFX;
+        //potential sfx:Play_WPN_bountyhunterarm_charge_03, Play_WPN_raidenlaser_shot_01, m_WPN_thor_charge_01
 
         private static List<string> ExplodeVFXSpritePath = new List<string>
         {
@@ -126,8 +127,10 @@ namespace LOLItems.passive_items
 
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
-            string shortDesc = "idk";
-            string longDesc = "idk";
+            string shortDesc = "Bites the Dust";
+            string longDesc = "Dealing damage to an enemy stores some of that damage. Damage accumulates with more damage and detonates after 3 seconds of no damage. " +
+                "Will immediately detonate if stored damage is enough to kill.\n\n" +
+                "A magical orb imbued with the power of a lightning spark. Any who are harmed by its wielder will be subject to further damage from lightning.";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
@@ -142,8 +145,8 @@ namespace LOLItems.passive_items
                 tk2dBaseSprite.Anchor.MiddleCenter,
                 false,
                 0,
-                -1,
-                Color.cyan,
+                emissivePower: 1.5f,
+                emissiveColour: Color.blue,
                 tk2dSpriteAnimationClip.WrapMode.Loop,
                 true
             );
@@ -154,7 +157,7 @@ namespace LOLItems.passive_items
             (
                 "the_bomb_explode_vfx",
                 ExplodeVFXSpritePath,
-                24,
+                16,
                 new IntVector2(0, 0),
                 tk2dBaseSprite.Anchor.MiddleCenter,
                 false,
@@ -254,6 +257,8 @@ namespace LOLItems.passive_items
                     //activeVFXObjectList.Add(target, vfxObject);
 
                     enemyTheBombTrackerList.Add(target, new EnemyTheBombTracker(dmgToStore, null, vfxObject));
+
+                    //AkSoundEngine.PostEvent("detOrb_SFX_loop_01", target.gameObject);
                 }
                 else
                 {
@@ -492,6 +497,8 @@ namespace LOLItems.passive_items
             */
 
             UnityEngine.Object.Instantiate(ExplodeEffectVFX, enemyActor.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset + new Vector3(0, enemyActor.specRigidbody.HitboxPixelCollider.UnitDimensions.y), Quaternion.identity);
+
+            AkSoundEngine.PostEvent("detOrb_SFX_explosion_001", enemyActor.gameObject);
 
             enemyActor.healthHaver.ApplyDamage(
                 enemyTheBombTrackerList[enemyActor].storedDamage,
