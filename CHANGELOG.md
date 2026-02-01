@@ -71,3 +71,5 @@ fixed a bug that caused a high amount of errors when using puppeteer on an enemy
 adjusted cull effect
 adjusted galeforce dash
 
+#3.0.0
+something changes lol
