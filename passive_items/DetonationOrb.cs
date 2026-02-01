@@ -384,6 +384,8 @@ namespace LOLItems.passive_items
                             //activeVFXObjectList.Add(target, vfxObject);
 
                             enemyTheBombTrackerList.Add(target, new EnemyTheBombTracker(dmgToStore, null, vfxObject));
+
+                            AkSoundEngine.PostEvent("detOrb_SFX_loop_002", target.gameObject);
                         }
                         else
                         {
@@ -497,7 +499,8 @@ namespace LOLItems.passive_items
             */
 
             UnityEngine.Object.Instantiate(ExplodeEffectVFX, enemyActor.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset + new Vector3(0, enemyActor.specRigidbody.HitboxPixelCollider.UnitDimensions.y), Quaternion.identity);
-
+            
+            AkSoundEngine.PostEvent("detOrb_SFX_loop_002" + "_stop", enemyActor.gameObject);
             AkSoundEngine.PostEvent("detOrb_SFX_explosion_001", enemyActor.gameObject);
 
             enemyActor.healthHaver.ApplyDamage(
