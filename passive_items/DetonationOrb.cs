@@ -258,7 +258,7 @@ namespace LOLItems.passive_items
 
                     enemyTheBombTrackerList.Add(target, new EnemyTheBombTracker(dmgToStore, null, vfxObject));
 
-                    //AkSoundEngine.PostEvent("detOrb_SFX_loop_01", target.gameObject);
+                    AkSoundEngine.PostEvent("detOrb_SFX_loop_002", target.gameObject);
                 }
                 else
                 {
