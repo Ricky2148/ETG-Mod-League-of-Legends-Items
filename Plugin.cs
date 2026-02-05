@@ -31,7 +31,7 @@ namespace LOLItems
     {
         public const string GUID = "Ricky2148.etg.LOLItems";
         public const string NAME = "League of legends Items";
-        public const string VERSION = "3.0.0";
+        public const string VERSION = "3.0.1";
         public const string TEXT_COLOR = "#F1C232";
 
         internal static Harmony _Harmony;
@@ -92,7 +92,7 @@ namespace LOLItems
 
             //testing
             //CarefreeMelody.Init();
-            debugItem.Init();
+            //debugItem.Init();
 
             //guon stones
             BraumsShield.Init();
@@ -131,7 +131,7 @@ namespace LOLItems
             VirtueForm2.Add();
             VirtueForm3.Add();
             SoulSpear.Add();
-            GauntletOfNeZuk.Add();
+            //GauntletOfNeZuk.Add(); UNFINISHED
 
             #region NPCs
             Bubbs.Init();

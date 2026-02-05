@@ -62,7 +62,6 @@ added some synergies to some weapons, balance changes, some other stuff i likely
 
 #2.1.1
 added new items:
-- detonation orb
 - silver bolts
 
 fixed a bug that caused bullet modification items like puppeteer and kraken slayer to stack too quickly with beams and cause too much noise
@@ -72,5 +71,11 @@ adjusted cull effect
 adjusted galeforce dash
 
 #3.0.0
-something changes lol
-something else changes lol
+added synergies:
+	A LOT OF SYNERGIES
+
+#3.0.1
+added new items:
+- detonation orb
+
+fixed a bug with stridebreaker freezing the game when dropped

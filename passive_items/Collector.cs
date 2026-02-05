@@ -58,38 +58,6 @@ namespace LOLItems.passive_items
 
             item.quality = PickupObject.ItemQuality.A;
             ID = item.PickupObjectId;
-
-            /*List<string> mandatoryConsoleIDs = new List<string>
-            {
-                "LOLItems:the_collector"
-            };
-            List<string> optionalConsoleIDs = new List<string>
-            {
-                "loot_bag",
-                "briefcase_of_cash"
-            };
-            CustomSynergies.Add("Return on Investment", mandatoryConsoleIDs, optionalConsoleIDs, true);
-
-            List<string> mandatoryConsoleIDs2 = new List<string>
-            {
-                "LOLItems:the_collector",
-                "fortunes_favor"
-            };
-            CustomSynergies.Add("Stroke of Luck", mandatoryConsoleIDs2, null, true);
-
-            List<string> mandatoryConsoleIDs3 = new List<string>
-            {
-                "LOLItems:the_collector",
-                "daruma"
-            };
-            CustomSynergies.Add("An offering", mandatoryConsoleIDs3, null, true);
-
-            List<string> mandatoryConsoleIDs4 = new List<string>
-            {
-                "LOLItems:the_collector",
-                "chance_bullets"
-            };
-            CustomSynergies.Add("Better RNG", mandatoryConsoleIDs4, null, true);*/
         }
 
         public override void Pickup(PlayerController player)

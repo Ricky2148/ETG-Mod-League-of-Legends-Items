@@ -139,19 +139,22 @@ namespace LOLItems.active_items
 
         public override void Update()
         {
-            if (LastOwner.HasSynergy(Synergy.DEMACIAN_TRAITOR) && !DEMACIANTRAITORActivated)
+            if (LastOwner != null)
             {
-                slowEffect.duration = DEMACIANTRAITORslowDuration;
-                //slowEffect.SpeedMultiplier = DEMACIANTRAITORslowPercent;
+                if (LastOwner.HasSynergy(Synergy.DEMACIAN_TRAITOR) && !DEMACIANTRAITORActivated)
+                {
+                    slowEffect.duration = DEMACIANTRAITORslowDuration;
+                    //slowEffect.SpeedMultiplier = DEMACIANTRAITORslowPercent;
 
-                DEMACIANTRAITORActivated = true;
-            }
-            else if (!LastOwner.HasSynergy(Synergy.DEMACIAN_TRAITOR) && DEMACIANTRAITORActivated)
-            {
-                slowEffect.duration = slowDuration;
-                //slowEffect.SpeedMultiplier = slowPercent;
+                    DEMACIANTRAITORActivated = true;
+                }
+                else if (!LastOwner.HasSynergy(Synergy.DEMACIAN_TRAITOR) && DEMACIANTRAITORActivated)
+                {
+                    slowEffect.duration = slowDuration;
+                    //slowEffect.SpeedMultiplier = slowPercent;
 
-                DEMACIANTRAITORActivated = false;
+                    DEMACIANTRAITORActivated = false;
+                }
             }
 
             base.Update();

@@ -38,6 +38,11 @@ namespace LOLItems.passive_items
         private static float TheBombDmgScale = 0.25f;
         private static float TheBombDuration = 3f;
 
+        public bool LIFEANDDEATHActivated = false;
+        private static float LIFEANDDEATHTheBombDmgScaleInc = 0.15f;
+        public bool OVERCHARGEDActivated = false;
+        private static float OVERCHARGEDTheBombDmgScaleInc = 0.20f;
+
         private Dictionary<AIActor, EnemyTheBombTracker> enemyTheBombTrackerList = new Dictionary<AIActor, EnemyTheBombTracker> ();
 
         //private Dictionary<AIActor, float> enemyTheBombDmgStored = new Dictionary<AIActor, float>();
@@ -208,6 +213,39 @@ namespace LOLItems.passive_items
             {
                 enemyTheBombTrackerList.Clear();
             }
+        }
+
+        public override void Update()
+        {
+            if (Owner != null)
+            {
+                if (Owner.HasSynergy(Synergy.LIFE_AND_DEATH) && !LIFEANDDEATHActivated)
+                {
+                    TheBombDmgScale += LIFEANDDEATHTheBombDmgScaleInc;
+
+                    LIFEANDDEATHActivated = true;
+                }
+                else if (!Owner.HasSynergy(Synergy.LIFE_AND_DEATH) && LIFEANDDEATHActivated)
+                {
+                    TheBombDmgScale -= LIFEANDDEATHTheBombDmgScaleInc;
+
+                    LIFEANDDEATHActivated = false;
+                }
+
+                if (Owner.HasSynergy(Synergy.OVERCHARGED) && !OVERCHARGEDActivated)
+                {
+                    TheBombDmgScale += OVERCHARGEDTheBombDmgScaleInc;
+
+                    OVERCHARGEDActivated = true;
+                }
+                else if (!Owner.HasSynergy(Synergy.OVERCHARGED) && OVERCHARGEDActivated)
+                {
+                    TheBombDmgScale -= OVERCHARGEDTheBombDmgScaleInc;
+
+                    OVERCHARGEDActivated = false;
+                }
+            }
+            base.Update();
         }
 
         private void OnPostProcessProjectile(BeamController beam, SpeculativeRigidbody hitRigidbody, float tickrate)

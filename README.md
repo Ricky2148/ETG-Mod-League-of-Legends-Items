@@ -44,6 +44,13 @@ Cull (D):
 	+ weak early game... [Unfinished Gun]: 10% inc damage
 	+ Bausen Law [Huntsman]: gain 3 casings every 5 kills instead.
 
+![](https://i.ibb.co/5g9pk3qh/detonation-orb-pixelart-sprite.png)
+Detonation Orb (B):
+- Effect: Dealing damage to an enemy stores 25% of that damage. Damage accumulates with more damage and detonates after 3 seconds of no damage. Will immediately detonate if stored damage is enough to kill.
+- Synergies:
+	+ Life and Death [Life Orb]: +15% damage stored
+	+ Overcharged [Raiden Coil]: +20% damage stored
+
 ![](https://i.ibb.co/j98Hd9QX/experimental-hexplate-pixelart-sprite.png)
 Experimental Hexplate (A):
 - Stats: 1.1x DMG, 1.1x ROF, 1 Heart
@@ -187,6 +194,7 @@ Shadowflame (A):
 Sheen (D):
 - Effect: The first bullet of player's clip will deal an additional 10 damage.
 
+![](https://i.ibb.co/4ZPNNB6p/silver-bolts-pixelart-sprite.png)
 Silver Bolts(C):
 - Effect: Deal 5 + 15% max health damage every 3rd bullet
 - Synergies:

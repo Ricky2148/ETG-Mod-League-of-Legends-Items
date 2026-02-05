@@ -64,6 +64,10 @@ namespace LOLItems
             NewSynergy(LOLItems.Synergy.WEAK_EARLY_GAME, "weak early game...", new[] { IName(Cull.ItemName), "unfinished_gun" });
             NewSynergy(LOLItems.Synergy.BAUSEN_LAW, "Bausen Law", new[] { IName(Cull.ItemName), "huntsman" });
 
+            //Detonation Orb
+            NewSynergy(LOLItems.Synergy.LIFE_AND_DEATH, "Life & Death", new[] { IName(DetonationOrb.ItemName), "life_orb" });
+            NewSynergy(LOLItems.Synergy.OVERCHARGED, "OVERCHARGED", new[] { IName(DetonationOrb.ItemName), "raiden_coil" });
+
             //Experimental Hexplate
             NewSynergy(LOLItems.Synergy.THAT_GOOD_SHIT, "that GOOD $#%&", new[] { IName(ExperimentalHexplate.ItemName), "cigarettes" });
             NewSynergy(LOLItems.Synergy.SPEED_BLITZ, "Speed Blitz", new[] { IName(ExperimentalHexplate.ItemName) }, new[] { "bionic_leg", "shotgun_coffee", "shotga_cola", "ballistic_boots", "magic_sweet" });
@@ -143,7 +147,6 @@ namespace LOLItems
             //Silver Bolts
             NewSynergy(LOLItems.Synergy.EXTRA_SILVER, "Extra Silver", new[] { IName(SilverBolts.ItemName), "silver_bullets" });
             NewSynergy(LOLItems.Synergy.THE_NIGHT_HUNTER, "The Night Hunter", new[] { IName(SilverBolts.ItemName), "crossbow" });
-
 
             //Statikk Shiv
             NewSynergy(LOLItems.Synergy.STATIKK_ELECTRICITY, "statikk electricity", new[] { IName(StatikkShiv.ItemName) }, new[] { "thunderclap", "laser_lotus" });
@@ -376,6 +379,7 @@ namespace LOLItems
         RUNAANS_BULLETS,
         EXTRA_SILVER,
         THE_NIGHT_HUNTER,
-
+        LIFE_AND_DEATH,
+        OVERCHARGED
     };
 }
