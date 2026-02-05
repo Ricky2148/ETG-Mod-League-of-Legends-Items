@@ -499,10 +499,12 @@ namespace LOLItems.passive_items
 
         private System.Collections.IEnumerator TheBombCooldown(AIActor enemyActor) 
         {
-            //Plugin.Log("bomb cooldown start");
+            Plugin.Log($"bomb cooldown start: {enemyActor}");
 
             yield return new WaitForSeconds(TheBombDuration);
 
+            // issue comes when enemy is null here
+            Plugin.Log($"bomb cooldown end: {enemyActor}");
             DetonateTheBomb(enemyActor);
 
             /*if (enemyActor.healthHaver.IsAlive)
@@ -535,22 +537,30 @@ namespace LOLItems.passive_items
             }
             activeVFXObjectList[enemyActor] = enemyActor.PlayEffectOnActor(ExplodeEffectVFX, new Vector3(0 / 16f, 0 / 16f, -2f), true, false, false);
             */
+            if (enemyActor == null)
+            {
+                Plugin.Log($"{enemyActor}");
+            }
 
-            UnityEngine.Object.Instantiate(ExplodeEffectVFX, enemyActor.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset + new Vector3(0, enemyActor.specRigidbody.HitboxPixelCollider.UnitDimensions.y), Quaternion.identity);
-            
             AkSoundEngine.PostEvent("detOrb_SFX_loop_002" + "_stop", enemyActor.gameObject);
-            AkSoundEngine.PostEvent("detOrb_SFX_explosion_001", enemyActor.gameObject);
 
-            enemyActor.healthHaver.ApplyDamage(
-                enemyTheBombTrackerList[enemyActor].storedDamage,
-                Vector2.zero,
-                "the_bomb_detonation_damage",
-                CoreDamageTypes.None,
-                DamageCategory.Normal,
-                ignoreInvulnerabilityFrames: true,
-                hitPixelCollider: null,
-                ignoreDamageCaps: true
-            );
+            if (enemyActor.healthHaver.IsAlive)
+            {
+                UnityEngine.Object.Instantiate(ExplodeEffectVFX, enemyActor.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset + new Vector3(0, enemyActor.specRigidbody.HitboxPixelCollider.UnitDimensions.y), Quaternion.identity);
+
+                AkSoundEngine.PostEvent("detOrb_SFX_explosion_001", enemyActor.gameObject);
+
+                enemyActor.healthHaver.ApplyDamage(
+                    enemyTheBombTrackerList[enemyActor].storedDamage,
+                    Vector2.zero,
+                    "the_bomb_detonation_damage",
+                    CoreDamageTypes.None,
+                    DamageCategory.Normal,
+                    ignoreInvulnerabilityFrames: true,
+                    hitPixelCollider: null,
+                    ignoreDamageCaps: true
+                );
+            }
 
             if (enemyTheBombTrackerList[enemyActor].timerCoroutine != null)
             {
