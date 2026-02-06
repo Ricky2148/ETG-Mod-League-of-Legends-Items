@@ -9,10 +9,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-// needs vfx and sfx work
-// tune the damage scale on enemies and bosses
 // vfx should be a white spark ball looking thing, on effect application, the vfx is thrown above the enemies head, it starts small, then grows larger with more damage
 // maybe start changing colors, would want it to instantly change to red when it would detonate to execute the target. Every time you refresh the duration, it just increases the duration without refreshing the vfx or vfx's loop
+// might have to rewrite the entire logic, fuck me man
 
 namespace LOLItems.passive_items
 {
@@ -296,6 +295,18 @@ namespace LOLItems.passive_items
 
                     enemyTheBombTrackerList.Add(target, new EnemyTheBombTracker(dmgToStore, null, vfxObject));
 
+                    if (target.healthHaver.gameObject.GetComponent<HealthHaverOnPreDeathActionModule>() == null)
+                    {
+                        Plugin.Log($"{target.healthHaver}");
+                        HealthHaverOnPreDeathActionModule onPreDeathModule = new HealthHaverOnPreDeathActionModule();
+                        onPreDeathModule.targetAIActor = target;
+                        onPreDeathModule.explosionVFX = ExplodeEffectVFX;
+                        onPreDeathModule.vfxOffset = vfxOffset;
+                        onPreDeathModule.theBombTracker = enemyTheBombTrackerList[target];
+
+                        target.healthHaver.gameObject.AddComponent(onPreDeathModule);
+                    }
+
                     AkSoundEngine.PostEvent("detOrb_SFX_loop_002", target.gameObject);
                 }
                 else
@@ -422,6 +433,18 @@ namespace LOLItems.passive_items
                             //activeVFXObjectList.Add(target, vfxObject);
 
                             enemyTheBombTrackerList.Add(target, new EnemyTheBombTracker(dmgToStore, null, vfxObject));
+                            
+                            if (target.healthHaver.gameObject.GetComponent<HealthHaverOnPreDeathActionModule>() == null)
+                            {
+                                Plugin.Log($"{target.healthHaver}");
+                                HealthHaverOnPreDeathActionModule onPreDeathModule = new HealthHaverOnPreDeathActionModule();
+                                onPreDeathModule.targetAIActor = target;
+                                onPreDeathModule.explosionVFX = ExplodeEffectVFX;
+                                onPreDeathModule.vfxOffset = vfxOffset;
+                                onPreDeathModule.theBombTracker = enemyTheBombTrackerList[target];
+                                
+                                target.healthHaver.gameObject.AddComponent(onPreDeathModule);
+                            }
 
                             AkSoundEngine.PostEvent("detOrb_SFX_loop_002", target.gameObject);
                         }
@@ -447,6 +470,7 @@ namespace LOLItems.passive_items
                                 StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                             }
                             enemyTheBombTrackerList[target].timerCoroutine = StartCoroutine(TheBombCooldown(target));
+                            //should probably do it with target.StartCoroutine
                         }
 
 
@@ -499,7 +523,7 @@ namespace LOLItems.passive_items
 
         private System.Collections.IEnumerator TheBombCooldown(AIActor enemyActor) 
         {
-            Plugin.Log($"bomb cooldown start: {enemyActor}");
+            //Plugin.Log($"bomb cooldown start: {enemyActor}");
 
             yield return new WaitForSeconds(TheBombDuration);
 

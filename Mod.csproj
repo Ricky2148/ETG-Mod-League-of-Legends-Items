@@ -69,6 +69,7 @@
     <Compile Include="custom_class_data\Databases.cs" />
     <Compile Include="custom_class_data\EasyTrailBullet.cs" />
     <Compile Include="custom_class_data\GameActorCrippleEffect.cs" />
+    <Compile Include="custom_class_data\HealthHaverOnPreDeathActionModule.cs" />
     <Compile Include="custom_class_data\LootTableTools.cs" />
     <Compile Include="custom_class_data\OnPreDamagedPassiveItem.cs" />
     <Compile Include="custom_class_data\RicochetProjectileModule.cs" />
