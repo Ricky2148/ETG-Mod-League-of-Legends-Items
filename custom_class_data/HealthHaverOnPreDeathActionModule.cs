@@ -11,6 +11,8 @@ namespace LOLItems.custom_class_data
     {
         public AIActor targetAIActor;
 
+        public GameObject idleVFX;
+
         public GameObject explosionVFX;
 
         public Vector3 vfxOffset;
@@ -19,18 +21,18 @@ namespace LOLItems.custom_class_data
 
         public new void Start()
         {
-            Plugin.Log($"started HealthHaverOnPreDeathActionModule: {targetAIActor.healthHaver}");
-            targetAIActor.healthHaver.OnPreDeath += OnPreDeathAction;
+            //Plugin.Log($"started HealthHaverOnPreDeathActionModule: {targetAIActor.healthHaver}");
+            targetAIActor.healthHaver.OnPreDeath += OnPreDeathActivation;
         }
 
-        public void OnPreDeathAction(Vector2 vector2)
+        public void OnPreDeathActivation(Vector2 vector2)
         {
-            Plugin.Log($"activated HealthHaverOnPreDeathActionModule");
+            //Plugin.Log($"activated HealthHaverOnPreDeathActionModule");
 
             if (theBombTracker.timerCoroutine != null)
             {
-                Plugin.Log($"killed coroutine");
-                StopCoroutine(theBombTracker.timerCoroutine);
+                //Plugin.Log($"killed coroutine");
+                targetAIActor.StopCoroutine(theBombTracker.timerCoroutine);
             }
 
             AkSoundEngine.PostEvent("detOrb_SFX_loop_002" + "_stop", targetAIActor.gameObject);
@@ -41,7 +43,7 @@ namespace LOLItems.custom_class_data
 
             if (theBombTracker.activeVFXObject != null)
             {
-                Plugin.Log($"destroyed vfx");
+                //Plugin.Log($"destroyed vfx");
                 Destroy(theBombTracker.activeVFXObject);
             }
         }

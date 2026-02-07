@@ -297,7 +297,7 @@ namespace LOLItems.passive_items
 
                     if (target.healthHaver.gameObject.GetComponent<HealthHaverOnPreDeathActionModule>() == null)
                     {
-                        Plugin.Log($"{target.healthHaver}");
+                        //Plugin.Log($"{target.healthHaver}");
                         HealthHaverOnPreDeathActionModule onPreDeathModule = new HealthHaverOnPreDeathActionModule();
                         onPreDeathModule.targetAIActor = target;
                         onPreDeathModule.explosionVFX = ExplodeEffectVFX;
@@ -320,7 +320,7 @@ namespace LOLItems.passive_items
                 {
                     if (enemyTheBombTrackerList[target].timerCoroutine != null)
                     {
-                        StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
+                        target.StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                     }
                     DetonateTheBomb(target);
                 }
@@ -328,9 +328,9 @@ namespace LOLItems.passive_items
                 {
                     if (enemyTheBombTrackerList[target].timerCoroutine != null)
                     {
-                        StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
+                        target.StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                     }
-                    enemyTheBombTrackerList[target].timerCoroutine = StartCoroutine(TheBombCooldown(target));
+                    enemyTheBombTrackerList[target].timerCoroutine = target.StartCoroutine(TheBombCooldown(target));
                 }
             }
 
@@ -400,7 +400,7 @@ namespace LOLItems.passive_items
                     {
                         if (enemyTheBombTrackerList[target].timerCoroutine != null)
                         {
-                            StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
+                            target.StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                         }
                         DetonateTheBomb(target);
                     }
@@ -436,7 +436,7 @@ namespace LOLItems.passive_items
                             
                             if (target.healthHaver.gameObject.GetComponent<HealthHaverOnPreDeathActionModule>() == null)
                             {
-                                Plugin.Log($"{target.healthHaver}");
+                                //Plugin.Log($"{target.healthHaver}");
                                 HealthHaverOnPreDeathActionModule onPreDeathModule = new HealthHaverOnPreDeathActionModule();
                                 onPreDeathModule.targetAIActor = target;
                                 onPreDeathModule.explosionVFX = ExplodeEffectVFX;
@@ -459,7 +459,7 @@ namespace LOLItems.passive_items
                         {
                             if (enemyTheBombTrackerList[target].timerCoroutine != null)
                             {
-                                StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
+                                target.StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                             }
                             DetonateTheBomb(target);
                         }
@@ -467,9 +467,9 @@ namespace LOLItems.passive_items
                         {
                             if (enemyTheBombTrackerList[target].timerCoroutine != null)
                             {
-                                StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
+                                target.StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                             }
-                            enemyTheBombTrackerList[target].timerCoroutine = StartCoroutine(TheBombCooldown(target));
+                            enemyTheBombTrackerList[target].timerCoroutine = target.StartCoroutine(TheBombCooldown(target));
                             //should probably do it with target.StartCoroutine
                         }
 
@@ -528,7 +528,7 @@ namespace LOLItems.passive_items
             yield return new WaitForSeconds(TheBombDuration);
 
             // issue comes when enemy is null here
-            Plugin.Log($"bomb cooldown end: {enemyActor}");
+            //Plugin.Log($"bomb cooldown end: {enemyActor}");
             DetonateTheBomb(enemyActor);
 
             /*if (enemyActor.healthHaver.IsAlive)
@@ -561,10 +561,6 @@ namespace LOLItems.passive_items
             }
             activeVFXObjectList[enemyActor] = enemyActor.PlayEffectOnActor(ExplodeEffectVFX, new Vector3(0 / 16f, 0 / 16f, -2f), true, false, false);
             */
-            if (enemyActor == null)
-            {
-                Plugin.Log($"{enemyActor}");
-            }
 
             AkSoundEngine.PostEvent("detOrb_SFX_loop_002" + "_stop", enemyActor.gameObject);
 
@@ -588,7 +584,7 @@ namespace LOLItems.passive_items
 
             if (enemyTheBombTrackerList[enemyActor].timerCoroutine != null)
             {
-                StopCoroutine(enemyTheBombTrackerList[enemyActor].timerCoroutine);
+                enemyActor.StopCoroutine(enemyTheBombTrackerList[enemyActor].timerCoroutine);
             }
 
             if (enemyTheBombTrackerList[enemyActor].activeVFXObject != null)

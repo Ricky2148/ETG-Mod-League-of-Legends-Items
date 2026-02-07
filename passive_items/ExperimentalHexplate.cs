@@ -105,7 +105,8 @@ namespace LOLItems.passive_items
                 //Plugin.Log($"{Owner.HasSynergy(Synergy.FILLER_UP)}, {FILLERUPActivated}, {Owner.CurrentGun.PickupObjectId == ((int)Items.Gungine)}");
                 if (Owner.HasSynergy(Synergy.FILLER_UP) && !FILLERUPActivated && Owner.CurrentGun.PickupObjectId == (int)Items.Gungine)
                 {
-                    ItemBuilder.AddPassiveStatModifier(this, PlayerStats.StatType.RateOfFire, FILLERUPRateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.RateOfFire);
+                    ItemBuilder.AddPassiveStatModifier(this, PlayerStats.StatType.RateOfFire, FILLERUPRateOfFireStat * RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
                     Owner.stats.RecalculateStatsWithoutRebuildingGunVolleys(Owner);
 
                     FILLERUPActivated = true;
@@ -125,6 +126,7 @@ namespace LOLItems.passive_items
                 else if (!Owner.HasSynergy(Synergy.FILLER_UP) && FILLERUPActivated)
                 {
                     ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.RateOfFire);
+                    ItemBuilder.AddPassiveStatModifier(this, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
                     Owner.stats.RecalculateStatsWithoutRebuildingGunVolleys(Owner);
 
                     FILLERUPActivated = false;
