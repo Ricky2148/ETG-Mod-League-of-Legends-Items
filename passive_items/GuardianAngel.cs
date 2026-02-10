@@ -112,7 +112,6 @@ namespace LOLItems.passive_items
         {
             if (!hasRevived && this.Owner is PlayerController player)
             {
-                hasRevived = true;
                 player.StartCoroutine(ReviveCoroutine(player));
             }
         }
@@ -120,52 +119,60 @@ namespace LOLItems.passive_items
         // revives the player with half health and invulnerability for a short time, activates a blank after invul
         private System.Collections.IEnumerator ReviveCoroutine(PlayerController player)
         {
-            // makes player character invulnerable, reset health, take no inputs from player, and remove revive effect
-            player.healthHaver.TriggerInvulnerabilityPeriod(4.1f);
-            //player.TriggerInvulnerableFrames(4.1f);
-            player.healthHaver.ForceSetCurrentHealth(player.healthHaver.GetMaxHealth() / 2);
-            player.CurrentInputState = PlayerInputState.NoInput;
-            player.healthHaver.OnPreDeath -= Rebirth;
+            Plugin.Log($"{this.EncounterNameOrDisplayName} curhealth: {player.healthHaver.GetCurrentHealth()}, isAlive: {player.healthHaver.IsAlive}");
 
-            Color originalPlayerColor = player.sprite.color;
-            Color originalGunColor = player.CurrentGun.sprite.color;
-
-            player.sprite.color = ExtendedColours.paleYellow;
-            player.CurrentGun.sprite.color = ExtendedColours.paleYellow;
-
-            Material mat = SpriteOutlineManager.GetOutlineMaterial(player.sprite);
-            if (mat)
+            if (!player.healthHaver.IsAlive)
             {
-                mat.SetColor("_OverrideColor", new Color(242f * 0.7f, 238f * 0.7f, 148f * 0.7f));
+                Plugin.Log($"{this.EncounterNameOrDisplayName} activated");
+                hasRevived = true;
+
+                // makes player character invulnerable, reset health, take no inputs from player, and remove revive effect
+                player.healthHaver.TriggerInvulnerabilityPeriod(4.1f);
+                //player.TriggerInvulnerableFrames(4.1f);
+                player.healthHaver.ForceSetCurrentHealth(player.healthHaver.GetMaxHealth() / 2);
+                player.CurrentInputState = PlayerInputState.NoInput;
+                player.healthHaver.OnPreDeath -= Rebirth;
+
+                Color originalPlayerColor = player.sprite.color;
+                Color originalGunColor = player.CurrentGun.sprite.color;
+
+                player.sprite.color = ExtendedColours.paleYellow;
+                player.CurrentGun.sprite.color = ExtendedColours.paleYellow;
+
+                Material mat = SpriteOutlineManager.GetOutlineMaterial(player.sprite);
+                if (mat)
+                {
+                    mat.SetColor("_OverrideColor", new Color(242f * 0.7f, 238f * 0.7f, 148f * 0.7f));
+                }
+
+                AkSoundEngine.PostEvent("guardian_angel_passive_SFX", GameManager.Instance.gameObject);
+
+                // animations for the revive: animation of the player's health being restored
+                // and the player being invulnerable for a short time
+                // including sound effects and visual effects
+                // during the invulnerability period, enemies be frozen in time???
+
+                yield return new WaitForSeconds(4f);
+
+                player.sprite.color = originalPlayerColor;
+                player.CurrentGun.sprite.color = originalGunColor;
+
+                if (mat)
+                {
+                    mat.SetColor("_OverrideColor", new Color(0f, 0f, 0f));
+                }
+
+                // trigger blank to push away enemies and clear bullets, restore input, and remove invulerability
+                player.ForceBlank();
+
+                if (player.HasSynergy(Synergy.DIVINE_JUDGEMENT))
+                {
+                    DoDivineJudgement(player);
+                }
+
+                player.CurrentInputState = PlayerInputState.AllInput;
+                player.healthHaver.PreventAllDamage = false;
             }
-
-            AkSoundEngine.PostEvent("guardian_angel_passive_SFX", GameManager.Instance.gameObject);
-
-            // animations for the revive: animation of the player's health being restored
-            // and the player being invulnerable for a short time
-            // including sound effects and visual effects
-            // during the invulnerability period, enemies be frozen in time???
-
-            yield return new WaitForSeconds(4f);
-
-            player.sprite.color = originalPlayerColor;
-            player.CurrentGun.sprite.color = originalGunColor;
-
-            if (mat)
-            {
-                mat.SetColor("_OverrideColor", new Color(0f, 0f, 0f));
-            }
-
-            // trigger blank to push away enemies and clear bullets, restore input, and remove invulerability
-            player.ForceBlank();
-
-            if (player.HasSynergy(Synergy.DIVINE_JUDGEMENT))
-            {
-                DoDivineJudgement(player);
-            }
-
-            player.CurrentInputState = PlayerInputState.AllInput;
-            player.healthHaver.PreventAllDamage = false;
         }
 
         private void DoDivineJudgement(PlayerController player)
