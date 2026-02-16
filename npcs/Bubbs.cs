@@ -125,7 +125,7 @@ namespace LOLItems
                 Hubris.ID,
                 KrakenSlayer.ID,
                 LiandrysTorment.ID,
-                MuramanaSynergyActivation.ID,
+                //MuramanaSynergyActivation.ID,
                 Manamune.ID,
                 Muramana.ID,
                 StatikkShiv.ID,
@@ -180,10 +180,24 @@ namespace LOLItems
                 TearOfTheGoddess.ID,
 
                 //next update items
-                //DetonationOrb.Init();
+                DetonationOrb.ID,
                 RefillablePotion.ID,
                 TalismanOfAscension.ID,
                 SilverBolts.ID,
+    
+                //weapons
+                PowPow.ID,
+                PowPowAltForm.ID,
+                HextechRifle.ID,
+                ElectricRifle.ID,
+                PrayerBeads.ID,
+                Whisper.ID,
+                Crossblade.ID,
+                VirtueForm1.ID,
+                VirtueForm2.ID,
+                VirtueForm3.ID,
+                SoulSpear.ID,
+                //GauntletOfNeZuk.Add(); UNFINISHED
             };
 
             ShopKeeperLootTable = LootTableTools.CreateLootTable();
