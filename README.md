@@ -9,7 +9,7 @@ If you have any questions, requests, or thoughts, you can let me know through he
 ## Passive Items:
 ![](https://i.ibb.co/Y7H29rTP/blade-of-the-ruined-king-pixelart-sprite-small.png)
 Blade of the Ruined King (S):
-- Stats: 1.25x DMG, 1.2x ROF.
+- Stats: 1.25x DMG, 1.2x ROF
 - Effect: First bullet of clip slows targets hit by 50% for 3s. All player bullets deal 12% current health damage on hit. (25% effective against bosses)
 - Synergies:
 	+ You dare face a king?! [Crown of guns/Gilded Bullets/Coin Crown]: Increases on hit to 18% current health damage

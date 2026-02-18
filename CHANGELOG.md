@@ -79,3 +79,8 @@ added new items:
 - detonation orb
 
 fixed a bug with stridebreaker freezing the game when dropped
+
+#3.0.2
+modified some logic behind detonation orb to hopefully be less bugged and more consistent
+
+added itemtips support

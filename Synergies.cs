@@ -47,7 +47,7 @@ namespace LOLItems
             
             
             //Blade of the Ruined King
-            NewSynergy(LOLItems.Synergy.YOU_DARE_FACE_A_KING, "You dare face a king?!", new[] { IName(BladeOfTheRuinedKing.ItemName) }, new[] { "crown_of_guns", "gilded_bullets", "coin_crown"});
+            NewSynergy(LOLItems.Synergy.YOU_DARE_FACE_A_KING, "You dare face a King?!", new[] { IName(BladeOfTheRuinedKing.ItemName) }, new[] { "crown_of_guns", "gilded_bullets", "coin_crown"});
             NewSynergy(LOLItems.Synergy.FOR_ISOLDE, "For Isolde!", new[] { IName(BladeOfTheRuinedKing.ItemName) }, new[] { "excaliber", "blasphemy"});
             //NewSynergy(LOLItems.Synergy.BORK3, "3", new[] { IName(BladeOfTheRuinedKing.ItemName), IName(GuinsoosRageblade.ItemName) });
 
