@@ -296,6 +296,8 @@ namespace LOLItems.weapons
             ETGMod.Databases.Items.Add(gun, false, "ANY");
             ID = gun.PickupObjectId;
 
+            GunTools.TrimGunSprites(gun);
+
             ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.MovementSpeed, zealSpeedInc, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
             /*List<string> mandatoryConsoleIDs = new List<string>

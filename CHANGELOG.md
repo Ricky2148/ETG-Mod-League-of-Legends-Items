@@ -82,5 +82,7 @@ fixed a bug with stridebreaker freezing the game when dropped
 
 #3.0.2
 modified some logic behind detonation orb to hopefully be less bugged and more consistent
+fixed virtue weapons having weird pickup hitboxes
+nerfed virtue: increased exp requirements
 
 added itemtips support

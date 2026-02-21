@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "name": "League of Legends Items",
+    "version": "3.0.1",
+    "url": "https://enter-the-gungeon.thunderstore.io/package/Ricky2148/League_of_Legends_Items/"
+  },
+  "items": {
+    "LOLItems:blade_of_the_ruined_king": {
+      "name": "Blade of the Ruined King",
+      "notes": "1.25x DMG, 1.2x ROF, First bullet of clip slows targets hit by 50% for 3s. All player bullets deal 12% current health damage on hit. (25% effective against bosses)"
+    },
+    "LOLItems:cloak_of_starry_night": {
+      "name": "Cloak of Starry Night",
+      "notes": "1 Heart, 10% chance to deny taking damage."
+    },
+    "LOLItems:shield_of_molten_stone": {
+      "name": "Shield of Molten Stone",
+      "notes": "1 Heart, 10% chance to deny taking damage."
+    },
+    "LOLItems:the_collector": {
+      "name": "The Collector",
+      "notes": "1.1x DMG, All bullets execute enemies below 15% max health. 30% chance to drop 1 extra casing on kill."
+    },
+    "LOLItems:cull": {
+      "name": "Cull",
+      "notes": "Gain 1 extra casing every 5 kills. After 200 kills, gain a one time drop of 30 casings."
+    },
+    "LOLItems:detonation_orb": {
+      "name": "Detonation Orb",
+      "notes": "Dealing damage to an enemy stores 25% of that damage. Damage accumulates with more damage and detonates after 3 seconds of no damage. Will immediately detonate if stored damage is enough to kill."
+    },
+    "LOLItems:experimental_hexplate": {
+      "name": "Experimental Hexplate",
+      "notes": "1.1x DMG, 1.1x ROF, 1 Heart, On item activation, provide Overdrive buff to player. Overdrive lasts for 8s, has a 30s cooldown, and provides a 1.5x ROF and 1.25x MOVSPD buff."
+    },
+    "LOLItems:frozen_heart_lolitems": {
+      "name": "Frozen Heart",
+      "notes": "1 Armor, Applies a 30% cripple to nearby enemies. Cripple: slows target's ROF by certain amount."
+    },
+    "LOLItems:guardian_angel": {
+      "name": "Guardian Angel",
+      "notes": "1.25x DMG, 2 Armor, Triggers Rebirth on death. Rebirth: become invulnerable for 4 seconds, sets health to 50% of player's max hearts, then triggers a blank at the end of the invulnerability. Rebirth cannot trigger again."
+    },
+    "LOLItems:guinsoo's_rageblade": {
+      "name": "Guinsoo's Rageblade",
+      "notes": "1.25x DMG, 1.2x ROF, Every 3rd bullet fired, an extra projectile copied from that 3rd projectile will fire after a slight delay. This bullet is tinted red and does not consume any ammo."
+    },
+    "LOLItems:horizon_focus": {
+      "name": "Horizon Focus",
+      "notes": "1.1x DMG, Increases each bullet's damage by up to 25% based on how far the hit target is from the player."
+    },
+    "LOLItems:hubris": {
+      "name": "Hubris",
+      "notes": "Each kill increases player's damage by 0.4%. Stacking infinitely."
+    },
+    "LOLItems:kraken_slayer": {
+      "name": "Kraken Slayer",
+      "notes": "1.25x DMG, 1.25x ROF, Every 3rd bullet will deal additional 20 damage on hit. This extra damage increases based on the floor up to 40 damage. This extra damage will also scale with missing health up to 1.75x damage."
+    },
+    "LOLItems:fated_ashes": {
+      "name": "Fated Ashes",
+      "notes": "Dealing damage applies a burn on the enemy that does 3 damage per second for 3 seconds."
+    },
+    "LOLItems:liandry's_torment": {
+      "name": "Liandry's Torment",
+      "notes": "1.15x DMG, 1 Heart, Dealing damage applies a burn to enemies that deal 5 + 10% max health damage per second for 3 seconds. (25% effective against bosses)"
+    },
+    "LOLItems:tear_of_the_goddess": {
+      "name": "Tear of the Goddess",
+      "notes": "Every 50 kills, provides 1 Manaflow stack. Each manaflow stack increases max ammo capacity and max clip size by 5% (Max: 10 stacks). Stacks transfer to muramana and is consumed."
+    },
+    "LOLItems:manamune": {
+      "name": "Manamune",
+      "notes": "1.05x DMG, Every 25 kills, provides 1 Manaflow stack. Each manaflow stack increases max ammo capacity and max clip size by 5% (Max: 10 stacks). Upon reaching max stacks, upgrades to Muramana."
+    },
+    "LOLItems:muramana": {
+      "name": "Muramana",
+      "notes": "1.2x DMG, 1.5x MaxAmmoSize, 1.5x MaxClipSize, Every bullet deals an additional 5 damage on hit. This damage scales with the player's MaxAmmoSize and MaxClipSize multipliers."
+    },
+    "LOLItems:navori_quickblades": {
+      "name": "Navori Quickblades",
+      "notes": "1.1x ROF, Every bullet reduces player's item cooldowns by 3% current cooldown."
+    },
+    "LOLItems:puppeteer": {
+      "name": "Puppeteer",
+      "notes": "1.15x ROF, Every bullet applies a stack of Pull Their Strings to enemies hit. When an enemy reaches 4 stacks, they are charmed for 999 seconds. Goes on a 25s cooldown."
+    },
+    "LOLItems:rod_of_ages": {
+      "name": "Rod of Ages",
+      "notes": "Every 120s, gain a stack of Timeless. Each Timeless stack provides 2% inc DMG, 5% inc Max Ammo Capacity, and 5% inc Max Clip Size. Stacks up to 15 times. When reaching max stacks, provides an extra heart and the Eternity effect. Eternity: when damaged, restores 25% ammo to player's all weapons."
+    },
+    "LOLItems:rylai's_crystal_scepter": {
+      "name": "Rylai's Crystal Scepter",
+      "notes": "1 Heart, Dealing damage slows targets hit by 30% for 2s."
+    },
+    "LOLItems:shadowflame": {
+      "name": "Shadowflame",
+      "notes": "1.15x DMG, When hitting an enemy that is below 40% health, deal 40% more damage."
+    },
+    "LOLItems:sheen": {
+      "name": "Sheen",
+      "notes": "The first bullet of player's clip will deal an additional 10 damage."
+    },
+    "LOLItems:silver_bolts": {
+      "name": "Silver Bolts",
+      "notes": "Deal 5 + 15% max health damage every 3rd bullet"
+    },
+    "LOLItems:statikk_shiv": {
+      "name": "Statikk Shiv",
+      "notes": "1.2x DMG, 1.1x ROF, The first 3 bullets of player's clip will chain lightning up to 5 enemies starting from the first enemy hit. Chain lightning deals 5 dmg."
+    },
+    "LOLItems:sunfire_aegis": {
+      "name": "Sunfire Aegis",
+      "notes": "1 Heart, 1 Armor, Provides a damaging aura around the player. Radius: 3 + 0.5 per heart. Damage: 1.5/s per heart"
+    },
+    "LOLItems:thornmail": {
+      "name": "Thornmail",
+      "notes": "1 Heart, 1 Armor, When taking damage, activate a blank and deal 20 extra damage to nearby enemies."
+    },
+    "LOLItems:zeke's_convergence": {
+      "name": "Zeke's Convergence",
+      "notes": "1 Heart, On item activation, create an aura around the player for 10 seconds. The aura deals 15 dps and slows enemies by 50%. Goes on a 45s cooldown."
+    },
+
+
+    "LOLItems:galeforce": {
+      "name": "Galeforce",
+      "notes": "1.25x DMG, 1.2x ROF, Dash in the aimed direction, firing 3 homing missiles at the end. Each missile deals 10 damage and is affected by player damage modifiers. Goes on a 90s cooldown."
+    },
+    "LOLItems:redemption": {
+      "name": "Redemption",
+      "notes": "1 Heart, Activate to call down a circle of healing that heals players for half a heart and damages enemies for 10% max health damage. Goes on a 10 room cooldown."
+    },
+    "LOLItems:refillable_potion": {
+      "name": "Refillable Potion",
+      "notes": "Activate to heal a half heart. Stacks up to two times. Refills upon entering a new floor."
+    },
+    "LOLItems:stridebreaker": {
+      "name": "Stridebreaker",
+      "notes": "1.1x DMG, 1.1x ROF, 1 Heart, Activate to damage all enemies for 10 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 70% for 3s. Goes on a 15s cooldown."
+    },
+    "LOLItems:talisman_of_ascension": {
+      "name": "Talisman of Ascension",
+      "notes": "Activate to provide the player with a random assortment of buffs with random buff amounts. Goes on a 5 room cooldown."
+    },
+    "LOLItems:perfectly_timed_stopwatch": {
+      "name": "Perfectly Time Stopwatch",
+      "notes": "Activate to enter a stasis for 2.5s. During stasis, you are invulnerable, cannot move, and cannot fire your weapon. After the stasis, activate a blank. One use consumable."
+    },
+    "LOLItems:zhonya's_hourglass": {
+      "name": "Zhonya's Hourglass",
+      "notes": "2 Armor, Activate to enter a stasis for 2.5s. During stasis, you are invulnerable, cannot move, and cannot fire your weapon. After the stasis, activate a blank. Goes on a 120s cooldown."
+    },
+
+
+    "LOLItems:braum's_shield": {
+      "name": "Braum's Shield",
+      "notes": "Just a guon stone for now LMAO"
+    },
+
+
+    "LOLItems:crossblade": {
+      "name": "Crossblade",
+      "notes": "Fires boomerangs that chain to other nearby enemies on hit. Boomerang deals 40% damage after 1st enemy hit and bounce 8 times."
+    },
+    "LOLItems:electric_rifle": {
+      "name": "Zaunite Rifle",
+      "notes": "Fires a burst of 7 bullets per shot."
+    },
+    "LOLItems:hextech_rifle": {
+      "name": "Hextech Rifle",
+      "notes": "Fires fast traveling piercing sniper shots. The last bullet of the clip headshots for 2.5x damage."
+    },
+    "LOLItems:powpow": {
+      "name": "Pow-Pow/Fishbones",
+      "notes": "Firing Pow-Pow gains a stack of Rev'd up. Each stack increases your fire rate by 10%. At max stacks of 20, fires 3x faster. Stacks start falling off when not firing. Fishbones fires a small rocket that deals double damage but fires 25% slower and consumes 3 ammo per shot. Pressing reload swaps between Pow-Pow and Fishbones."
+    },
+    "LOLItems:prayer_beads": {
+      "name": "Aion Er'na",
+      "notes": "Fires beads. Upon hitting an enemy, spreads out lightning to deal 30% of the original damage to nearby enemies"
+    },
+    "LOLItems:soul_spear": {
+      "name": "Soul Spear",
+      "notes": "Fires spears that lodge themselves in the enemy. Pressing reload will damage targets with spears lodged in their body. When attacking, does an invincible dash in the direction player is inputting. If player is not inputting a direction, does not perform dash."
+    },
+    "LOLItems:virtueform1": {
+      "name": "Virtue",
+      "notes": "Gains exp from killing enemies equal to their HP, evolves into next form once enough exp has been acquired."
+    },
+    "LOLItems:virtueform2": {
+      "name": "Virtue",
+      "notes": "Still gains exp. Each shot fired gives a stack of Zealous. Each stack of zealous provides a 12% fire rate increase and caps out at 5 stacks. At max stacks, each attack fires an additional wave that deals 50% damage and pierces all walls and enemies. Also gains 10% movespeed at max stacks."
+    },
+    "LOLItems:virtueform3": {
+      "name": "Virtue",
+      "notes": "No Zealous stacking mechanic. Every attack fires the additional wave. Permanently gains the 10% movement speed and flight."
+    },
+    "LOLItems:whisper": {
+      "name": "Whisper",
+      "notes": "Fires from a 4 shot clip. Fourth shot deals 200% damage and deals 25% additional missing health damage. Fire rate cannot be increased and instead equally increases damage multiplier. Clip size cannot be increased and instead increases damage multiplier by 25% of clip size modifier."
+    },
+  },
+  "synergies": {
+    "You dare face a King?!": {
+      "notes": "Increases on hit damange to 18% current health damage"
+    },
+    "For Isolde!": {
+      "notes": "All bullets apply slow"
+    },
+    "Heaven and Earth Combined": {
+      "notes": "Proc chance increases to 20% for both items"
+    },
+  }
+}

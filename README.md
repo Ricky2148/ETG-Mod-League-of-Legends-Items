@@ -351,13 +351,13 @@ Virtue [Form 1] (C):
 
 ![](https://i.ibb.co/zz36nrx/virtue-form2-idle-001.png)
 Virtue [Form 2] (EX):
-- Stats: Fire rate: 0.8s, 10 dmg, 500 ammo, EXP Requirement: 3000
+- Stats: Fire rate: 0.8s, 10 dmg, 500 ammo, EXP Requirement: 4000
 - Fires projectiles, each shot fired gives a stack of Zealous. Each stack of zealous provides a 12% fire rate increase and caps out at 5 stacks. At max stacks, each attack fires an additional wave that deals 50% damage and pierces all walls and enemies. Also gains 10% movespeed at max stacks.
 - Zealous lasts 3 seconds and the duration resets with each stack increase/refresh
 
 ![](https://i.ibb.co/8n9YYp9r/virtue-form3-idle-001.png)
 Virtue [Form 3] (EX):
-- Stats: Fire rate: 0.35s, 15 dmg, 750 ammo, EXP Requirement: 9000
+- Stats: Fire rate: 0.35s, 15 dmg, 750 ammo, EXP Requirement: 8000
 - Fires projectiles. No Zealous stacking mechanic. Every attack fires the additional wave. Permanently gains the 10% movement speed and flight.
 
 ![](https://i.ibb.co/4wf9Gh9x/whisper-idle-001.png)

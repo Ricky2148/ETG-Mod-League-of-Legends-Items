@@ -37,7 +37,7 @@ namespace LOLItems.weapons
             500f,
             1000f
         };*/
-        public float DivineAscentThreshold = 3000f;
+        public float DivineAscentThreshold = 4000f;
 
         private static float projectileDamageStat = 8f;
         private static float projectileSpeedStat = 40f;
@@ -249,6 +249,8 @@ namespace LOLItems.weapons
             gun.quality = PickupObject.ItemQuality.C;
             ETGMod.Databases.Items.Add(gun, false, "ANY");
             ID = gun.PickupObjectId;
+
+            GunTools.TrimGunSprites(gun);
 
             AscensionIcon = SpriteBuilder.SpriteFromResource("LOLItems/Resources/one_off_sprites/virtue_ascension_icons/export_02", AscensionIcon);
             FakePrefab.MarkAsFakePrefab(AscensionIcon);

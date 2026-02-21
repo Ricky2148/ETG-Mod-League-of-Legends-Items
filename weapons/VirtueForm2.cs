@@ -41,7 +41,7 @@ namespace LOLItems.weapons
         private bool zealCapActivated = false;
 
         public float DivineAscentExpTracker = 0f;
-        public float DivineAscentThreshold = 6000f;
+        public float DivineAscentThreshold = 8000f;
 
         private Gun NextFormWeapon;
         private static GameObject AscensionIcon;
@@ -373,6 +373,9 @@ namespace LOLItems.weapons
             gun.quality = PickupObject.ItemQuality.EXCLUDED;
             ETGMod.Databases.Items.Add(gun, false, "ANY");
             ID = gun.PickupObjectId;
+
+            GunTools.TrimGunSprites(gun);
+
             //ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire, 1.0f, StatModifier.ModifyMethod.MULTIPLICATIVE);
             //ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.MovementSpeed, 1.0f, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
@@ -631,7 +634,7 @@ namespace LOLItems.weapons
                 float expToGain = 0;
                 if (enemyHealth.IsBoss || enemyHealth.IsSubboss)
                 {
-                    Plugin.Log("is bosss");
+                    //Plugin.Log("is bosss");
                     expToGain = (enemyHealth.aiActor.healthHaver.GetMaxHealth() * 0.25f);
                 }
                 else

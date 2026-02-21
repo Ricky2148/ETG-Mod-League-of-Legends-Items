@@ -119,11 +119,11 @@ namespace LOLItems.passive_items
         // revives the player with half health and invulnerability for a short time, activates a blank after invul
         private System.Collections.IEnumerator ReviveCoroutine(PlayerController player)
         {
-            Plugin.Log($"{this.EncounterNameOrDisplayName} curhealth: {player.healthHaver.GetCurrentHealth()}, isAlive: {player.healthHaver.IsAlive}");
+            //Plugin.Log($"{this.EncounterNameOrDisplayName} curhealth: {player.healthHaver.GetCurrentHealth()}, isAlive: {player.healthHaver.IsAlive}");
 
             if (!player.healthHaver.IsAlive)
             {
-                Plugin.Log($"{this.EncounterNameOrDisplayName} activated");
+                //Plugin.Log($"{this.EncounterNameOrDisplayName} activated");
                 hasRevived = true;
 
                 // makes player character invulnerable, reset health, take no inputs from player, and remove revive effect
