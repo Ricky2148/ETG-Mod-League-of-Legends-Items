@@ -31,7 +31,7 @@ namespace LOLItems
     {
         public const string GUID = "Ricky2148.etg.LOLItems";
         public const string NAME = "League of legends Items";
-        public const string VERSION = "3.0.2";
+        public const string VERSION = "3.0.3";
         public const string TEXT_COLOR = "#F1C232";
 
         internal static Harmony _Harmony;

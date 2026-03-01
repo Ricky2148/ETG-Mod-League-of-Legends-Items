@@ -86,3 +86,6 @@ fixed virtue weapons having weird pickup hitboxes
 nerfed virtue: increased exp requirements
 
 added itemtips support
+
+#3.0.3
+added itemtips descriptions for synergies
