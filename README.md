@@ -344,7 +344,7 @@ Soul Spear (A):
 Virtue [Form 1] (C):
 - Stats: Fire rate: 0.8s, 8 dmg, 250 ammo
 - Fires projectiles
-- Gains exp from killing enemies equal to their HP, evolves into next form once enough exp has been acquired.
+- Gains EXP from killing enemies equal to their HP, evolves into next form once enough exp has been acquired.
 - All forms share the same synergies
 - Synergies: 
 	+ Exp. Share [Macho Brace, Scouter, Life Orb]: doubles exp gained.

@@ -190,7 +190,7 @@ namespace LOLItems
             NewSynergy(LOLItems.Synergy.BUILDS_INTO_ZHONYAS_HOURGLASS, "builds into Zhonya's Hourglass", new[] { IName(PerfectlyTimedStopwatch.ItemName), IName(ZhonyasHourglass.ItemName) });
 
             //Zhonya's Hourglass
-            NewSynergy(LOLItems.Synergy.CHAOS_CONTROL, "CHAOS CONTROL!", new[] { IName(ZhonyasHourglass.ItemName), "chaos_bullets", "chaos_bullets" });
+            NewSynergy(LOLItems.Synergy.CHAOS_CONTROL, "CHAOS CONTROL!", new[] { IName(ZhonyasHourglass.ItemName), "chaos_bullets", "chaos_ammolet" });
             NewSynergy(LOLItems.Synergy.SEVEN_SECONDS_REMAIN, "Seven seconds remain...", new[] { IName(ZhonyasHourglass.ItemName), "super_hot_watch" });
 
 

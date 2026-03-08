@@ -89,3 +89,6 @@ added itemtips support
 
 #3.0.3
 added itemtips descriptions for synergies
+
+#3.0.4
+fixed a bug with zhonya's chaos control synergy
