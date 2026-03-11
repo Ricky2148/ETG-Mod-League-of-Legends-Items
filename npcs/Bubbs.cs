@@ -125,9 +125,7 @@ namespace LOLItems
                 Hubris.ID,
                 KrakenSlayer.ID,
                 LiandrysTorment.ID,
-                //MuramanaSynergyActivation.ID,
                 Manamune.ID,
-                Muramana.ID,
                 StatikkShiv.ID,
                 Stridebreaker.ID,
                 SunfireAegis.ID,
@@ -144,27 +142,9 @@ namespace LOLItems
                 RylaisCrystalScepter.ID,
                 Shadowflame.ID,
                 NavoriQuickblades.ID,
-                    
-                //testing
-                //CarefreeMelody.Init();
-                //debugItem.Init();
 
                 //guon stones
                 BraumsShield.ID,
-
-                //weapons
-                PowPow.ID,
-                PowPowAltForm.ID,
-                HextechRifle.ID,
-                ElectricRifle.ID,
-                PrayerBeads.ID,
-                Whisper.ID,
-                Crossblade.ID,
-                VirtueForm1.ID,
-                VirtueForm2.ID,
-                VirtueForm3.ID,
-                SoulSpear.ID,
-
 
                 //new items
                 ShieldOfMoltenStone.ID,
@@ -187,17 +167,15 @@ namespace LOLItems
     
                 //weapons
                 PowPow.ID,
-                PowPowAltForm.ID,
                 HextechRifle.ID,
                 ElectricRifle.ID,
                 PrayerBeads.ID,
                 Whisper.ID,
                 Crossblade.ID,
                 VirtueForm1.ID,
-                VirtueForm2.ID,
-                VirtueForm3.ID,
                 SoulSpear.ID,
                 //GauntletOfNeZuk.Add(); UNFINISHED
+                Pinger.ID, //unfinished
             };
 
             ShopKeeperLootTable = LootTableTools.CreateLootTable();

@@ -107,6 +107,7 @@ namespace LOLItems
 
         public static void PlayRandomSFX(GameObject gameObject, string[] sfxList)
         {
+            if (sfxList.Length == 0) return;
             var rand = new System.Random();
             int sfxIndex = rand.Next(sfxList.Length);
             string sfxName = sfxList[sfxIndex];
@@ -116,6 +117,7 @@ namespace LOLItems
 
         public static void PlayRandomSFX(GameObject gameObject, List<string> sfxList)
         {
+            if (sfxList.Count == 0) return;
             var rand = new System.Random();
             int sfxIndex = rand.Next(sfxList.Count);
             string sfxName = sfxList[sfxIndex];
@@ -189,6 +191,77 @@ namespace LOLItems
             for (int i = 1; i <= length; ++i)
                 theList.Add($"{baseString}_{i:D3}");
             return theList;
+        }
+
+        public static VFXComplex CreateVFXComplex(string name, List<string> spritePaths, int fps, IntVector2 Dimensions, tk2dBaseSprite.Anchor anchor, bool usesZHeight, float zHeightOffset, bool persist = false, VFXAlignment alignment = VFXAlignment.NormalAligned, float emissivePower = -1, Color? emissiveColour = null, VFXPoolType type = VFXPoolType.All)
+        {
+
+            //Use this to create multiple muzzleflashes into a VFX pool on the other side.
+            GameObject Obj = new GameObject(name);
+
+            VFXComplex complex = new VFXComplex();
+            VFXObject vfObj = new VFXObject();
+            Obj.SetActive(false);
+            FakePrefab.MarkAsFakePrefab(Obj);
+            UnityEngine.Object.DontDestroyOnLoad(Obj);
+
+            tk2dSpriteCollectionData VFXSpriteCollection = SpriteBuilder.ConstructCollection(Obj, (name + "_Collection"));
+            int spriteID = SpriteBuilder.AddSpriteToCollection(spritePaths[0], VFXSpriteCollection);
+
+            tk2dSprite sprite = Obj.GetOrAddComponent<tk2dSprite>();
+            sprite.SetSprite(VFXSpriteCollection, spriteID);
+            tk2dSpriteDefinition defaultDef = sprite.GetCurrentSpriteDef();
+            defaultDef.colliderVertices = new Vector3[]{
+                      new Vector3(0f, 0f, 0f),
+                      new Vector3((Dimensions.x / 16), (Dimensions.y / 16), 0f)
+                  };
+
+            tk2dSpriteAnimator animator = Obj.GetOrAddComponent<tk2dSpriteAnimator>();
+            tk2dSpriteAnimation animation = Obj.GetOrAddComponent<tk2dSpriteAnimation>();
+            animation.clips = new tk2dSpriteAnimationClip[0];
+            animator.Library = animation;
+            tk2dSpriteAnimationClip clip = new tk2dSpriteAnimationClip() { name = "start", frames = new tk2dSpriteAnimationFrame[0], fps = fps };
+            List<tk2dSpriteAnimationFrame> frames = new List<tk2dSpriteAnimationFrame>();
+            for (int i = 0; i < spritePaths.Count; i++)
+            {
+                tk2dSpriteCollectionData collection = VFXSpriteCollection;
+                int frameSpriteId = SpriteBuilder.AddSpriteToCollection(spritePaths[i], collection);
+                tk2dSpriteDefinition frameDef = collection.spriteDefinitions[frameSpriteId];
+                frameDef.ConstructOffsetsFromAnchor(anchor);
+                frameDef.colliderVertices = defaultDef.colliderVertices;
+                if (emissivePower > 0) frameDef.material.shader = ShaderCache.Acquire("Brave/LitTk2dCustomFalloffTintableTiltedCutoutEmissive");
+                if (emissivePower > 0) frameDef.material.SetFloat("_EmissiveColorPower", emissivePower);
+                if (emissiveColour != null) frameDef.material.SetColor("_EmissiveColor", (Color)emissiveColour);
+                if (emissivePower > 0) frameDef.materialInst.shader = ShaderCache.Acquire("Brave/LitTk2dCustomFalloffTintableTiltedCutoutEmissive");
+                if (emissivePower > 0) frameDef.materialInst.SetFloat("_EmissiveColorPower", emissivePower);
+                if (emissiveColour != null) frameDef.materialInst.SetColor("_EmissiveColor", (Color)emissiveColour);
+                frames.Add(new tk2dSpriteAnimationFrame { spriteId = frameSpriteId, spriteCollection = collection });
+            }
+            if (emissivePower > 0) sprite.renderer.material.shader = ShaderCache.Acquire("Brave/LitTk2dCustomFalloffTintableTiltedCutoutEmissive");
+            if (emissivePower > 0) sprite.renderer.material.SetFloat("_EmissiveColorPower", emissivePower);
+            if (emissiveColour != null) sprite.renderer.material.SetColor("_EmissiveColor", (Color)emissiveColour);
+            clip.frames = frames.ToArray();
+            clip.wrapMode = tk2dSpriteAnimationClip.WrapMode.Once;
+            animation.clips = animation.clips.Concat(new tk2dSpriteAnimationClip[] { clip }).ToArray();
+            if (!persist)
+            {
+                SpriteAnimatorKiller kill = animator.gameObject.AddComponent<SpriteAnimatorKiller>();
+                kill.fadeTime = -1f;
+                kill.animator = animator;
+                kill.delayDestructionTime = -1f;
+            }
+            animator.playAutomatically = true;
+            animator.DefaultClipId = animator.GetClipIdByName("start");
+            vfObj.attached = true;
+            vfObj.persistsOnDeath = persist;
+            vfObj.usesZHeight = usesZHeight;
+            vfObj.zHeight = zHeightOffset;
+            vfObj.alignment = alignment;
+            vfObj.destructible = false;
+            vfObj.effect = Obj;
+            complex.effects = new VFXObject[] { vfObj };
+
+            return complex;
         }
 
         public static void AddItemToSynergy(this PickupObject obj, CustomSynergyType type)
