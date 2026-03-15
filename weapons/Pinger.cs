@@ -11,6 +11,18 @@ using UnityEngine;
 
 namespace LOLItems.weapons
 {
+    public class EnemyTiltedTracker
+    {
+        public Coroutine timerCoroutine;
+        public GameObject activeVFXObject;
+
+        public EnemyTiltedTracker (Coroutine corou, GameObject obj)
+        {
+            timerCoroutine = corou;
+            activeVFXObject = obj;
+        }
+    }
+
     internal class Pinger : AdvancedGunBehavior
     {
         public static string internalName = "Pinger_LOLItems"; //Internal name of the gun as used by console commands
@@ -19,21 +31,29 @@ namespace LOLItems.weapons
 
         private static int ammoStat = 200;
         private static float reloadDuration = 0f;
-        private static float fireRateStat = 0.5f;
+        private static float fireRateStat = 0.4f;
         private static int spreadAngle = 0;
 
-        private static float projectileDamageStat = 20f;
+        private static float projectileDamageStat = 12f;
         private static float projectileSpeedStat = 35f;
-        private static float projectileRangeStat = 25f;
+        private static float projectileRangeStat = 20f;
         private static float projectileForceStat = 15f;
 
-        private static float TiltedDuration = 3f;
-        private static float TiltedDamageMultiplier = 2f;
-        private static Color flatColorOverride = new Color(0.5f, 0f, 0f, 0.75f);
-        public GameObject OverheadVFX;
-        private bool m_isRaged;
-        private float m_elapsed;
-        private GameObject instanceVFX;
+        private static float TiltedDuration = 10f;
+        private static Color flatColorOverride = ExtendedColours.maroon; //new Color(0.5f, 0f, 0f, 0.75f);
+        public GameObject OverheadVFX = (PickupObjectDatabase.GetById((int)Items.EnragingPhoto) as RagePassiveItem).OverheadVFX;
+        //private GameObject instanceVFX;
+
+        private static AIActorBuffEffect TiltedEffect = new AIActorBuffEffect
+        {
+            effectIdentifier = "pinger_tilted_effect",
+            SpeedMultiplier = 2.0f,
+            //CooldownMultiplier = 0.1f,
+            HealthMultiplier = 0.5f,
+            KeepHealthPercentage = true,
+        };
+
+        private Dictionary<AIActor, EnemyTiltedTracker> enemyTiltedTrackerList = new Dictionary<AIActor, EnemyTiltedTracker>();
 
         private static List<string> PingerFiringSFXList = new List<string>()
         {
@@ -58,7 +78,7 @@ namespace LOLItems.weapons
             gun.AddProjectileModuleFrom(PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun, true, false);
 
             gun.gunSwitchGroup = $"LOLItems_{FULLNAME.ToID()}";
-            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null);
+            //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null);
             SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null);
 
             gun.DefaultModule.angleVariance = spreadAngle;
@@ -110,6 +130,7 @@ namespace LOLItems.weapons
                 customHitEffect,
             };
 
+            #region Projectile Setup
             //proj 1: all in
             Projectile projectile1 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile1);
@@ -137,7 +158,7 @@ namespace LOLItems.weapons
             projectile1.baseData.force = projectileForceStat; //Knockback strength
             projectile1.transform.parent = gun.barrelOffset;
 
-            projectile1.SetProjectileSpriteRight("pinger_projectile_all_in_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile1.SetProjectileSpriteRight("pinger_projectile_all_in_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 2: assist me
             Projectile projectile2 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -167,7 +188,7 @@ namespace LOLItems.weapons
             projectile2.baseData.force = projectileForceStat; //Knockback strength
             projectile2.transform.parent = gun.barrelOffset;
 
-            projectile2.SetProjectileSpriteRight("pinger_projectile_assist_me_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile2.SetProjectileSpriteRight("pinger_projectile_assist_me_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 3: bait
             Projectile projectile3 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -196,7 +217,7 @@ namespace LOLItems.weapons
             projectile3.baseData.force = projectileForceStat; //Knockback strength
             projectile3.transform.parent = gun.barrelOffset;
 
-            projectile3.SetProjectileSpriteRight("pinger_projectile_bait_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile3.SetProjectileSpriteRight("pinger_projectile_bait_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 4: caution
             Projectile projectile4 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -225,7 +246,7 @@ namespace LOLItems.weapons
             projectile4.baseData.force = projectileForceStat; //Knockback strength
             projectile4.transform.parent = gun.barrelOffset;
 
-            projectile4.SetProjectileSpriteRight("pinger_projectile_caution_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile4.SetProjectileSpriteRight("pinger_projectile_caution_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 5: defend
             Projectile projectile5 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -254,7 +275,7 @@ namespace LOLItems.weapons
             projectile5.baseData.force = projectileForceStat; //Knockback strength
             projectile5.transform.parent = gun.barrelOffset;
 
-            projectile5.SetProjectileSpriteRight("pinger_projectile_defend_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile5.SetProjectileSpriteRight("pinger_projectile_defend_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 6: enemy missing
             Projectile projectile6 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -283,7 +304,7 @@ namespace LOLItems.weapons
             projectile6.baseData.force = projectileForceStat; //Knockback strength
             projectile6.transform.parent = gun.barrelOffset;
 
-            projectile6.SetProjectileSpriteRight("pinger_projectile_enemy_missing_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile6.SetProjectileSpriteRight("pinger_projectile_enemy_missing_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 7: enemy vision
             Projectile projectile7 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -312,7 +333,7 @@ namespace LOLItems.weapons
             projectile7.baseData.force = projectileForceStat; //Knockback strength
             projectile7.transform.parent = gun.barrelOffset;
 
-            projectile7.SetProjectileSpriteRight("pinger_projectile_enemy_vision_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile7.SetProjectileSpriteRight("pinger_projectile_enemy_vision_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 8: generic
             Projectile projectile8 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -341,7 +362,7 @@ namespace LOLItems.weapons
             projectile8.baseData.force = projectileForceStat; //Knockback strength
             projectile8.transform.parent = gun.barrelOffset;
 
-            projectile8.SetProjectileSpriteRight("pinger_projectile_generic_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile8.SetProjectileSpriteRight("pinger_projectile_generic_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 9: need vision
             Projectile projectile9 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -370,7 +391,7 @@ namespace LOLItems.weapons
             projectile9.baseData.force = projectileForceStat; //Knockback strength
             projectile9.transform.parent = gun.barrelOffset;
 
-            projectile9.SetProjectileSpriteRight("pinger_projectile_need_vision_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile9.SetProjectileSpriteRight("pinger_projectile_need_vision_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 10: on my way
             Projectile projectile10 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -399,7 +420,7 @@ namespace LOLItems.weapons
             projectile10.baseData.force = projectileForceStat; //Knockback strength
             projectile10.transform.parent = gun.barrelOffset;
 
-            projectile10.SetProjectileSpriteRight("pinger_projectile_on_my_way_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile10.SetProjectileSpriteRight("pinger_projectile_on_my_way_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 11: push
             Projectile projectile11 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -428,7 +449,7 @@ namespace LOLItems.weapons
             projectile11.baseData.force = projectileForceStat; //Knockback strength
             projectile11.transform.parent = gun.barrelOffset;
 
-            projectile11.SetProjectileSpriteRight("pinger_projectile_push_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile11.SetProjectileSpriteRight("pinger_projectile_push_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 12: retreat
             Projectile projectile12 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -457,7 +478,7 @@ namespace LOLItems.weapons
             projectile12.baseData.force = projectileForceStat; //Knockback strength
             projectile12.transform.parent = gun.barrelOffset;
 
-            projectile12.SetProjectileSpriteRight("pinger_projectile_retreat_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile12.SetProjectileSpriteRight("pinger_projectile_retreat_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 13: target
             Projectile projectile13 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -486,7 +507,7 @@ namespace LOLItems.weapons
             projectile13.baseData.force = projectileForceStat; //Knockback strength
             projectile13.transform.parent = gun.barrelOffset;
 
-            projectile13.SetProjectileSpriteRight("pinger_projectile_target_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile13.SetProjectileSpriteRight("pinger_projectile_target_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
             //proj 14: vision cleared
             Projectile projectile14 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -515,9 +536,10 @@ namespace LOLItems.weapons
             projectile14.baseData.force = projectileForceStat; //Knockback strength
             projectile14.transform.parent = gun.barrelOffset;
 
-            projectile14.SetProjectileSpriteRight("pinger_projectile_vision_cleared_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 14, 14); //Note that your sprite will stretch to match the visual dimensions
+            projectile14.SetProjectileSpriteRight("pinger_projectile_vision_cleared_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+            #endregion Projectile Setup
 
-            
+
 
             gun.DefaultModule.ammoType = GameUIAmmoType.AmmoType.CUSTOM;
             gun.DefaultModule.customAmmoType = CustomClipAmmoTypeToolbox.AddCustomAmmoType("pinger_ammo",
@@ -577,7 +599,7 @@ namespace LOLItems.weapons
         {
             projectile.OnHitEnemy += (projHit, enemy, fatal) =>
             {
-                if (enemy != null) return;
+                if (enemy == null) return;
                 AIActor firstEnemy = null;
                 if (enemy.aiActor != null)
                 {
@@ -593,7 +615,7 @@ namespace LOLItems.weapons
                 }
                 if (enemy.healthHaver != null)
                 {
-                    if (m_isRaged)
+                    /*if (m_isRaged)
                     {
                         if ((bool)OverheadVFX && !instanceVFX)
                         {
@@ -604,6 +626,30 @@ namespace LOLItems.weapons
                     else
                     {
                         obj.StartCoroutine(HandleRage());
+                    }*/
+                    //firstEnemy.StartCoroutine(HandleTilt(firstEnemy, TiltedDuration));
+
+                    if (firstEnemy.healthHaver.IsBoss || firstEnemy.healthHaver.IsSubboss)
+                    {
+                        Plugin.Log($"is boss/subboss");
+                        return;
+                    }
+
+                    if (!enemyTiltedTrackerList.ContainsKey(firstEnemy))
+                    {
+                        Plugin.Log($"not in list");
+                        enemyTiltedTrackerList.Add(firstEnemy, new EnemyTiltedTracker
+                        (
+                            firstEnemy.StartCoroutine(HandleTilt(firstEnemy, TiltedDuration)),
+                            firstEnemy.PlayEffectOnActor(OverheadVFX, new Vector3(0f, 1.375f, 0f), attached: true, alreadyMiddleCenter: true)
+                        ));
+                    }
+                    else
+                    {
+                        Plugin.Log($"already in list");
+                        //firstEnemy.StopCoroutine(enemyTiltedTrackerList[firstEnemy].timerCoroutine);
+                        //firstEnemy.RemoveEffect(TiltedEffect);
+
                     }
                 }
             };
@@ -611,56 +657,53 @@ namespace LOLItems.weapons
             base.PostProcessProjectile(projectile);
         }
 
-        private IEnumerator HandleTilt()
+        private IEnumerator HandleTilt(AIActor enemy, float duration)
         {
-            m_isRaged = true;
-            instanceVFX = null;
-            if ((bool)OverheadVFX)
+            //instanceVFX = enemy.PlayEffectOnActor(OverheadVFX, new Vector3(0f, 1.375f, 0f), attached: true, alreadyMiddleCenter: true);
+
+            TiltedEffect.SpeedMultiplier = UnityEngine.Random.Range(0.2f, 2.0f);
+            TiltedEffect.HealthMultiplier = UnityEngine.Random.Range(0.6f, 1.5f);
+
+            //Plugin.Log($"speed: {TiltedEffect.SpeedMultiplier}, health: {TiltedEffect.HealthMultiplier}");
+
+            enemy.ApplyEffect(TiltedEffect);
+            /*
+            switch (UnityEngine.Random.Range(0, 5))
             {
-                instanceVFX = m_player.PlayEffectOnActor(OverheadVFX, new Vector3(0f, 1.375f, 0f), attached: true, alreadyMiddleCenter: true);
+                case < 1:
+                    break;
+                case < 2:
+                    break;
             }
-            StatModifier damageStat = new StatModifier
-            {
-                amount = DamageMultiplier,
-                modifyType = StatModifier.ModifyMethod.MULTIPLICATIVE,
-                statToBoost = PlayerStats.StatType.Damage
-            };
-            m_player.ownerlessStatModifiers.Add(damageStat);
-            m_player.stats.RecalculateStats(m_player);
-            if (m_player.CurrentGun != null)
-            {
-                m_player.CurrentGun.ForceImmediateReload();
-            }
-            m_elapsed = 0f;
+            */
+            float elapsed = 0f;
             float particleCounter = 0f;
-            while (m_elapsed < Duration)
+            Color ogColor = enemy.sprite.color;
+            //enemy.sprite.color = Color.Lerp(ogColor, flatColorOverride, 0.5f);
+            enemy.RegisterOverrideColor(flatColorOverride, TiltedEffect.effectIdentifier);
+            while (elapsed < duration)
             {
-                m_elapsed += BraveTime.DeltaTime;
-                m_player.baseFlatColorOverride = flatColorOverride.WithAlpha(Mathf.Lerp(flatColorOverride.a, 0f, Mathf.Clamp01(m_elapsed - (Duration - 1f))));
-                if ((bool)instanceVFX && m_elapsed > 1f)
-                {
-                    instanceVFX.GetComponent<tk2dSpriteAnimator>().PlayAndDestroyObject("rage_face_vfx_out");
-                    instanceVFX = null;
-                }
-                if (GameManager.Options.ShaderQuality != GameOptions.GenericHighMedLowOption.LOW && GameManager.Options.ShaderQuality != GameOptions.GenericHighMedLowOption.VERY_LOW && (bool)m_player && m_player.IsVisible && !m_player.IsFalling)
+                elapsed += BraveTime.DeltaTime;
+                //m_player.baseFlatColorOverride = flatColorOverride.WithAlpha(Mathf.Lerp(flatColorOverride.a, 0f, Mathf.Clamp01(m_elapsed - (duration - 1f))));
+                //enemy.sprite.color = flatColorOverride.WithAlpha(Mathf.Lerp(flatColorOverride.a, 0f, Mathf.Clamp01(elapsed - (duration - 1f))));
+                //enemy.sprite.color = Color.Lerp(ogColor, flatColorOverride, Mathf.Clamp01(elapsed - (duration - 1f)));
+                if (GameManager.Options.ShaderQuality != GameOptions.GenericHighMedLowOption.LOW && GameManager.Options.ShaderQuality != GameOptions.GenericHighMedLowOption.VERY_LOW && (bool)enemy)
                 {
                     particleCounter += BraveTime.DeltaTime * 40f;
                     if (particleCounter > 1f)
                     {
                         int num = Mathf.FloorToInt(particleCounter);
                         particleCounter %= 1f;
-                        GlobalSparksDoer.DoRandomParticleBurst(num, m_player.sprite.WorldBottomLeft.ToVector3ZisY(), m_player.sprite.WorldTopRight.ToVector3ZisY(), Vector3.up, 90f, 0.5f, null, null, null, GlobalSparksDoer.SparksType.BLACK_PHANTOM_SMOKE);
+                        GlobalSparksDoer.DoRandomParticleBurst(num, enemy.sprite.WorldBottomLeft.ToVector3ZisY(), enemy.sprite.WorldTopRight.ToVector3ZisY(), Vector3.up, 90f, 0.5f, 0.25f, 1f, null, GlobalSparksDoer.SparksType.BLACK_PHANTOM_SMOKE);
                     }
                 }
                 yield return null;
             }
-            if ((bool)instanceVFX)
-            {
-                instanceVFX.GetComponent<tk2dSpriteAnimator>().PlayAndDestroyObject("rage_face_vfx_out");
-            }
-            m_player.ownerlessStatModifiers.Remove(damageStat);
-            m_player.stats.RecalculateStats(m_player);
-            m_isRaged = false;
+            //enemy.sprite.color = ogColor;
+            enemy.DeregisterOverrideColor(TiltedEffect.effectIdentifier);
+            enemyTiltedTrackerList[enemy].activeVFXObject.GetComponent<tk2dSpriteAnimator>().PlayAndDestroyObject("rage_face_vfx_out");
+            enemy.RemoveEffect(TiltedEffect);
+            enemyTiltedTrackerList.Remove(enemy);
         }
     }
 }
