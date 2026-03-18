@@ -30,7 +30,7 @@ namespace LOLItems.weapons
         public static string realName = "Pinger"; //The name that shows up in the Ammonomicon and the mod console.
 
         private static int ammoStat = 200;
-        private static float reloadDuration = 0f;
+        private static float reloadDuration = 2.0f;
         private static float fireRateStat = 0.4f;
         private static int spreadAngle = 0;
 
@@ -74,6 +74,7 @@ namespace LOLItems.weapons
             gun.SetupSprite(null, $"{SPRITENAME}_idle_001", 8);
 
             gun.SetAnimationFPS(gun.shootAnimation, 15);
+            gun.SetAnimationFPS(gun.reloadAnimation, 15);
 
             gun.AddProjectileModuleFrom(PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun, true, false);
 
@@ -88,7 +89,7 @@ namespace LOLItems.weapons
             gun.DefaultModule.ammoCost = 1;
             gun.reloadTime = reloadDuration;
             gun.DefaultModule.cooldownTime = fireRateStat;
-            gun.DefaultModule.numberOfShotsInClip = ammoStat;
+            gun.DefaultModule.numberOfShotsInClip = 20;
             gun.SetBaseMaxAmmo(ammoStat);
 
             gun.gunHandedness = GunHandedness.TwoHanded;
@@ -106,7 +107,7 @@ namespace LOLItems.weapons
             VFXPool pool2 = new VFXPool();
             pool2.type = VFXPoolType.Single;
 
-            VFXComplex customHitEffect = HelpfulMethods.CreateVFXComplex("pinger_hiteffect",
+            /*VFXComplex customHitEffect = HelpfulMethods.CreateVFXComplex("pinger_hiteffect",
                 new List<string>()
                 {
                     "LOLItems/Resources/hit_effects/pinger/pinger_hit_001",
@@ -115,6 +116,27 @@ namespace LOLItems.weapons
                     "LOLItems/Resources/hit_effects/pinger/pinger_hit_004",
                     "LOLItems/Resources/hit_effects/pinger/pinger_hit_005",
                     "LOLItems/Resources/hit_effects/pinger/pinger_hit_006",
+                },
+                18, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );*/
+
+            VFXComplex customHitEffect = HelpfulMethods.CreateVFXComplex("pinger_hiteffect",
+                new List<string>()
+                {
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_001",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_002",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_003",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_004",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_005",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_006",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_007",
+                    "LOLItems/Resources/hit_effects/pinger_rainbow/pinger_hit_008",
                 },
                 18, //FPS
                 new IntVector2(16, 16), //Dimensions
@@ -555,13 +577,13 @@ namespace LOLItems.weapons
             VFXComplex muzzleFlash = HelpfulMethods.CreateVFXComplex("pinger_muzzleflash",
                 new List<string>()
                 {
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_001",
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_002",
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_003",
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_004",
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_005",
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_006",
-                    "LOLItems/Resources/muzzle_flashes/pinger/pinger_muzzleflare_007",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_001",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_002",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_003",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_004",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_005",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_006",
+                    "LOLItems/Resources/muzzle_flashes/pinger_rainbow/pinger_muzzleflare_007",
                 },
                 18, //FPS
                 new IntVector2(41, 28), //Dimensions
