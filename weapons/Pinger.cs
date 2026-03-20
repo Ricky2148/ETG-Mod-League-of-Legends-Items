@@ -80,12 +80,12 @@ namespace LOLItems.weapons
 
             gun.gunSwitchGroup = $"LOLItems_{FULLNAME.ToID()}";
             //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null);
-            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null);
+            //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null);
 
             gun.DefaultModule.angleVariance = spreadAngle;
             gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
             gun.gunClass = GunClass.SILLY;
-            gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
+            gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Ordered;
             gun.DefaultModule.ammoCost = 1;
             gun.reloadTime = reloadDuration;
             gun.DefaultModule.cooldownTime = fireRateStat;
@@ -94,11 +94,11 @@ namespace LOLItems.weapons
 
             gun.gunHandedness = GunHandedness.TwoHanded;
 
-            gun.carryPixelOffset += new IntVector2(0, 0); //offset when holding gun vertically
-            gun.carryPixelDownOffset += new IntVector2(0, 0); //offset when aiming down
-            gun.carryPixelUpOffset += new IntVector2(0, 0); //offset when aiming up
+            gun.carryPixelOffset += new IntVector2(13, -1); //offset when holding gun vertically
+            gun.carryPixelDownOffset += new IntVector2(-20, -8); //offset when aiming down
+            gun.carryPixelUpOffset += new IntVector2(-8, 12); //offset when aiming up
 
-            gun.barrelOffset.transform.localPosition += new Vector3(0 / 16f, 0 / 16f);
+            gun.barrelOffset.transform.localPosition += new Vector3(6 / 16f, 10 / 16f);
             gun.gunScreenShake.magnitude = 0f;
 
             gun.DefaultModule.projectiles.Clear();
@@ -182,6 +182,16 @@ namespace LOLItems.weapons
 
             projectile1.SetProjectileSpriteRight("pinger_projectile_all_in_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail1 = projectile1.gameObject.AddComponent<EasyTrailBullet>();
+            trail1.TrailPos = projectile1.transform.position;
+            trail1.StartWidth = 0.15f;
+            trail1.EndWidth = 0f;
+            trail1.LifeTime = 0.1f;
+
+            trail1.BaseColor    = new Color(255 / 255f, 234 / 255f, 201 / 255f);
+            trail1.StartColor   = new Color(255 / 255f, 234 / 255f, 201 / 255f);
+            trail1.EndColor     = new Color(255 / 255f, 234 / 255f, 201 / 255f);*/
+
             //proj 2: assist me
             Projectile projectile2 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile2);
@@ -212,6 +222,16 @@ namespace LOLItems.weapons
 
             projectile2.SetProjectileSpriteRight("pinger_projectile_assist_me_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail2 = projectile2.gameObject.AddComponent<EasyTrailBullet>();
+            trail2.TrailPos = projectile1.transform.position;
+            trail2.StartWidth = 0.15f;
+            trail2.EndWidth = 0f;
+            trail2.LifeTime = 0.1f;
+
+            trail2.BaseColor    = new Color(148 / 255f, 255 / 255f, 210 / 255f);
+            trail2.StartColor   = new Color(148 / 255f, 255 / 255f, 210 / 255f);
+            trail2.EndColor     = new Color(148 / 255f, 255 / 255f, 210 / 255f);*/
+
             //proj 3: bait
             Projectile projectile3 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile3);
@@ -240,6 +260,16 @@ namespace LOLItems.weapons
             projectile3.transform.parent = gun.barrelOffset;
 
             projectile3.SetProjectileSpriteRight("pinger_projectile_bait_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+
+            /*EasyTrailBullet trail3 = projectile3.gameObject.AddComponent<EasyTrailBullet>();
+            trail3.TrailPos = projectile1.transform.position;
+            trail3.StartWidth = 0.15f;
+            trail3.EndWidth = 0f;
+            trail3.LifeTime = 0.1f;
+
+            trail3.BaseColor    = new Color(255 / 255f, 250 / 255f, 199 / 255f);
+            trail3.StartColor   = new Color(255 / 255f, 250 / 255f, 199 / 255f);
+            trail3.EndColor     = new Color(255 / 255f, 250 / 255f, 199 / 255f);*/
 
             //proj 4: caution
             Projectile projectile4 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -270,6 +300,16 @@ namespace LOLItems.weapons
 
             projectile4.SetProjectileSpriteRight("pinger_projectile_caution_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail4 = projectile4.gameObject.AddComponent<EasyTrailBullet>();
+            trail4.TrailPos = projectile1.transform.position;
+            trail4.StartWidth = 0.15f;
+            trail4.EndWidth = 0f;
+            trail4.LifeTime = 0.1f;
+
+            trail4.BaseColor    = new Color(255 / 255f, 231 / 255f, 158 / 255f);
+            trail4.StartColor   = new Color(255 / 255f, 231 / 255f, 158 / 255f);
+            trail4.EndColor     = new Color(255 / 255f, 231 / 255f, 158 / 255f);*/
+
             //proj 5: defend
             Projectile projectile5 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile5);
@@ -298,6 +338,16 @@ namespace LOLItems.weapons
             projectile5.transform.parent = gun.barrelOffset;
 
             projectile5.SetProjectileSpriteRight("pinger_projectile_defend_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+
+            /*EasyTrailBullet trail5 = projectile5.gameObject.AddComponent<EasyTrailBullet>();
+            trail5.TrailPos = projectile1.transform.position;
+            trail5.StartWidth = 0.15f;
+            trail5.EndWidth = 0f;
+            trail5.LifeTime = 0.1f;
+
+            trail5.BaseColor    = new Color(204 / 255f, 255 / 255f, 224 / 255f);
+            trail5.StartColor   = new Color(204 / 255f, 255 / 255f, 224 / 255f);
+            trail5.EndColor     = new Color(204 / 255f, 255 / 255f, 224 / 255f);*/
 
             //proj 6: enemy missing
             Projectile projectile6 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -328,6 +378,16 @@ namespace LOLItems.weapons
 
             projectile6.SetProjectileSpriteRight("pinger_projectile_enemy_missing_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail6 = projectile6.gameObject.AddComponent<EasyTrailBullet>();
+            trail6.TrailPos = projectile1.transform.position;
+            trail6.StartWidth = 0.15f;
+            trail6.EndWidth = 0f;
+            trail6.LifeTime = 0.1f;
+
+            trail6.BaseColor    = new Color(220 / 255f, 255 / 255f, 145 / 255f);
+            trail6.StartColor   = new Color(220 / 255f, 255 / 255f, 145 / 255f);
+            trail6.EndColor     = new Color(220 / 255f, 255 / 255f, 145 / 255f);*/
+
             //proj 7: enemy vision
             Projectile projectile7 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile7);
@@ -356,6 +416,16 @@ namespace LOLItems.weapons
             projectile7.transform.parent = gun.barrelOffset;
 
             projectile7.SetProjectileSpriteRight("pinger_projectile_enemy_vision_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+
+            /*EasyTrailBullet trail7 = projectile7.gameObject.AddComponent<EasyTrailBullet>();
+            trail7.TrailPos = projectile1.transform.position;
+            trail7.StartWidth = 0.15f;
+            trail7.EndWidth = 0f;
+            trail7.LifeTime = 0.1f;
+
+            trail7.BaseColor    = new Color(255 / 255f, 161 / 255f, 251 / 255f);
+            trail7.StartColor   = new Color(255 / 255f, 161 / 255f, 251 / 255f);
+            trail7.EndColor     = new Color(255 / 255f, 161 / 255f, 251 / 255f);*/
 
             //proj 8: generic
             Projectile projectile8 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -386,6 +456,16 @@ namespace LOLItems.weapons
 
             projectile8.SetProjectileSpriteRight("pinger_projectile_generic_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail8 = projectile8.gameObject.AddComponent<EasyTrailBullet>();
+            trail8.TrailPos = projectile1.transform.position;
+            trail8.StartWidth = 0.15f;
+            trail8.EndWidth = 0f;
+            trail8.LifeTime = 0.1f;
+
+            trail8.BaseColor    = new Color(186 / 255f, 247 / 255f, 255 / 255f);
+            trail8.StartColor   = new Color(186 / 255f, 247 / 255f, 255 / 255f);
+            trail8.EndColor     = new Color(186 / 255f, 247 / 255f, 255 / 255f);*/
+
             //proj 9: need vision
             Projectile projectile9 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile9);
@@ -414,6 +494,16 @@ namespace LOLItems.weapons
             projectile9.transform.parent = gun.barrelOffset;
 
             projectile9.SetProjectileSpriteRight("pinger_projectile_need_vision_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+
+            /*EasyTrailBullet trail9 = projectile9.gameObject.AddComponent<EasyTrailBullet>();
+            trail9.TrailPos = projectile1.transform.position;
+            trail9.StartWidth = 0.15f;
+            trail9.EndWidth = 0f;
+            trail9.LifeTime = 0.1f;
+
+            trail9.BaseColor    = new Color(172 / 255f, 255 / 255f, 143 / 255f);
+            trail9.StartColor   = new Color(172 / 255f, 255 / 255f, 143 / 255f);
+            trail9.EndColor     = new Color(172 / 255f, 255 / 255f, 143 / 255f);*/
 
             //proj 10: on my way
             Projectile projectile10 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -444,6 +534,16 @@ namespace LOLItems.weapons
 
             projectile10.SetProjectileSpriteRight("pinger_projectile_on_my_way_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail10 = projectile10.gameObject.AddComponent<EasyTrailBullet>();
+            trail10.TrailPos = projectile1.transform.position;
+            trail10.StartWidth = 0.15f;
+            trail10.EndWidth = 0f;
+            trail10.LifeTime = 0.1f;
+
+            trail10.BaseColor   = new Color(150 / 255f, 211 / 255f, 255 / 255f);
+            trail10.StartColor  = new Color(150 / 255f, 211 / 255f, 255 / 255f);
+            trail10.EndColor    = new Color(150 / 255f, 211 / 255f, 255 / 255f);*/
+
             //proj 11: push
             Projectile projectile11 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile11);
@@ -472,6 +572,16 @@ namespace LOLItems.weapons
             projectile11.transform.parent = gun.barrelOffset;
 
             projectile11.SetProjectileSpriteRight("pinger_projectile_push_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+
+            /*EasyTrailBullet trail11 = projectile11.gameObject.AddComponent<EasyTrailBullet>();
+            trail11.TrailPos = projectile1.transform.position;
+            trail11.StartWidth = 0.15f;
+            trail11.EndWidth = 0f;
+            trail11.LifeTime = 0.1f;
+
+            trail11.BaseColor   = new Color(204 / 255f, 255 / 255f, 246 / 255f);
+            trail11.StartColor  = new Color(204 / 255f, 255 / 255f, 246 / 255f);
+            trail11.EndColor    = new Color(204 / 255f, 255 / 255f, 246 / 255f);*/
 
             //proj 12: retreat
             Projectile projectile12 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
@@ -502,6 +612,16 @@ namespace LOLItems.weapons
 
             projectile12.SetProjectileSpriteRight("pinger_projectile_retreat_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail12 = projectile12.gameObject.AddComponent<EasyTrailBullet>();
+            trail12.TrailPos = projectile1.transform.position;
+            trail12.StartWidth = 0.15f;
+            trail12.EndWidth = 0f;
+            trail12.LifeTime = 0.1f;
+
+            trail12.BaseColor   = new Color(255 / 255f, 166 / 255f, 214 / 255f);
+            trail12.StartColor  = new Color(255 / 255f, 166 / 255f, 214 / 255f);
+            trail12.EndColor    = new Color(255 / 255f, 166 / 255f, 214 / 255f);*/
+
             //proj 13: target
             Projectile projectile13 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile13);
@@ -531,6 +651,16 @@ namespace LOLItems.weapons
 
             projectile13.SetProjectileSpriteRight("pinger_projectile_target_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
 
+            /*EasyTrailBullet trail13 = projectile13.gameObject.AddComponent<EasyTrailBullet>();
+            trail13.TrailPos = projectile1.transform.position;
+            trail13.StartWidth = 0.15f;
+            trail13.EndWidth = 0f;
+            trail13.LifeTime = 0.1f;
+
+            trail13.BaseColor   = new Color(255 / 255f, 143 / 255f, 160 / 255f);
+            trail13.StartColor  = new Color(255 / 255f, 143 / 255f, 160 / 255f);
+            trail13.EndColor    = new Color(255 / 255f, 143 / 255f, 160 / 255f);*/
+
             //proj 14: vision cleared
             Projectile projectile14 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile14);
@@ -559,9 +689,18 @@ namespace LOLItems.weapons
             projectile14.transform.parent = gun.barrelOffset;
 
             projectile14.SetProjectileSpriteRight("pinger_projectile_vision_cleared_001", 16, 16, true, tk2dBaseSprite.Anchor.MiddleCenter, 12, 12); //Note that your sprite will stretch to match the visual dimensions
+
+            /*EasyTrailBullet trail14 = projectile14.gameObject.AddComponent<EasyTrailBullet>();
+            trail14.TrailPos = projectile1.transform.position;
+            trail14.StartWidth = 0.15f;
+            trail14.EndWidth = 0f;
+            trail14.LifeTime = 0.1f;
+
+            trail14.BaseColor   = new Color(204 / 255f, 153 / 255f, 255 / 255f);
+            trail14.StartColor  = new Color(204 / 255f, 153 / 255f, 255 / 255f);
+            trail14.EndColor    = new Color(204 / 255f, 153 / 255f, 255 / 255f);*/
+
             #endregion Projectile Setup
-
-
 
             gun.DefaultModule.ammoType = GameUIAmmoType.AmmoType.CUSTOM;
             gun.DefaultModule.customAmmoType = CustomClipAmmoTypeToolbox.AddCustomAmmoType("pinger_ammo",

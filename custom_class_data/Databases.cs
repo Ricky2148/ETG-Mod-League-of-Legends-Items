@@ -918,7 +918,7 @@ namespace LOLItems.custom_class_data
         public static Color darkBrown =     new Color(74f   / 255f, 22f     / 255f, 5f      / 255f);
         public static Color pastelPurple =  new Color(93f   / 255f, 75f     / 255f, 228f    / 255f);
         public static Color silver =        new Color(192f  / 255f, 192f    / 255f, 192f    / 255f);
-        public static Color dodgerBlue =    new Color(30f  / 255f, 144f    / 255f, 255f    / 255f);
+        public static Color dodgerBlue =    new Color(30f   / 255f, 144f    / 255f, 255f    / 255f);
 
         // //Colours  taken from Status effects
         // public static Color freezeBlue = StaticStatusEffects.chaosBulletsFreeze.TintColor;

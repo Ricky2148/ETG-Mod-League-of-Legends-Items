@@ -1,6 +1,7 @@
 ﻿using Alexandria;
 using Alexandria.ItemAPI;
 using Alexandria.Misc;
+using Alexandria.VisualAPI;
 using LOLItems.custom_class_data;
 using LOLItems.passive_items;
 using System;
@@ -29,6 +30,39 @@ namespace LOLItems.passive_items
         public bool JETSTREAMSAMActivated = false;
         private static float JETSTREAMSAMMovementSpeedInc = 2.0f;
         private static float JETSTREAMSAMMuramanaShockBaseDamageInc = 5f;
+
+        private static List<string> MuramanaSparkVFXSpritePath = new List<string>
+        {
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            /*"LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/5",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/6",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/7",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/7",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/7",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/6",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/5",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/4",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/3",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/2",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/2",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/2",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/3",
+            "LOLItems/Resources/one_off_sprites/muramana_spark_sprites/3",*/
+        };
+
+        private static GameObject MuramanaSparkVFX;
+
+        private GameObject activeVFXObject;
 
         public static int ID;
 
@@ -59,6 +93,21 @@ namespace LOLItems.passive_items
 
             ID = item.PickupObjectId;
 
+            MuramanaSparkVFX = VFXBuilder.CreateVFX
+            (
+                "muramana_spark_vfx",
+                MuramanaSparkVFXSpritePath,
+                4,
+                new IntVector2(0, 0),
+                tk2dBaseSprite.Anchor.MiddleCenter,
+                false,
+                0,
+                -1,
+                Color.cyan,
+                tk2dSpriteAnimationClip.WrapMode.Loop,
+                true
+            );
+
             /*List<string> mandatoryConsoleIDs = new List<string>
             {
                 "LOLItems:muramana",
@@ -80,6 +129,9 @@ namespace LOLItems.passive_items
 
             //HelpfulMethods.CustomNotification("Manamune Upgraded to Muramana", "", this.sprite, UINotificationController.NotificationColor.GOLD);
 
+            activeVFXObject = PlayVFXEffectOnHand(player.primaryHand);
+            player.GunChanged += VFXLogic;
+
             player.PostProcessProjectile += MuramanaShock;
             player.PostProcessBeamTick += MuramanaShock;
         }
@@ -89,11 +141,72 @@ namespace LOLItems.passive_items
             base.DisableEffect(player);
             Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
 
+            if (activeVFXObject != null)
+            {
+                Destroy(activeVFXObject);
+            }
+
             if (player != null)
             {
+                player.GunChanged -= VFXLogic;
+
                 player.PostProcessProjectile -= MuramanaShock;
                 player.PostProcessBeamTick -= MuramanaShock;
             }
+        }
+
+        private void VFXLogic(Gun previous, Gun current, bool newGun)
+        {
+            Plugin.Log($"thing happen | current gun: {current.gunHandedness}");
+            if (current != null)
+            {
+                if (current.gunHandedness == GunHandedness.HiddenOneHanded || current.gunHandedness == GunHandedness.NoHanded)
+                {
+                    if (activeVFXObject != null)
+                    {
+                        Plugin.Log($"destroy vfx | current gun: {current.gunHandedness}");
+                        Destroy(activeVFXObject);
+                    }
+                }
+                else
+                {
+                    if (activeVFXObject == null)
+                    {
+                        Plugin.Log($"restore vfx | current gun: {current.gunHandedness}");
+                        activeVFXObject = PlayVFXEffectOnHand(Owner.primaryHand);
+                    }
+                }
+            }
+        }
+
+        public static GameObject PlayVFXEffectOnHand(PlayerHandController hand)
+        {
+            Vector3 vfxOffset = new Vector3(0 / 16f, 0 / 16f, -2f);
+
+            GameObject vfxObject = UnityEngine.Object.Instantiate(MuramanaSparkVFX, hand.sprite.WorldCenter.ToVector3ZUp() + vfxOffset, Quaternion.identity);
+
+            var sprite = vfxObject.GetComponent<tk2dSprite>();
+
+            if (sprite != null)
+            {
+                sprite.HeightOffGround = -2f;
+
+                //sprite.scale = new Vector3(2.5f, 2.5f, 0f);
+
+                sprite.UpdateZDepth();
+
+                /*sprite.usesOverrideMaterial = true;
+
+                sprite.renderer.material.shader = ShaderCache.Acquire("Brave/Internal/SimpleAlphaFadeUnlit");
+                sprite.renderer.material.SetFloat("_Fade", 1f);*/
+            }
+
+            VFXAnchorOnHandModule anchor = vfxObject.AddComponent<VFXAnchorOnHandModule>();
+
+            anchor.hand = hand;
+            anchor.offset = vfxOffset + new Vector3(0, 0);
+
+            return vfxObject;
         }
 
         public override void Update()

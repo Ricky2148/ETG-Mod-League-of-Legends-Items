@@ -75,6 +75,7 @@
     <Compile Include="custom_class_data\RicochetProjectileModule.cs" />
     <Compile Include="custom_class_data\TrueWallPiercingRounds.cs" />
     <Compile Include="custom_class_data\VFXAnchorModule.cs" />
+    <Compile Include="custom_class_data\VFXAnchorOnHandModule.cs" />
     <Compile Include="guon_stones\BraumsShield.cs" />
     <Compile Include="npcs\Bubbs.cs" />
     <Compile Include="passive_items\CloakOfStarryNight.cs" />
@@ -1891,6 +1892,13 @@
     <EmbeddedResource Include="Resources\muzzle_flashes\pinger_rainbow\pinger_muzzleflare_005.png" />
     <EmbeddedResource Include="Resources\muzzle_flashes\pinger_rainbow\pinger_muzzleflare_006.png" />
     <EmbeddedResource Include="Resources\muzzle_flashes\pinger_rainbow\pinger_muzzleflare_007.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\1.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\2.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\3.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\4.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\5.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\6.png" />
+    <EmbeddedResource Include="Resources\one_off_sprites\muramana_spark_sprites\7.png" />
     <Content Include="Resources\Sounds\gen-gungeon-audio-bank.py" />
     <EmbeddedResource Include="Resources\active_item_sprites\redemption_item_sprite.png" />
     <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_item_sprite.png" />
