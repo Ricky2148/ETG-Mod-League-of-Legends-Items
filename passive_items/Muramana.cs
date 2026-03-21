@@ -181,6 +181,12 @@ namespace LOLItems.passive_items
 
         public static GameObject PlayVFXEffectOnHand(PlayerHandController hand)
         {
+            /*
+            base.gameObject.transform.position = hand.sprite.WorldCenter;
+            base.gameObject.transform.parent = hand.sprite.transform;
+            base.gameObject.transform.localPosition = offset;
+            */
+
             Vector3 vfxOffset = new Vector3(0 / 16f, 0 / 16f, -2f);
 
             GameObject vfxObject = UnityEngine.Object.Instantiate(MuramanaSparkVFX, hand.sprite.WorldCenter.ToVector3ZUp() + vfxOffset, Quaternion.identity);

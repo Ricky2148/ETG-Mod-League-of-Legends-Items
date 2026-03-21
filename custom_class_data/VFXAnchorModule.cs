@@ -12,7 +12,7 @@ namespace LOLItems.custom_class_data
 
         public Vector3 offset;
 
-        private void Update()
+        private void LateUpdate()
         {
             if (anchorAIActor != null)
             {
