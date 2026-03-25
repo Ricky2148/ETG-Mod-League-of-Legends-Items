@@ -1,4 +1,5 @@
-﻿using Alexandria.ItemAPI;
+﻿using Alexandria.BreakableAPI;
+using Alexandria.ItemAPI;
 using Alexandria.SoundAPI;
 using Gungeon;
 using LOLItems.custom_class_data;
@@ -35,8 +36,8 @@ namespace LOLItems.weapons
         private static int spreadAngle = 0;
 
         private static float projectileDamageStat = 12f;
-        private static float projectileSpeedStat = 35f;
-        private static float projectileRangeStat = 16f;
+        private static float projectileSpeedStat = 25f;
+        private static float projectileRangeStat = 12f;
         private static float projectileForceStat = 15f;
 
         private static float TiltedDuration = 10f;
@@ -57,7 +58,7 @@ namespace LOLItems.weapons
 
         private static List<string> PingerFiringSFXList = new List<string>()
         {
-            
+            "mouseclick_SFX_01"
         };
 
         public static void Add()
@@ -79,13 +80,13 @@ namespace LOLItems.weapons
             gun.AddProjectileModuleFrom(PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun, true, false);
 
             gun.gunSwitchGroup = $"LOLItems_{FULLNAME.ToID()}";
-            //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null);
-            //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null);
+            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", "mouseclick_SFX_01");
+            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", "keyboard_smashing_SFX");
 
             gun.DefaultModule.angleVariance = spreadAngle;
             gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
             gun.gunClass = GunClass.SILLY;
-            gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Ordered;
+            gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
             gun.DefaultModule.ammoCost = 1;
             gun.reloadTime = reloadDuration;
             gun.DefaultModule.cooldownTime = fireRateStat;
@@ -166,9 +167,11 @@ namespace LOLItems.weapons
             projectile1.hitEffects.tileMapVertical = pool2;
             
             
-            projectile1.objectImpactEventName = "plasmarifle";
-            projectile1.enemyImpactEventName = "plasmarifle"; 
-            
+            //projectile1.objectImpactEventName = "all_in_ping_1";
+            //projectile1.enemyImpactEventName = "all_in_ping_1";
+            projectile1.onDestroyEventName = "Play_WPN_all_in_ping_1_impact_01";
+
+
 
             projectile1.gameObject.SetActive(false);
             FakePrefab.MarkAsFakePrefab(projectile1.gameObject);
@@ -205,8 +208,9 @@ namespace LOLItems.weapons
             projectile2.hitEffects.tileMapVertical = pool2;
 
 
-            projectile2.objectImpactEventName = "plasmarifle";
-            projectile2.enemyImpactEventName = "plasmarifle";
+            //projectile2.objectImpactEventName = "assist_me_ping_2";
+            //projectile2.enemyImpactEventName = "assist_me_ping_2";
+            projectile2.onDestroyEventName = "Play_WPN_assist_me_ping_2_impact_01";
 
 
 
@@ -245,8 +249,9 @@ namespace LOLItems.weapons
             projectile3.hitEffects.tileMapVertical = pool2;
 
 
-            projectile3.objectImpactEventName = "plasmarifle";
-            projectile3.enemyImpactEventName = "plasmarifle";
+            //projectile3.objectImpactEventName = "bait_ping_3";
+            //projectile3.enemyImpactEventName = "bait_ping_3";
+            projectile3.onDestroyEventName = "Play_WPN_bait_ping_3_impact_01";
 
 
             projectile3.gameObject.SetActive(false);
@@ -284,8 +289,9 @@ namespace LOLItems.weapons
             projectile4.hitEffects.tileMapVertical = pool2;
 
 
-            projectile4.objectImpactEventName = "plasmarifle";
-            projectile4.enemyImpactEventName = "plasmarifle";
+            //projectile4.objectImpactEventName = "caution_ping_4";
+            //projectile4.enemyImpactEventName = "caution_ping_4";
+            projectile4.onDestroyEventName = "Play_WPN_caution_ping_4_impact_01";
 
 
             projectile4.gameObject.SetActive(false);
@@ -323,8 +329,9 @@ namespace LOLItems.weapons
             projectile5.hitEffects.tileMapVertical = pool2;
 
 
-            projectile5.objectImpactEventName = "plasmarifle";
-            projectile5.enemyImpactEventName = "plasmarifle";
+            //projectile5.objectImpactEventName = "defend_ping_5";
+            //projectile5.enemyImpactEventName = "defend_ping_5";
+            projectile5.onDestroyEventName = "Play_WPN_defend_ping_5_impact_01";
 
 
             projectile5.gameObject.SetActive(false);
@@ -362,8 +369,9 @@ namespace LOLItems.weapons
             projectile6.hitEffects.tileMapVertical = pool2;
 
 
-            projectile6.objectImpactEventName = "plasmarifle";
-            projectile6.enemyImpactEventName = "plasmarifle";
+            //projectile6.objectImpactEventName = "enemy_missing_ping_6";
+            //projectile6.enemyImpactEventName = "enemy_missing_ping_6";
+            projectile6.onDestroyEventName = "Play_WPN_enemy_missing_ping_6_impact_01";
 
 
             projectile6.gameObject.SetActive(false);
@@ -401,8 +409,9 @@ namespace LOLItems.weapons
             projectile7.hitEffects.tileMapVertical = pool2;
 
 
-            projectile7.objectImpactEventName = "plasmarifle";
-            projectile7.enemyImpactEventName = "plasmarifle";
+            //projectile7.objectImpactEventName = "enemy_vision_ping_7";
+            //projectile7.enemyImpactEventName = "enemy_vision_ping_7";
+            projectile7.onDestroyEventName = "Play_WPN_enemy_vision_ping_7_impact_01";
 
 
             projectile7.gameObject.SetActive(false);
@@ -440,8 +449,9 @@ namespace LOLItems.weapons
             projectile8.hitEffects.tileMapVertical = pool2;
 
 
-            projectile8.objectImpactEventName = "plasmarifle";
-            projectile8.enemyImpactEventName = "plasmarifle";
+            //projectile8.objectImpactEventName = "generic_ping_8";
+            //projectile8.enemyImpactEventName = "generic_ping_8";
+            projectile8.onDestroyEventName = "Play_WPN_generic_ping_8_impact_01";
 
 
             projectile8.gameObject.SetActive(false);
@@ -479,8 +489,9 @@ namespace LOLItems.weapons
             projectile9.hitEffects.tileMapVertical = pool2;
 
 
-            projectile9.objectImpactEventName = "plasmarifle";
-            projectile9.enemyImpactEventName = "plasmarifle";
+            //projectile9.objectImpactEventName = "need_vision_ping_9";
+            //projectile9.enemyImpactEventName = "need_vision_ping_9";
+            projectile9.onDestroyEventName = "Play_WPN_need_vision_ping_9_impact_01";
 
 
             projectile9.gameObject.SetActive(false);
@@ -518,8 +529,9 @@ namespace LOLItems.weapons
             projectile10.hitEffects.tileMapVertical = pool2;
 
 
-            projectile10.objectImpactEventName = "plasmarifle";
-            projectile10.enemyImpactEventName = "plasmarifle";
+            //projectile10.objectImpactEventName = "on_my_way_ping_10";
+            //projectile10.enemyImpactEventName = "on_my_way_ping_10";
+            projectile10.onDestroyEventName = "Play_WPN_on_my_way_ping_10_impact_01";
 
 
             projectile10.gameObject.SetActive(false);
@@ -557,8 +569,9 @@ namespace LOLItems.weapons
             projectile11.hitEffects.tileMapVertical = pool2;
 
 
-            projectile11.objectImpactEventName = "plasmarifle";
-            projectile11.enemyImpactEventName = "plasmarifle";
+            //projectile11.objectImpactEventName = "push_ping_11";
+            //projectile11.enemyImpactEventName = "push_ping_11";
+            projectile11.onDestroyEventName = "Play_WPN_push_ping_11_impact_01";
 
 
             projectile11.gameObject.SetActive(false);
@@ -596,8 +609,9 @@ namespace LOLItems.weapons
             projectile12.hitEffects.tileMapVertical = pool2;
 
 
-            projectile12.objectImpactEventName = "plasmarifle";
-            projectile12.enemyImpactEventName = "plasmarifle";
+            //projectile12.objectImpactEventName = "retreat_ping_12";
+            //projectile12.enemyImpactEventName = "retreat_ping_12";
+            projectile12.onDestroyEventName = "Play_WPN_retreat_ping_12_impact_01";
 
 
             projectile12.gameObject.SetActive(false);
@@ -635,8 +649,9 @@ namespace LOLItems.weapons
             projectile13.hitEffects.tileMapVertical = pool2;
 
 
-            projectile13.objectImpactEventName = "plasmarifle";
-            projectile13.enemyImpactEventName = "plasmarifle";
+            //projectile13.objectImpactEventName = "target_ping_13";
+            //projectile13.enemyImpactEventName = "target_ping_13";
+            projectile13.onDestroyEventName = "Play_WPN_target_ping_13_impact_01";
 
 
             projectile13.gameObject.SetActive(false);
@@ -674,8 +689,9 @@ namespace LOLItems.weapons
             projectile14.hitEffects.tileMapVertical = pool2;
 
 
-            projectile14.objectImpactEventName = "plasmarifle";
-            projectile14.enemyImpactEventName = "plasmarifle";
+            //projectile14.objectImpactEventName = "vision_cleared_ping_14";
+            //projectile14.enemyImpactEventName = "vision_cleared_ping_14";
+            projectile14.onDestroyEventName = "Play_WPN_vision_cleared_ping_14_impact_01";
 
 
             projectile14.gameObject.SetActive(false);
@@ -705,9 +721,6 @@ namespace LOLItems.weapons
             gun.DefaultModule.ammoType = GameUIAmmoType.AmmoType.CUSTOM;
             gun.DefaultModule.customAmmoType = CustomClipAmmoTypeToolbox.AddCustomAmmoType("pinger_ammo",
                 "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/pinger_ammo_full", "LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/pinger_ammo_empty");
-
-            gun.shellCasing = null;
-            gun.clipObject = null;
 
             //custom muzzle effect setup
             VFXPool pool = new VFXPool();
@@ -739,6 +752,11 @@ namespace LOLItems.weapons
             };
             gun.muzzleFlashEffects = pool;
 
+            gun.m_casingLaunchAttachPoint.localPosition = new Vector3(20f / 16f, 17f / 16f, 0.0f);
+
+            gun.shellCasing = BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/white_dot", AngularVelocity: 540, AngularVelocityVariance: 180, DebrisBounceCount: 3).gameObject;
+            gun.clipObject = null;
+
             gun.shellsToLaunchOnFire = 0; //Number of shells to eject when shooting.
             gun.shellsToLaunchOnReload = 0; //Number of shells to eject when reloading (revolvers for example).
             gun.clipsToLaunchOnReload = 0; //Number of clips to eject when reloading.
@@ -751,9 +769,48 @@ namespace LOLItems.weapons
 
         public override void OnPostFired(PlayerController player, Gun gun)
         {
-            HelpfulMethods.PlayRandomSFX(gun.gameObject, PingerFiringSFXList);
+            //HelpfulMethods.PlayRandomSFX(gun.gameObject, PingerFiringSFXList);
 
             base.OnPostFired(player, gun);
+        }
+
+        public override void OnReload(PlayerController player, Gun gun)
+        {
+            player.StartCoroutine(ReloadShellEjectCoroutine(gun));
+
+            base.OnReload(player, gun);
+        }
+
+        private IEnumerator ReloadShellEjectCoroutine(Gun gun)
+        {
+            /*float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += BraveTime.DeltaTime;
+
+                yield return null;
+            }*/
+
+            Plugin.Log($"casing Launch Point: {gun.CasingLaunchPoint}, casing Launch Attach Point: {gun.m_casingLaunchAttachPoint.localPosition}");
+
+            for (int i = 0; i < 15; i++)
+            {
+                gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
+            }
+
+            yield return new WaitForSeconds(0.7f);
+
+            for (int i = 0; i < 15; i++)
+            {
+                gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
+            }
+
+            yield return new WaitForSeconds(0.7f);
+
+            for (int i = 0; i < 15; i++)
+            {
+                gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
+            }
         }
 
         public override void PostProcessProjectile(Projectile projectile)

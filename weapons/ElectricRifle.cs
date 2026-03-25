@@ -230,7 +230,7 @@ namespace LOLItems.weapons
             gun.shellCasing = (PickupObjectDatabase.GetById((int)Items.M1)as Gun).shellCasing; //Example using AK-47 casings.
             //gun.shellCasing = BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/hextech_casing").gameObject; //Example using a custom sprite as a casing.
             //gun.clipObject = (PickupObjectDatabase.GetById((int)Items.M1) as Gun).clipObject; //Example using AK-47 clips.
-            gun.clipObject = BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/shockSMG_clip_001").gameObject;
+            gun.clipObject = BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/CustomGunAmmoTypes/shockSMG_clip_001", DebrisBounceCount: 1).gameObject;
 
             gun.shellsToLaunchOnFire = 0; //Number of shells to eject when shooting.
             gun.shellsToLaunchOnReload = 0; //Number of shells to eject when reloading (revolvers for example).

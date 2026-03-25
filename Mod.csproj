@@ -883,6 +883,7 @@
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_027.jtk2d" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\white_dot.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_001.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_002.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_003.png" />
