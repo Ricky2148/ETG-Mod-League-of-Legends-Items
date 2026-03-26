@@ -883,6 +883,14 @@
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_027.jtk2d" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_black_1.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_black_2.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_black_3.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_black_4.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_white_1.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_white_2.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_white_3.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\key_white_4.png" />
     <EmbeddedResource Include="Resources\white_dot.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_001.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_reload_002.png" />

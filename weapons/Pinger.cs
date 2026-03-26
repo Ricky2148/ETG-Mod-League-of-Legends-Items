@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 namespace LOLItems.weapons
 {
@@ -59,6 +60,18 @@ namespace LOLItems.weapons
         private static List<string> PingerFiringSFXList = new List<string>()
         {
             "mouseclick_SFX_01"
+        };
+
+        private static List<GameObject> KeyboardPiecesList = new List<GameObject>
+        {
+            BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_black_1", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 2).gameObject,
+            BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_black_2", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 2).gameObject,
+            //BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_black_3", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 3).gameObject,
+            //BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_black_4", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 3).gameObject,
+            BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_white_1", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 2).gameObject,
+            BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_white_2", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 2).gameObject,
+            //BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_white_3", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 3).gameObject,
+            //BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_white_4", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 3).gameObject,
         };
 
         public static void Add()
@@ -776,7 +789,9 @@ namespace LOLItems.weapons
 
         public override void OnReload(PlayerController player, Gun gun)
         {
-            player.StartCoroutine(ReloadShellEjectCoroutine(gun));
+            //player.StartCoroutine(ReloadShellEjectCoroutine(gun));
+
+            SpawnKeyboardPiecesAtPosition(gun.CasingLaunchPoint, gun.m_transform, gun.gunAngle, gun.m_owner, gun.barrelOffset, gun.m_localAimPoint);
 
             base.OnReload(player, gun);
         }
@@ -791,7 +806,7 @@ namespace LOLItems.weapons
                 yield return null;
             }*/
 
-            Plugin.Log($"casing Launch Point: {gun.CasingLaunchPoint}, casing Launch Attach Point: {gun.m_casingLaunchAttachPoint.localPosition}");
+            //Plugin.Log($"casing Launch Point: {gun.CasingLaunchPoint}, casing Launch Attach Point: {gun.m_casingLaunchAttachPoint.localPosition}");
 
             for (int i = 0; i < 15; i++)
             {
@@ -810,6 +825,78 @@ namespace LOLItems.weapons
             for (int i = 0; i < 15; i++)
             {
                 gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
+            }
+        }
+
+        private void SpawnKeyboardPiecesAtPosition(Vector3 position, Transform m_transform, float gunAngle, GameActor m_owner, Transform barrelOffset, Vector2 m_localAimPoint)
+        {
+            GameObject casingToSpawn = gun.shellCasing;
+
+            for (int i = 0; i < 15; i++)
+            {
+                switch (UnityEngine.Random.value)
+                {
+                    //case < 0.125f:
+                        //casingToSpawn = KeyboardPiecesList[0];
+                        //break;
+                    case < 0.250f:
+                        casingToSpawn = KeyboardPiecesList[0];
+                        break;
+                    //case < 0.375f:
+                        //casingToSpawn = KeyboardPiecesList[2];
+                        //break;
+                    case < 0.500f:
+                        casingToSpawn = KeyboardPiecesList[1];
+                        break;
+                    //case < 0.625f:
+                        //casingToSpawn = KeyboardPiecesList[4];
+                        //break;
+                    case < 0.750f:
+                        casingToSpawn = KeyboardPiecesList[2];
+                        break;
+                    //case < 0.875f:
+                        //casingToSpawn = KeyboardPiecesList[6];
+                        //break;
+                    default:
+                        casingToSpawn = KeyboardPiecesList[3];
+                        break;
+                }
+
+                GameObject gameObject = SpawnManager.SpawnDebris(casingToSpawn, position.WithZ(m_transform.position.z), Quaternion.Euler(0f, 0f, gunAngle));
+                ShellCasing component = gameObject.GetComponent<ShellCasing>();
+                if (component != null)
+                {
+                    component.Trigger();
+                }
+                DebrisObject component2 = gameObject.GetComponent<DebrisObject>();
+                if (!(component2 != null))
+                {
+                    return;
+                }
+                int num = ((component2.transform.right.x > 0f) ? 1 : (-1));
+                Vector3 vector = Vector3.up * (UnityEngine.Random.value * 1.5f + 1f) + -1.5f * Vector3.right * num * (UnityEngine.Random.value + 1.5f);
+                Vector3 startingForce = new Vector3(vector.x, 0f, vector.y);
+                if (m_owner is PlayerController)
+                {
+                    PlayerController playerController = m_owner as PlayerController;
+                    if (playerController.CurrentRoom != null && playerController.CurrentRoom.area.PrototypeRoomSpecialSubcategory == PrototypeDungeonRoom.RoomSpecialSubCategory.CATACOMBS_BRIDGE_ROOM)
+                    {
+                        startingForce = (vector.x * (float)num * -1f * (barrelOffset.position.XY() - m_localAimPoint).normalized).ToVector3ZUp(vector.y);
+                    }
+                }
+                float y = m_owner.transform.position.y;
+                float num2 = position.y - m_owner.transform.position.y + 0.2f;
+                float num3 = component2.transform.position.y - y + UnityEngine.Random.value * 0.5f;
+                component2.additionalHeightBoost = num2 - num3;
+                if (gunAngle > 25f && gunAngle < 155f)
+                {
+                    component2.additionalHeightBoost += -0.25f;
+                }
+                else
+                {
+                    component2.additionalHeightBoost += 0.25f;
+                }
+                component2.Trigger(startingForce, num3);
             }
         }
 
