@@ -367,6 +367,16 @@ Whisper (A):
 - Fire rate cannot be increased and instead equally increases damage multiplier.
 - Clip size cannot be increased and instead increases damage multiplier by 25% of clip size modifier.
 
+![]()
+Pinger (D):
+- Stats: 
+- Fires pings that enrage enemies hit for 10 seconds. Enraged enemies have their health and movement speed randomized.
+- Synergies:
+	+ Duo Queuing [Friendship Cookie]: slows down fire rate, increases damage
+	+ Spam Pinging [Scattershot]: Enrage lasts longer
+	+ High blood pressure [Enraging Photo]: Enrage increases speed and decreases health 
+	+ Emotional Pings [Shotgun Full of Hate]: Increased damage
+
 ## Contributors:
 - Dallan - ALL artwork (*don't check what they were before he helped out*)
 

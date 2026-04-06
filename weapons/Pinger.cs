@@ -1,5 +1,6 @@
 ﻿using Alexandria.BreakableAPI;
 using Alexandria.ItemAPI;
+using Alexandria.Misc;
 using Alexandria.SoundAPI;
 using Gungeon;
 using LOLItems.custom_class_data;
@@ -36,11 +37,15 @@ namespace LOLItems.weapons
         private static float fireRateStat = 0.4f;
         private static int spreadAngle = 0;
 
-        private static float projectileDamageStat = 12f;
+        private static float projectileDamageStat = 10f;
         private static float projectileSpeedStat = 25f;
         private static float projectileRangeStat = 12f;
         private static float projectileForceStat = 15f;
 
+        private static float TiltedSpeedMin = 0.4f;
+        private static float TiltedSpeedMax = 2.0f;
+        private static float TiltedHealthMin = 0.6f;
+        private static float TiltedHealthMax = 1.5f;
         private static float TiltedDuration = 10f;
         private static Color flatColorOverride = ExtendedColours.maroon; //new Color(0.5f, 0f, 0f, 0.75f);
         public GameObject OverheadVFX = (PickupObjectDatabase.GetById((int)Items.EnragingPhoto) as RagePassiveItem).OverheadVFX;
@@ -74,6 +79,17 @@ namespace LOLItems.weapons
             //BreakableAPIToolbox.GenerateDebrisObject("LOLItems/Resources/weapon_sprites/ProjectileCollection/key_white_4", AngularVelocity: 180, AngularVelocityVariance: 450, DebrisBounceCount: 3).gameObject,
         };
 
+        public bool DUOQUEUINGActivated = false;
+        private static float DUOQUEUINGFireRateRatio = 0.5f;
+        private static float DUOQUEUINGDamageRatio = 2.5f;
+        public bool SPAMPINGINGActivated = false;
+        private static float SPAMPINGINGTiltedDurationIncrease = 10f;
+        public bool HIGHBLOODPRESSUREActivated = false;
+        private static float HIGHBLOODPRESSURETiltedSpeedRatio = 1.25f;
+        private static float HIGHBLOODPRESSURETiltedHealthRatio = 0.6f;
+        public bool EMOTIONALPINGSActivated = false;
+        private static float EMOTIONALPINGSDamageIncrease = 1.75f;
+
         public static void Add()
         {
             string FULLNAME = realName;
@@ -82,13 +98,17 @@ namespace LOLItems.weapons
             Gun gun = ETGMod.Databases.Items.NewGun(FULLNAME, SPRITENAME);
             Game.Items.Rename($"outdated_gun_mods:{FULLNAME.ToID()}", internalName);
             gun.gameObject.AddComponent<Pinger>();
-            gun.SetShortDescription("idk");
-            gun.SetLongDescription("idk");
+            gun.SetShortDescription("spam pinging");
+            gun.SetLongDescription($"Shoots projectiles that \"enrage\" enemies hit for {TiltedDuration} seconds. Enraged enemies have their health and movement speed randomized.\n\n" +
+                "A magical tool of communication commonly used amongst those who reject hygiene. These filthy creatures have abandoned " +
+                "language and rely upon this tool for all their needs. Due to its rudimentary vocabulary, the tool often ended up confusing and enraging " +
+                "each other. Those filthy creatures would incite further violence with each ping until they'd tire. No one knows how they continue to function.\n");
 
             gun.SetupSprite(null, $"{SPRITENAME}_idle_001", 8);
 
             gun.SetAnimationFPS(gun.shootAnimation, 15);
             gun.SetAnimationFPS(gun.reloadAnimation, 15);
+            gun.SetAnimationFPS(gun.introAnimation, 15);
 
             gun.AddProjectileModuleFrom(PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun, true, false);
 
@@ -98,7 +118,7 @@ namespace LOLItems.weapons
 
             gun.DefaultModule.angleVariance = spreadAngle;
             gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.SemiAutomatic;
-            gun.gunClass = GunClass.SILLY;
+            gun.gunClass = GunClass.SHITTY;
             gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random;
             gun.DefaultModule.ammoCost = 1;
             gun.reloadTime = reloadDuration;
@@ -118,27 +138,8 @@ namespace LOLItems.weapons
             gun.DefaultModule.projectiles.Clear();
 
             //custom hit effect setup
-            VFXPool pool2 = new VFXPool();
+            /*VFXPool pool2 = new VFXPool();
             pool2.type = VFXPoolType.Single;
-
-            /*VFXComplex customHitEffect = HelpfulMethods.CreateVFXComplex("pinger_hiteffect",
-                new List<string>()
-                {
-                    "LOLItems/Resources/hit_effects/pinger/pinger_hit_001",
-                    "LOLItems/Resources/hit_effects/pinger/pinger_hit_002",
-                    "LOLItems/Resources/hit_effects/pinger/pinger_hit_003",
-                    "LOLItems/Resources/hit_effects/pinger/pinger_hit_004",
-                    "LOLItems/Resources/hit_effects/pinger/pinger_hit_005",
-                    "LOLItems/Resources/hit_effects/pinger/pinger_hit_006",
-                },
-                18, //FPS
-                new IntVector2(16, 16), //Dimensions
-                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
-                false, //Uses a Z height off the ground
-                0, //The Z height, if used
-                false,
-                VFXAlignment.Fixed
-                );*/
 
             VFXComplex customHitEffect = HelpfulMethods.CreateVFXComplex("pinger_hiteffect",
                 new List<string>()
@@ -164,20 +165,39 @@ namespace LOLItems.weapons
             pool2.effects = new VFXComplex[]
             {
                 customHitEffect,
-            };
+            };*/
 
             #region Projectile Setup
             //proj 1: all in
             Projectile projectile1 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile1);
 
+            VFXPool projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            VFXComplex customHitEffect = HelpfulMethods.CreateVFXComplex("all_in_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_allIn".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile1.hitEffects.HasProjectileDeathVFX = true;
-            projectile1.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile1.hitEffects.deathAny = pool2;
+            projectile1.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile1.hitEffects.deathAny = projpool;
             projectile1.hitEffects.deathEnemy = null;
             projectile1.hitEffects.enemy = null;
-            projectile1.hitEffects.tileMapHorizontal = pool2;
-            projectile1.hitEffects.tileMapVertical = pool2;
+            projectile1.hitEffects.tileMapHorizontal = projpool;
+            projectile1.hitEffects.tileMapVertical = projpool;
             
             
             //projectile1.objectImpactEventName = "all_in_ping_1";
@@ -212,13 +232,32 @@ namespace LOLItems.weapons
             Projectile projectile2 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile2);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("assist_me_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_assist".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile2.hitEffects.HasProjectileDeathVFX = true;
-            projectile2.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile2.hitEffects.deathAny = pool2;
+            projectile2.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile2.hitEffects.deathAny = projpool;
             projectile2.hitEffects.deathEnemy = null;
             projectile2.hitEffects.enemy = null;
-            projectile2.hitEffects.tileMapHorizontal = pool2;
-            projectile2.hitEffects.tileMapVertical = pool2;
+            projectile2.hitEffects.tileMapHorizontal = projpool;
+            projectile2.hitEffects.tileMapVertical = projpool;
 
 
             //projectile2.objectImpactEventName = "assist_me_ping_2";
@@ -253,13 +292,32 @@ namespace LOLItems.weapons
             Projectile projectile3 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile3);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("bait_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_bait".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile3.hitEffects.HasProjectileDeathVFX = true;
-            projectile3.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile3.hitEffects.deathAny = pool2;
+            projectile3.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile3.hitEffects.deathAny = projpool;
             projectile3.hitEffects.deathEnemy = null;
             projectile3.hitEffects.enemy = null;
-            projectile3.hitEffects.tileMapHorizontal = pool2;
-            projectile3.hitEffects.tileMapVertical = pool2;
+            projectile3.hitEffects.tileMapHorizontal = projpool;
+            projectile3.hitEffects.tileMapVertical = projpool;
 
 
             //projectile3.objectImpactEventName = "bait_ping_3";
@@ -293,13 +351,32 @@ namespace LOLItems.weapons
             Projectile projectile4 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile4);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("caution_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_caution".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile4.hitEffects.HasProjectileDeathVFX = true;
-            projectile4.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile4.hitEffects.deathAny = pool2;
+            projectile4.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile4.hitEffects.deathAny = projpool;
             projectile4.hitEffects.deathEnemy = null;
             projectile4.hitEffects.enemy = null;
-            projectile4.hitEffects.tileMapHorizontal = pool2;
-            projectile4.hitEffects.tileMapVertical = pool2;
+            projectile4.hitEffects.tileMapHorizontal = projpool;
+            projectile4.hitEffects.tileMapVertical = projpool;
 
 
             //projectile4.objectImpactEventName = "caution_ping_4";
@@ -333,13 +410,32 @@ namespace LOLItems.weapons
             Projectile projectile5 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile5);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("defend_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_defend".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile5.hitEffects.HasProjectileDeathVFX = true;
-            projectile5.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile5.hitEffects.deathAny = pool2;
+            projectile5.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile5.hitEffects.deathAny = projpool;
             projectile5.hitEffects.deathEnemy = null;
             projectile5.hitEffects.enemy = null;
-            projectile5.hitEffects.tileMapHorizontal = pool2;
-            projectile5.hitEffects.tileMapVertical = pool2;
+            projectile5.hitEffects.tileMapHorizontal = projpool;
+            projectile5.hitEffects.tileMapVertical = projpool;
 
 
             //projectile5.objectImpactEventName = "defend_ping_5";
@@ -373,13 +469,32 @@ namespace LOLItems.weapons
             Projectile projectile6 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile6);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("missing_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_missing".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile6.hitEffects.HasProjectileDeathVFX = true;
-            projectile6.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile6.hitEffects.deathAny = pool2;
+            projectile6.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile6.hitEffects.deathAny = projpool;
             projectile6.hitEffects.deathEnemy = null;
             projectile6.hitEffects.enemy = null;
-            projectile6.hitEffects.tileMapHorizontal = pool2;
-            projectile6.hitEffects.tileMapVertical = pool2;
+            projectile6.hitEffects.tileMapHorizontal = projpool;
+            projectile6.hitEffects.tileMapVertical = projpool;
 
 
             //projectile6.objectImpactEventName = "enemy_missing_ping_6";
@@ -413,13 +528,32 @@ namespace LOLItems.weapons
             Projectile projectile7 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile7);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("enemy_vision_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_enemyVision".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile7.hitEffects.HasProjectileDeathVFX = true;
-            projectile7.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile7.hitEffects.deathAny = pool2;
+            projectile7.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile7.hitEffects.deathAny = projpool;
             projectile7.hitEffects.deathEnemy = null;
             projectile7.hitEffects.enemy = null;
-            projectile7.hitEffects.tileMapHorizontal = pool2;
-            projectile7.hitEffects.tileMapVertical = pool2;
+            projectile7.hitEffects.tileMapHorizontal = projpool;
+            projectile7.hitEffects.tileMapVertical = projpool;
 
 
             //projectile7.objectImpactEventName = "enemy_vision_ping_7";
@@ -453,13 +587,32 @@ namespace LOLItems.weapons
             Projectile projectile8 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile8);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("generic_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_generic".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile8.hitEffects.HasProjectileDeathVFX = true;
-            projectile8.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile8.hitEffects.deathAny = pool2;
+            projectile8.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile8.hitEffects.deathAny = projpool;
             projectile8.hitEffects.deathEnemy = null;
             projectile8.hitEffects.enemy = null;
-            projectile8.hitEffects.tileMapHorizontal = pool2;
-            projectile8.hitEffects.tileMapVertical = pool2;
+            projectile8.hitEffects.tileMapHorizontal = projpool;
+            projectile8.hitEffects.tileMapVertical = projpool;
 
 
             //projectile8.objectImpactEventName = "generic_ping_8";
@@ -493,13 +646,32 @@ namespace LOLItems.weapons
             Projectile projectile9 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile9);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("need_vision_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_vision".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile9.hitEffects.HasProjectileDeathVFX = true;
-            projectile9.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile9.hitEffects.deathAny = pool2;
+            projectile9.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile9.hitEffects.deathAny = projpool;
             projectile9.hitEffects.deathEnemy = null;
             projectile9.hitEffects.enemy = null;
-            projectile9.hitEffects.tileMapHorizontal = pool2;
-            projectile9.hitEffects.tileMapVertical = pool2;
+            projectile9.hitEffects.tileMapHorizontal = projpool;
+            projectile9.hitEffects.tileMapVertical = projpool;
 
 
             //projectile9.objectImpactEventName = "need_vision_ping_9";
@@ -533,13 +705,32 @@ namespace LOLItems.weapons
             Projectile projectile10 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile10);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("on_my_way_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_onMyWay".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile10.hitEffects.HasProjectileDeathVFX = true;
-            projectile10.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile10.hitEffects.deathAny = pool2;
+            projectile10.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile10.hitEffects.deathAny = projpool;
             projectile10.hitEffects.deathEnemy = null;
             projectile10.hitEffects.enemy = null;
-            projectile10.hitEffects.tileMapHorizontal = pool2;
-            projectile10.hitEffects.tileMapVertical = pool2;
+            projectile10.hitEffects.tileMapHorizontal = projpool;
+            projectile10.hitEffects.tileMapVertical = projpool;
 
 
             //projectile10.objectImpactEventName = "on_my_way_ping_10";
@@ -573,13 +764,32 @@ namespace LOLItems.weapons
             Projectile projectile11 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile11);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("push_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_push".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile11.hitEffects.HasProjectileDeathVFX = true;
-            projectile11.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile11.hitEffects.deathAny = pool2;
+            projectile11.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile11.hitEffects.deathAny = projpool;
             projectile11.hitEffects.deathEnemy = null;
             projectile11.hitEffects.enemy = null;
-            projectile11.hitEffects.tileMapHorizontal = pool2;
-            projectile11.hitEffects.tileMapVertical = pool2;
+            projectile11.hitEffects.tileMapHorizontal = projpool;
+            projectile11.hitEffects.tileMapVertical = projpool;
 
 
             //projectile11.objectImpactEventName = "push_ping_11";
@@ -613,13 +823,32 @@ namespace LOLItems.weapons
             Projectile projectile12 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile12);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("retreat_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_retreat".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile12.hitEffects.HasProjectileDeathVFX = true;
-            projectile12.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile12.hitEffects.deathAny = pool2;
+            projectile12.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile12.hitEffects.deathAny = projpool;
             projectile12.hitEffects.deathEnemy = null;
             projectile12.hitEffects.enemy = null;
-            projectile12.hitEffects.tileMapHorizontal = pool2;
-            projectile12.hitEffects.tileMapVertical = pool2;
+            projectile12.hitEffects.tileMapHorizontal = projpool;
+            projectile12.hitEffects.tileMapVertical = projpool;
 
 
             //projectile12.objectImpactEventName = "retreat_ping_12";
@@ -653,13 +882,32 @@ namespace LOLItems.weapons
             Projectile projectile13 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile13);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("enemy_target_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_enemyTarget".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile13.hitEffects.HasProjectileDeathVFX = true;
-            projectile13.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile13.hitEffects.deathAny = pool2;
+            projectile13.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile13.hitEffects.deathAny = projpool;
             projectile13.hitEffects.deathEnemy = null;
             projectile13.hitEffects.enemy = null;
-            projectile13.hitEffects.tileMapHorizontal = pool2;
-            projectile13.hitEffects.tileMapVertical = pool2;
+            projectile13.hitEffects.tileMapHorizontal = projpool;
+            projectile13.hitEffects.tileMapVertical = projpool;
 
 
             //projectile13.objectImpactEventName = "target_ping_13";
@@ -693,13 +941,32 @@ namespace LOLItems.weapons
             Projectile projectile14 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
             gun.DefaultModule.projectiles.Add(projectile14);
 
+            projpool = new VFXPool();
+            projpool.type = VFXPoolType.Single;
+
+            customHitEffect = HelpfulMethods.CreateVFXComplex("cleared_vision_hiteffect",
+                "LOLItems/Resources/hit_effects/pings_hit_frames/ping_clearedVision".GetResourceFrames(24),
+                16, //FPS
+                new IntVector2(16, 16), //Dimensions
+                tk2dBaseSprite.Anchor.MiddleCenter, //Anchor
+                false, //Uses a Z height off the ground
+                0, //The Z height, if used
+                false,
+                VFXAlignment.Fixed
+                );
+
+            projpool.effects = new VFXComplex[]
+            {
+                customHitEffect,
+            };
+
             projectile14.hitEffects.HasProjectileDeathVFX = true;
-            projectile14.hitEffects.overrideMidairDeathVFX = pool2.effects[0].effects[0].effect;
-            projectile14.hitEffects.deathAny = pool2;
+            projectile14.hitEffects.overrideMidairDeathVFX = projpool.effects[0].effects[0].effect;
+            projectile14.hitEffects.deathAny = projpool;
             projectile14.hitEffects.deathEnemy = null;
             projectile14.hitEffects.enemy = null;
-            projectile14.hitEffects.tileMapHorizontal = pool2;
-            projectile14.hitEffects.tileMapVertical = pool2;
+            projectile14.hitEffects.tileMapHorizontal = projpool;
+            projectile14.hitEffects.tileMapVertical = projpool;
 
 
             //projectile14.objectImpactEventName = "vision_cleared_ping_14";
@@ -780,6 +1047,86 @@ namespace LOLItems.weapons
             ID = gun.PickupObjectId;
         }
 
+        protected override void Update()
+        {
+            if (Player != null)
+            {
+                if (Player.HasSynergy(Synergy.DUO_QUEUING) && !DUOQUEUINGActivated)
+                {
+                    ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire, DUOQUEUINGFireRateRatio, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.Damage, DUOQUEUINGDamageRatio, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
+
+                    DUOQUEUINGActivated = true;
+                }
+                else if (!Player.HasSynergy(Synergy.DUO_QUEUING) && DUOQUEUINGActivated)
+                {
+                    ItemBuilder.RemoveCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire);
+                    ItemBuilder.RemoveCurrentGunStatModifier(gun, PlayerStats.StatType.Damage);
+                    if (EMOTIONALPINGSActivated)
+                    {
+                        ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.Damage, EMOTIONALPINGSDamageIncrease, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    }
+                    Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
+
+                    DUOQUEUINGActivated = false;
+                }
+
+                if (Player.HasSynergy(Synergy.SPAM_PINGING) && !SPAMPINGINGActivated)
+                {
+                    TiltedDuration += SPAMPINGINGTiltedDurationIncrease;
+
+                    SPAMPINGINGActivated = true;
+                }
+                else if (!Player.HasSynergy(Synergy.SPAM_PINGING) && SPAMPINGINGActivated)
+                {
+                    TiltedDuration -= SPAMPINGINGTiltedDurationIncrease;
+
+                    SPAMPINGINGActivated = false;
+                }
+
+                if (Player.HasSynergy(Synergy.HIGH_BLOOD_PRESSURE) && !HIGHBLOODPRESSUREActivated)
+                {
+                    TiltedSpeedMin *= HIGHBLOODPRESSURETiltedSpeedRatio;
+                    TiltedSpeedMax *= HIGHBLOODPRESSURETiltedSpeedRatio;
+                    TiltedHealthMin *= HIGHBLOODPRESSURETiltedHealthRatio;
+                    TiltedHealthMax *= HIGHBLOODPRESSURETiltedHealthRatio;
+
+                    HIGHBLOODPRESSUREActivated = true;
+                }
+                else if (!Player.HasSynergy(Synergy.HIGH_BLOOD_PRESSURE) && HIGHBLOODPRESSUREActivated)
+                {
+                    TiltedSpeedMin /= HIGHBLOODPRESSURETiltedSpeedRatio;
+                    TiltedSpeedMax /= HIGHBLOODPRESSURETiltedSpeedRatio;
+                    TiltedHealthMin /= HIGHBLOODPRESSURETiltedHealthRatio;
+                    TiltedHealthMax /= HIGHBLOODPRESSURETiltedHealthRatio;
+
+                    HIGHBLOODPRESSUREActivated = false;
+                }
+
+                if (Player.HasSynergy(Synergy.EMOTIONAL_PINGS) && !EMOTIONALPINGSActivated)
+                {
+                    ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.Damage, EMOTIONALPINGSDamageIncrease, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
+
+                    EMOTIONALPINGSActivated = true;
+                }
+                else if (!Player.HasSynergy(Synergy.EMOTIONAL_PINGS) && EMOTIONALPINGSActivated)
+                {
+                    ItemBuilder.RemoveCurrentGunStatModifier(gun, PlayerStats.StatType.Damage);
+                    if (DUOQUEUINGActivated)
+                    {
+                        ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.Damage, DUOQUEUINGDamageRatio, StatModifier.ModifyMethod.MULTIPLICATIVE);
+                    }
+                    Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
+
+                    EMOTIONALPINGSActivated = false;
+                }
+            }
+
+            base.Update();
+        }
+
         public override void OnPostFired(PlayerController player, Gun gun)
         {
             //HelpfulMethods.PlayRandomSFX(gun.gameObject, PingerFiringSFXList);
@@ -789,9 +1136,9 @@ namespace LOLItems.weapons
 
         public override void OnReload(PlayerController player, Gun gun)
         {
-            //player.StartCoroutine(ReloadShellEjectCoroutine(gun));
+            player.StartCoroutine(ReloadShellEjectCoroutine(gun));
 
-            SpawnKeyboardPiecesAtPosition(gun.CasingLaunchPoint, gun.m_transform, gun.gunAngle, gun.m_owner, gun.barrelOffset, gun.m_localAimPoint);
+            //SpawnKeyboardPiecesAtPosition(gun.CasingLaunchPoint, gun.m_transform, gun.gunAngle, gun.m_owner, gun.barrelOffset, gun.m_localAimPoint);
 
             base.OnReload(player, gun);
         }
@@ -808,24 +1155,13 @@ namespace LOLItems.weapons
 
             //Plugin.Log($"casing Launch Point: {gun.CasingLaunchPoint}, casing Launch Attach Point: {gun.m_casingLaunchAttachPoint.localPosition}");
 
-            for (int i = 0; i < 15; i++)
-            {
-                gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
-            }
+            SpawnKeyboardPiecesAtPosition(gun.CasingLaunchPoint, gun.m_transform, gun.gunAngle, gun.m_owner, gun.barrelOffset, gun.m_localAimPoint);
 
             yield return new WaitForSeconds(0.7f);
-
-            for (int i = 0; i < 15; i++)
-            {
-                gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
-            }
+            SpawnKeyboardPiecesAtPosition(gun.CasingLaunchPoint, gun.m_transform, gun.gunAngle, gun.m_owner, gun.barrelOffset, gun.m_localAimPoint);
 
             yield return new WaitForSeconds(0.7f);
-
-            for (int i = 0; i < 15; i++)
-            {
-                gun.SpawnShellCasingAtPosition(gun.CasingLaunchPoint);
-            }
+            SpawnKeyboardPiecesAtPosition(gun.CasingLaunchPoint, gun.m_transform, gun.gunAngle, gun.m_owner, gun.barrelOffset, gun.m_localAimPoint);
         }
 
         private void SpawnKeyboardPiecesAtPosition(Vector3 position, Transform m_transform, float gunAngle, GameActor m_owner, Transform barrelOffset, Vector2 m_localAimPoint)
@@ -966,10 +1302,10 @@ namespace LOLItems.weapons
         {
             //instanceVFX = enemy.PlayEffectOnActor(OverheadVFX, new Vector3(0f, 1.375f, 0f), attached: true, alreadyMiddleCenter: true);
 
-            TiltedEffect.SpeedMultiplier = UnityEngine.Random.Range(0.2f, 2.0f);
-            TiltedEffect.HealthMultiplier = UnityEngine.Random.Range(0.6f, 1.5f);
+            TiltedEffect.SpeedMultiplier = UnityEngine.Random.Range(TiltedSpeedMin, TiltedSpeedMax);
+            TiltedEffect.HealthMultiplier = UnityEngine.Random.Range(TiltedHealthMin, TiltedHealthMax);
 
-            //Plugin.Log($"speed: {TiltedEffect.SpeedMultiplier}, health: {TiltedEffect.HealthMultiplier}");
+            Plugin.Log($"speed: {TiltedEffect.SpeedMultiplier}, health: {TiltedEffect.HealthMultiplier}");
 
             enemy.ApplyEffect(TiltedEffect);
             /*

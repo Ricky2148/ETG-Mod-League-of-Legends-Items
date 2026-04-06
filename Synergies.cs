@@ -219,6 +219,12 @@ namespace LOLItems
             NewSynergy(LOLItems.Synergy.EXP_SHARE_FORM_2, "EXP. Share", new[] { VirtueForm2.internalName }, new[] { "macho_brace", "scouter", "life_orb" });
             NewSynergy(LOLItems.Synergy.EXP_SHARE_FORM_3, "EXP. Share", new[] { VirtueForm3.internalName }, new[] { "macho_brace", "scouter", "life_orb" });
 
+            //Pinger
+            NewSynergy(LOLItems.Synergy.DUO_QUEUING, "Duo queuing", new[] { Pinger.internalName, "friendship_cookie" });
+            NewSynergy(LOLItems.Synergy.SPAM_PINGING, "spam pinging", new[] { Pinger.internalName, "scattershot" });
+            NewSynergy(LOLItems.Synergy.HIGH_BLOOD_PRESSURE, "HIGH BLOOD PRESSURE", new[] { Pinger.internalName, "enraging_photo" });
+            NewSynergy(LOLItems.Synergy.EMOTIONAL_PINGS, "Emotional pings", new[] { Pinger.internalName, "shotgun_full_of_hate" });
+
             #endregion
         }
 
@@ -380,6 +386,10 @@ namespace LOLItems
         EXTRA_SILVER,
         THE_NIGHT_HUNTER,
         LIFE_AND_DEATH,
-        OVERCHARGED
+        OVERCHARGED,
+        DUO_QUEUING,
+        SPAM_PINGING,
+        HIGH_BLOOD_PRESSURE,
+        EMOTIONAL_PINGS
     };
 }
