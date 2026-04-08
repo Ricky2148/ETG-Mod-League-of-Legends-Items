@@ -14,13 +14,13 @@ namespace LOLItems.passive_items
         public static string ItemName = "Shadowflame";
 
         private static float DamageStat = 1.15f;
-        private static float CinderbloomThreshold = 0.4f;
-        private static float CinderbloomDamageAmp = 0.4f;
+        private static float CinderbloomThreshold = 0.5f;
+        private static float CinderbloomDamageAmp = 0.5f;
 
         public bool HELLSSHADOWSActivated = false;
-        private static float HELLSSHADOWSCinderbloomDamageAmpInc = 0.2f;
+        private static float HELLSSHADOWSCinderbloomDamageAmpInc = 0.25f;
         public bool SOLARFLAMEActivated = false;
-        private static float SOLARFLAMECinderbloomThresholdInc = 0.2f;
+        private static float SOLARFLAMECinderbloomThresholdInc = 0.25f;
 
         public static int ID;
 
@@ -37,13 +37,13 @@ namespace LOLItems.passive_items
 
             string shortDesc = "*hiring janitors*";
             // maybe add effect explanation?
-            string longDesc = "Increase damage\nDeal increased damage to low health enemies.\n\n" +
+            string longDesc = "Deal increased damage to low health enemies.\n\n" +
                 "A magical necklace that empowers you to finish off targets quicker. " +
                 "You begin to feel like you like a character called \"Shadow\"? This cannot be good\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
             
             item.quality = PickupObject.ItemQuality.A;
             ID = item.PickupObjectId;

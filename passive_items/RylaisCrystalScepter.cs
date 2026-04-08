@@ -15,7 +15,7 @@ namespace LOLItems.passive_items
 
         private static float HealthStat = 1f;
         private static float RimefrostSlowPercent = 0.7f;
-        private static float RimefrostSlowDuration = 2f;
+        private static float RimefrostSlowDuration = 3.5f;
 
         private static GameActorSpeedEffect slowEffect = new GameActorSpeedEffect
         {
@@ -53,7 +53,7 @@ namespace LOLItems.passive_items
             
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
 
             item.quality = ItemQuality.C;
             ID = item.PickupObjectId;

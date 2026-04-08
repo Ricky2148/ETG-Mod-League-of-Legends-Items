@@ -21,7 +21,7 @@ namespace LOLItems.active_items
         // stats pool for item
         private static float DamageStat = 1.25f;
         private static float RateOfFireStat = 1.2f;
-        private static float CloudburstBaseDamage = 10f;
+        private static float CloudburstBaseDamage = 25f;
         private static float CloudburstCooldown = 40f;
 
         //private bool playerHasFlight = false;
@@ -45,15 +45,15 @@ namespace LOLItems.active_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
             
             string shortDesc = "\"Hasagi!\"";
-            string longDesc = "Increase damage and fire rate\nDash in a direction.\n\n" +
+            string longDesc = "Dash in a direction.\n\n" +
                 "A strangely crafted bow that seems to make the feet below you lighter. " +
                 "You can't help but feel that there's something hidden with this bow. Maybe there's something " +
                 "hidden in the bow?\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
             
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
             
             ItemBuilder.SetCooldownType(item, ItemBuilder.CooldownType.Timed, CloudburstCooldown);
             
@@ -61,7 +61,7 @@ namespace LOLItems.active_items
             
             item.usableDuringDodgeRoll = true;
             
-            item.quality = PickupObject.ItemQuality.A;
+            item.quality = PickupObject.ItemQuality.B;
             ID = item.PickupObjectId;
 
             /*List<string> mandatoryConsoleIDs = new List<string>
@@ -95,8 +95,8 @@ namespace LOLItems.active_items
         { 
             Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
 
-            ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.Damage);
-            ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.RateOfFire);
+            //ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.Damage);
+            //ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.RateOfFire);
             //player.stats.RecalculateStats(player, false, false);
             player.stats.RecalculateStatsWithoutRebuildingGunVolleys(player);
 

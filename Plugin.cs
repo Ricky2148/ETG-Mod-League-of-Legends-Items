@@ -131,7 +131,7 @@ namespace LOLItems
             VirtueForm2.Add();
             VirtueForm3.Add();
             SoulSpear.Add();
-            GauntletOfNeZuk.Add(); //UNFINISHED
+            //GauntletOfNeZuk.Add(); //UNFINISHED
             Pinger.Add(); //Unfinished
 
             #region NPCs

@@ -19,8 +19,8 @@ namespace LOLItems.passive_items
         private static float HealthStat = 1f;
         private static int ArmorStat = 0;
 
-        private static float preDamageProcChance = 0.1f;
-        private static float synergyProcChance = 0.2f;
+        private static float preDamageProcChance = 0.2f;
+        private static float synergyProcChance = 0.3f;
 
         public bool HEAVENANDEARTHCOMBINEDActivated = false;
 
@@ -38,13 +38,13 @@ namespace LOLItems.passive_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
             string shortDesc = "Limitless as the Stars";
-            string longDesc = "+1 Heart\nSometimes prevents the player from taking damage.\n\n" +
+            string longDesc = "Sometimes prevents the player from taking damage.\n\n" +
                 "This magical cloak imbues your body with great toughness and durability like that of a star.\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
-            item.ArmorToGainOnInitialPickup = ArmorStat;
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+            //item.ArmorToGainOnInitialPickup = ArmorStat;
 
             item.quality = PickupObject.ItemQuality.B;
 

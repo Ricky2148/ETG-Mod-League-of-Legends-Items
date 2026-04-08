@@ -91,4 +91,15 @@ added itemtips support
 added itemtips descriptions for synergies
 
 #3.0.4
+added new weapon: Pinger
+
 fixed a bug with zhonya's chaos control synergy
+
+balance changes:
+- Cloak of Starry Night and Shield of Molten Stone: no longer gives +1 heart, chance to deny taking damage increased from 10% to 20%, Heaven and Earth Combined synergy proc chance increased from 20% to 30%
+- Horizon Focus: no longer provides stat buffs, damage amp maximum increased from 25% to 50%
+- Liandry's Torment: no longer provides stat buffs, burn %max hp damage increased from 10% to 15%
+- Rylai's Crystal Scepter: no longer gives +1 heart, slow duration increased from 2s to 3.5s
+- Shadowflame: no longer provides stat buffs, damage amp and threshold increased from 40% to 50%
+- Galeforce: rarity decreased from A to B, no longer provides stat buffs, missile base damage increased from 10 to 25
+- Stridebreaker: rarity decreased from A to B, no longer provides stat buffs, slach base damage increased from 10 to 20, slow% increased from 70% to 80% and slow duration increased from 3s to 10s, item cooldown increased from 15s to 25s

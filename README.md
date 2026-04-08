@@ -17,15 +17,13 @@ Blade of the Ruined King (S):
 
 ![](https://i.ibb.co/0pjmTSCR/cloak-of-starry-night-pixelart-sprite-outline.png)
 Cloak of Starry Night (B):
-- Stats: 1 Heart
-- Effect: 10% chance to deny taking damage.
+- Effect: 20% chance to deny taking damage.
 - Synergy: 
-	+ Heaven and Earth Combined [Shield of Molten Stone]: Proc chance increases to 20% for both items
+	+ Heaven and Earth Combined [Shield of Molten Stone]: Proc chance increases to 30% for both items
 
 ![](https://i.ibb.co/nxcr93X/shield-of-molten-stone-pixelart-sprite-outline.png)
 Shield of Molten Stone (B):
-- Stats: 1 Heart
-- Effect: 10% chance to deny taking damage.
+- Effect: 20% chance to deny taking damage.
 
 ![](https://i.ibb.co/Wv5Ln26w/the-collector-pixelart-sprite.png)
 The Collector (A):
@@ -87,8 +85,7 @@ Guinsoo's Rageblade (S):
 
 ![](https://i.ibb.co/VWfQdrXP/horizon-focus-pixelart-sprite.png)
 Horizon Focus (A):
-- Stats: 1.1x DMG
-- Effect: Increases each bullet's damage by up to 25% based on how far the hit target is from the player.
+- Effect: Increases each bullet's damage by up to 50% based on how far the hit target is from the player.
 - Synergies
 	+ Amplified Lens [Sniper Rifle/M1/AWP]: distance based damage scale +25%
 	+ Futuristic Compatibility [Railgun/Prototype Railgun/Hextech Rifle]: distance based damage scale +50%
@@ -121,8 +118,7 @@ Fated Ashes (D):
 
 ![](https://i.ibb.co/3yzMtSjx/liandrys-torment-pixelart-sprite-small.png)
 Liandry's Torment (B):
-- Stats: 1.15x DMG, 1 Heart
-- Effect: Dealing damage applies a burn to enemies that deal 5 + 10% max health damage per second for 3 seconds. (25% effective against bosses)
+- Effect: Dealing damage applies a burn to enemies that deal 5 + 15% max health damage per second for 3 seconds. (25% effective against bosses)
 - Synergy:
 	+ Burning Vengence [Phoenix/Napalm Strike]: Burn duration increased to 6 seconds
 	+ Blazing Universe [Hot Lead/Gungeon Pepper]: Burn damage doubled
@@ -176,19 +172,17 @@ Rod of Ages (B):
 
 ![](https://i.ibb.co/LXv3XQrM/rylais-crystal-scepter-pixelart-sprite-outline.png)
 Rylai's Crystal Scepter (C):
-- Stats: 1 Heart
-- Effect: Dealing damage slows targets hit by 30% for 2s.
+- Effect: Dealing damage slows targets hit by 30% for 3.5s.
 - Synergies:
 	+ Ice II [Ice Breaker/Freeze Ray/Glacier/Snowballer]: Doubles slow effect
 	+ Witchcraft [Witch Pistol/Hexagun]: Doubles slow duration, +10% damage buff
 
 ![](https://i.ibb.co/v4xKKyPb/shadowflame-pixelart-sprite-outline.png)
 Shadowflame (A):
-- Stats: 1.15x DMG
-- Effect: When hitting an enemy that is below 40% health, deal 40% more damage.
+- Effect: When hitting an enemy that is below 50% health, deal 50% more damage.
 - Synergies:
-	+ Hell's Shadows [Pitchfork/Demon Head]: bonus damage multiplier increased by 20%
-	+ Solar Flame [Sunlight Javelin]: bonus damage threshold increased by 20%
+	+ Hell's Shadows [Pitchfork/Demon Head]: bonus damage multiplier increased by 25%
+	+ Solar Flame [Sunlight Javelin]: bonus damage threshold increased by 25%
 
 ![](https://i.ibb.co/9HKyS9mc/sheen-pixelart-sprite.png)
 Sheen (D):
@@ -238,9 +232,8 @@ Zeke's Convergence (B):
 
 ## Active Items:
 ![](https://i.ibb.co/nNnjs75f/galeforce-pixelart-sprite.png)
-Galeforce (A):
-- Stats: 1.25x DMG, 1.2x ROF
-- Effect: Dash (invincible and floating during the dash: dodgeroll properties) in the aimed direction, firing 3 homing missiles at the end. Each missile deals 10 damage and is affected by player damage modifiers. Goes on a 90s cooldown.
+Galeforce (B):
+- Effect: Dash (invincible and floating during the dash: dodgeroll properties) in the aimed direction, firing 3 homing missiles at the end. Each missile deals 25 damage and is affected by player damage modifiers. Goes on a 90s cooldown.
 - Synergies:
 	+ FOUR! [Whisper]: Missiles deal 2.5x damage
 	+ Bow Mastery [Bow/Charmed Bow/Gunbow]: Halved cooldown
@@ -261,9 +254,8 @@ Refillable Potion (C):
 	+ Cocktail Potion [Potion of Gun Friendship/Potion of Lead Skin]: Using the refillable potion provides half the effect of each Buff Potions. Gun Friendship: Halved buff amounts. Lead Skin: Halved duration.
 
 ![](https://i.ibb.co/ZR5sZTJ5/stridebreaker-pixelart-sprite-small.png)
-Stridebreaker (A):
-- Stats: 1.1x DMG, 1.1x ROF, 1 Heart
-- Effect: Activate to damage all enemies for 10 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 70% for 3s. Goes on a 15s cooldown.
+Stridebreaker (B):
+- Effect: Activate to damage all enemies for 20 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 80% for 10s. Goes on a 25s cooldown.
 - Synergies:
 	+ Demacian Traitor [Betrayer's Shield]: doubled damage and increased slow duration
 

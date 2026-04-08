@@ -16,7 +16,7 @@ namespace LOLItems.passive_items
         private static float DamageStat = 1.1f;
         private static float HyperShotMaxDistance = 15f;
         private static float HyperShotMinDistance = 3f;
-        private static float HyperShotMaxDamageInc = 0.25f;
+        private static float HyperShotMaxDamageInc = 0.50f;
 
         public bool AMPLIFIEDLENSActivated = false;
         private static float AMPLIFIEDLENSHyperShotMaxDamageInc = 0.25f;
@@ -39,12 +39,12 @@ namespace LOLItems.passive_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
             
             string shortDesc = "*not camping btw*";
-            string longDesc = "Increase damage\nBullets deal increased damage the farther away you are from the target.\n\n" +
+            string longDesc = "Bullets deal increased damage the farther away you are from the target.\n\n" +
                 "A futuristic gauntlet that seems to improve your aim at far ranges, allowing " +
                 "your long range attacks to deal increased damage. There seems to be a signature: Ja-c- -nd Vi--or\n";
             
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
             item.quality = PickupObject.ItemQuality.A;
             ID = item.PickupObjectId;

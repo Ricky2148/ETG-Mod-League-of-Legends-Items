@@ -21,7 +21,7 @@ namespace LOLItems.passive_items
         private static float DamageStat = 1.15f;
         private static float HealthStat = 1f;
         private static float TormentBaseDamage = 5f;
-        private static float TormentPercentHealthDamage = 0.10f;
+        private static float TormentPercentHealthDamage = 0.15f;
         private static float TormentDuration = 3f;
 
         // tracks enemies affected by the torment burn effect and their coroutines
@@ -55,15 +55,15 @@ namespace LOLItems.passive_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
             
             string shortDesc = "Cursed Mask";
-            string longDesc = "+1 Heart, Increase damage\nDealing damage burns enemies for %max health damage.\n\n" +
+            string longDesc = "+1 Heart\nDealing damage burns enemies for %max health damage.\n\n" +
                 "Once belonged to a theatre company and used as a prop in their most infamous act. " +
                 "Rumors claim that each run of the act needed new actors since one actor always died mysteriously. " +
                 "\nSomething tells you that this mask was connected to these incidents.\n";
             
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
             
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
 
             item.quality = PickupObject.ItemQuality.B;
             ID = item.PickupObjectId;

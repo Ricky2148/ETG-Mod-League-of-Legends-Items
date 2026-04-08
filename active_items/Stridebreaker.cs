@@ -25,11 +25,11 @@ namespace LOLItems.active_items
         private static float RateOfFireStat = 1.1f;
         private static float HealthStat = 1f;
 
-        private static float slowPercent = 0.3f;
-        private static float slowDuration = 3f;
-        private static float ShockwaveBaseDamage = 10f;
+        private static float slowPercent = 0.2f;
+        private static float slowDuration = 10f;
+        private static float ShockwaveBaseDamage = 20f;
         private static float ShockwaveRadius = 6f;
-        private static float ShockwaveCooldown = 15f; //15f
+        private static float ShockwaveCooldown = 25f; //15f
 
         private static GameObject slashVFX = ((Gun)PickupObjectDatabase.GetById(417))
                 .DefaultModule.projectiles[0]
@@ -84,15 +84,15 @@ namespace LOLItems.active_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
             
             string shortDesc = "\"No more cages!\"";
-            string longDesc = "+1 Heart, Increase damage and fire rate\nSlashes around you, deals damage, enemies hit are slowed.\n\n" +
+            string longDesc = "Slashes around you, deals damage, enemies hit are slowed.\n\n" +
                 "A set of chains that appears to have been used as a weapon. The chains feel cold to the touch " +
                 "and seem to instill a feeling of rebellion within you.\n";
             
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
 
             ItemBuilder.SetCooldownType(item, ItemBuilder.CooldownType.Timed, ShockwaveCooldown);
             item.consumable = false;
@@ -113,7 +113,7 @@ namespace LOLItems.active_items
             );
 
             item.usableDuringDodgeRoll = true;
-            item.quality = PickupObject.ItemQuality.A;
+            item.quality = PickupObject.ItemQuality.B;
             ID = item.PickupObjectId;
         }
 
@@ -128,9 +128,9 @@ namespace LOLItems.active_items
         {
             Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
 
-            ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.Damage);
-            ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.RateOfFire);
-            ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.Health);
+            //ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.Damage);
+            //ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.RateOfFire);
+            //ItemBuilder.RemovePassiveStatModifier(this, PlayerStats.StatType.Health);
             //player.stats.RecalculateStats(player, false, false);
             player.stats.RecalculateStatsWithoutRebuildingGunVolleys(player);
             
@@ -143,7 +143,7 @@ namespace LOLItems.active_items
             {
                 if (LastOwner.HasSynergy(Synergy.DEMACIAN_TRAITOR) && !DEMACIANTRAITORActivated)
                 {
-                    slowEffect.duration = DEMACIANTRAITORslowDuration;
+                    slowEffect.duration += DEMACIANTRAITORslowDuration;
                     //slowEffect.SpeedMultiplier = DEMACIANTRAITORslowPercent;
 
                     DEMACIANTRAITORActivated = true;
