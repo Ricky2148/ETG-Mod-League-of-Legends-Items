@@ -22,7 +22,7 @@ namespace LOLItems.active_items
         private static float DamageStat = 1.25f;
         private static float RateOfFireStat = 1.2f;
         private static float CloudburstBaseDamage = 25f;
-        private static float CloudburstCooldown = 40f;
+        private static float CloudburstCooldown = 30f;
 
         //private bool playerHasFlight = false;
         private bool BOWMASTERYActivated = false;

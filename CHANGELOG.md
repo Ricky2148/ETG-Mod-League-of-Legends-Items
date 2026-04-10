@@ -90,7 +90,7 @@ added itemtips support
 #3.0.3
 added itemtips descriptions for synergies
 
-#3.0.4
+#3.1.0
 added new weapon: Pinger
 
 fixed a bug with zhonya's chaos control synergy
@@ -101,5 +101,5 @@ balance changes:
 - Liandry's Torment: no longer provides stat buffs, burn %max hp damage increased from 10% to 15%
 - Rylai's Crystal Scepter: no longer gives +1 heart, slow duration increased from 2s to 3.5s
 - Shadowflame: no longer provides stat buffs, damage amp and threshold increased from 40% to 50%
-- Galeforce: rarity decreased from A to B, no longer provides stat buffs, missile base damage increased from 10 to 25
-- Stridebreaker: rarity decreased from A to B, no longer provides stat buffs, slach base damage increased from 10 to 20, slow% increased from 70% to 80% and slow duration increased from 3s to 10s, item cooldown increased from 15s to 25s
+- Galeforce: rarity decreased from A to B, no longer provides stat buffs, missile base damage increased from 10 to 25, cooldown decreased from 90s to 30s
+- Stridebreaker: rarity decreased from A to B, no longer provides stat buffs, slach base damage increased from 10 to 20, slow% increased from 70% to 80% and slow duration increased from 3s to 10s

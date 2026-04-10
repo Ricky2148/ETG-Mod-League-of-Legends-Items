@@ -29,7 +29,7 @@ namespace LOLItems.active_items
         private static float slowDuration = 10f;
         private static float ShockwaveBaseDamage = 20f;
         private static float ShockwaveRadius = 6f;
-        private static float ShockwaveCooldown = 25f; //15f
+        private static float ShockwaveCooldown = 15f; //15f
 
         private static GameObject slashVFX = ((Gun)PickupObjectDatabase.GetById(417))
                 .DefaultModule.projectiles[0]

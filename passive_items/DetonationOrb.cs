@@ -48,50 +48,6 @@ namespace LOLItems.passive_items
 
         //private Dictionary<AIActor, Coroutine> enemyTheBombCoroutine = new Dictionary<AIActor, Coroutine>();
 
-        /*private static List<string> IdleVFXSpritePath = new List<string>
-        {
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_001",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_002",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_003",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_004",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_005",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_006",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_007",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_008",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_009",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_010",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_011",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_012",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_013",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_014",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_015",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_016",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_017",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_018",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_019",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_020",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_021",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_022",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_023",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_024",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_025",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_026",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_027",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_028",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_029",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_030",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_031",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_032",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_033",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_034",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_035",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_036",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_037",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_038",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_039",
-            "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle_040",
-        };*/
-
         private static List<string> IdleVFXSpritePath = "LOLItems/Resources/vfxs/detOrb_effect/detOrbFX_idle".GetResourceFrames(40);
 
         private static GameObject IdleEffectVFX;

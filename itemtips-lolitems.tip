@@ -1,7 +1,7 @@
 {
   "metadata": {
     "name": "League of Legends Items",
-    "version": "3.0.1",
+    "version": "3.1.0",
     "url": "https://enter-the-gungeon.thunderstore.io/package/Ricky2148/League_of_Legends_Items/"
   },
   "items": {
@@ -11,11 +11,11 @@
     },
     "LOLItems:cloak_of_starry_night": {
       "name": "Cloak of Starry Night",
-      "notes": "1 Heart, 10% chance to deny taking damage."
+      "notes": "20% chance to deny taking damage."
     },
     "LOLItems:shield_of_molten_stone": {
       "name": "Shield of Molten Stone",
-      "notes": "1 Heart, 10% chance to deny taking damage."
+      "notes": "20% chance to deny taking damage."
     },
     "LOLItems:the_collector": {
       "name": "The Collector",
@@ -47,7 +47,7 @@
     },
     "LOLItems:horizon_focus": {
       "name": "Horizon Focus",
-      "notes": "1.1x DMG, Increases each bullet's damage by up to 25% based on how far the hit target is from the player."
+      "notes": "Increases each bullet's damage by up to 50% based on how far the hit target is from the player."
     },
     "LOLItems:hubris": {
       "name": "Hubris",
@@ -63,7 +63,7 @@
     },
     "LOLItems:liandry's_torment": {
       "name": "Liandry's Torment",
-      "notes": "1.15x DMG, 1 Heart, Dealing damage applies a burn to enemies that deal 5 + 10% max health damage per second for 3 seconds. (25% effective against bosses)"
+      "notes": "Dealing damage applies a burn to enemies that deal 5 + 15% max health damage per second for 3 seconds. (25% effective against bosses)"
     },
     "LOLItems:tear_of_the_goddess": {
       "name": "Tear of the Goddess",
@@ -91,11 +91,11 @@
     },
     "LOLItems:rylai's_crystal_scepter": {
       "name": "Rylai's Crystal Scepter",
-      "notes": "1 Heart, Dealing damage slows targets hit by 30% for 2s."
+      "notes": "Dealing damage slows targets hit by 30% for 3.5s."
     },
     "LOLItems:shadowflame": {
       "name": "Shadowflame",
-      "notes": "1.15x DMG, When hitting an enemy that is below 40% health, deal 40% more damage."
+      "notes": "When hitting an enemy that is below 50% health, deal 50% more damage."
     },
     "LOLItems:sheen": {
       "name": "Sheen",
@@ -125,7 +125,7 @@
 
     "LOLItems:galeforce": {
       "name": "Galeforce",
-      "notes": "1.25x DMG, 1.2x ROF, Dash in the aimed direction, firing 3 homing missiles at the end. Each missile deals 10 damage and is affected by player damage modifiers. Goes on a 90s cooldown."
+      "notes": "Dash in the aimed direction, firing 3 homing missiles at the end. Each missile deals 25 damage and is affected by player damage modifiers. Goes on a 30s cooldown."
     },
     "LOLItems:redemption": {
       "name": "Redemption",
@@ -137,7 +137,7 @@
     },
     "LOLItems:stridebreaker": {
       "name": "Stridebreaker",
-      "notes": "1.1x DMG, 1.1x ROF, 1 Heart, Activate to damage all enemies for 10 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 70% for 3s. Goes on a 15s cooldown."
+      "notes": "Activate to damage all enemies for 20 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 70% for 3s. Goes on a 15s cooldown."
     },
     "LOLItems:talisman_of_ascension": {
       "name": "Talisman of Ascension",
@@ -199,16 +199,333 @@
       "name": "Whisper",
       "notes": "Fires from a 4 shot clip. Fourth shot deals 200% damage and deals 25% additional missing health damage. Fire rate cannot be increased and instead equally increases damage multiplier. Clip size cannot be increased and instead increases damage multiplier by 25% of clip size modifier."
     },
+    "LOLItems:pinger_lolitems": {
+      "name": "Pinger",
+      "notes": "Fires pings that enrage enemies hit for 10 seconds. Enraged enemies have their health and movement speed randomized."
+    },
   },
   "synergies": {
-    "You dare face a King?!": {
-      "notes": "Increases on hit damange to 18% current health damage"
+    "#YOU_DARE_FACE_A_KING?!": {
+      "name": "You dare face a King?!",
+      "notes": "Increases on hit to 18% current health damage"
     },
-    "For Isolde!": {
+    "#FOR_ISOLDE!": {
+      "name": "For Isolde!",
       "notes": "All bullets apply slow"
     },
-    "Heaven and Earth Combined": {
-      "notes": "Proc chance increases to 20% for both items"
+    "#HEAVEN_AND_EARTH_COMBINED": {
+      "name": "Heaven and Earth Combined",
+      "notes": "Proc chance increases to 30% for both items"
+    },
+    "#RETURN_ON_INVESTMENT": {
+      "name": "Return on Investment",
+      "notes": "Increase casing drop by 1"
+    },
+    "#STROKE_OF_LUCK": {
+      "name": "Stroke of Luck",
+      "notes": "Guaranteed casing drop and doubled casing amount while fortune's favor's effect is active"
+    },
+    "#AN_OFFERING": {
+      "name": "An offering",
+      "notes": "Triggers chance to gain tripled casing amount on daruma use"
+    },
+    "#BETTER_RNG": {
+      "name": "Better RNG",
+      "notes": "Increase casing drop chance to 75%"
+    },
+    "#WEAK_EARLY_GAME": {
+      "name": "weak early game...",
+      "notes": "10% inc damage"
+    },
+    "#BAUSEN_LAW": {
+      "name": "Bausen Law",
+      "notes": "Gain 3 casings every 5 kills instead"
+    },
+    "#LIFE_&_DEATH": {
+      "name": "Life & Death",
+      "notes": "+15% damage stored"
+    },
+    "#OVERCHARGED": {
+      "name": "Overcharged",
+      "notes": "+20% damage stored"
+    },
+    "#THAT_GOOD_$#%&": {
+      "name": "that GOOD $#%&",
+      "notes": "Every use of cigarettes gives +5% damage buff"
+    },
+    "#SPEED_BLITZ": {
+      "name": "Speed Blitz",
+      "notes": "Gives a +1.5 movement speed buff"
+    },
+    "#FILL'ERUP": {
+      "name": "Fill'Er-Up",
+      "notes": "double Gungine fire rate"
+    },
+    "#ICE_TO_THE_CORE": {
+      "name": "Ice to the core",
+      "notes": "Cripple increases to 45%"
+    },
+    "#FROZEN_BULLETS": {
+      "name": "Frozen Bullets",
+      "notes": "Bullets also apply cripple"
+    },
+    "#DIVINE_JUDGEMENT!": {
+      "name": "Divine Judgement!",
+      "notes": "Activating the revive deals damage in an aoe around you."
+    },
+    "#WHY_WON'T_YOU_DIE!": {
+      "name": "Why won't you DIE!",
+      "notes": "+1 heart"
+    },
+    "#BLADES_OF_CHAOS": {
+      "name": "Blades of Chaos",
+      "notes": "Extra projectile ignites enemies. 10 dps for 5s"
+    },
+    "#POSEIGUN'S_WRATH": {
+      "name": "Poseigun's Wrath",
+      "notes": "50% faster projectiles, decreases reload speed by 40%"
+    },
+    "#TRIPLE_DELUXE": {
+      "name": "TRIPLE DELUXE",
+      "notes": "Fires an extra projectile every 2nd bullet fired"
+    },
+    "#AMPLIFIED_LENS": {
+      "name": "Amplified Lens",
+      "notes": "distance based damage scale +25%"
+    },
+    "#FUTURISTIC_COMPATIBILITY": {
+      "name": "Futuristic Compatibility",
+      "notes": "distance based damage scale +50%"
+    },
+    "#GUARANTEED_HIT_IF_IT_HITS": {
+      "name": "guaranteed hit \"IF\" it hits",
+      "notes": "distance based damage scale +75%"
+    },
+    "#QUADRATIC_SCALING": {
+      "name": "Quadratic Scaling",
+      "notes": "Gain 2 stacks per kill"
+    },
+    "#GLADITORIAL_CHALLENGE": {
+      "name": "Gladitorial Challenge",
+      "notes": "After using lament configurum, gain 3x stacks per kill for 10 seconds"
+    },
+    "#PEACE_&_WAR": {
+      "name": "Peace & War",
+      "notes": "Every 50 kills, heal a half heart"
+    },
+    "#TOP_TIER_FISHING_TOOL": {
+      "name": "Top tier fishing tool",
+      "notes": "base damage +10"
+    },
+    "#ENTANGLEMENT": {
+      "name": "Entanglement",
+      "notes": "bullet that deals additional damage will also slow enemies"
+    },
+    "#MEGALODON_SLAYER": {
+      "name": "Megalodon Slayer",
+      "notes": "missing health scaling increased to 3x damage"
+    },
+    "#A_SAILOR'S_BEST_FRIEND": {
+      "name": "A sailor's best friend",
+      "notes": "extra damage doubled while double vision is active"
+    },
+    "#BURNING_VENGENCE": {
+      "name": "Burning Vengence",
+      "notes": "Burn duration increased to 6 seconds"
+    },
+    "#BLAZING_UNIVERSE!": {
+      "name": "Blazing Universe!",
+      "notes": "Burn damage doubled"
+    },
+    "#BLADE_OF_THE_ONI": {
+      "name": "Blade of the Oni",
+      "notes": "Damage buff increased to 1.25x, increased to 1.5x when upgraded"
+    },
+    "#IT_HAS_TO_BE_THIS_WAY": {
+      "name": "It Has To Be This Way",
+      "notes": "Ammo and Clip size buff increased to 2x"
+    },
+    "#JETSTREAM_SAM": {
+      "name": "Jetstream Sam",
+      "notes": "+2 movement speed, on hit damage increased by 5"
+    },
+    "#*SPONSORED_BY_NAVORI*": {
+      "name": "Sponsored by Navori",
+      "notes": "Gain a damage buff of 1.15x"
+    },
+    "#QUICKBLADES_AND_QUICKBULLETS": {
+      "name": "Quickblades and Quickbullets",
+      "notes": "increase firerate to 1.25x"
+    },
+    "#LIGHTSLINGER": {
+      "name": "Lightslinger",
+      "notes": "cooldown reduction increased by 5%"
+    },
+    "#+25_CHARM": {
+      "name": "+25 Charm",
+      "notes": "Decrease stack requirement to 3 stacks and cooldown to 15 seconds"
+    },
+    "#CHARMING_REINVIGORATION": {
+      "name": "Charming Reinvigoration",
+      "notes": "resets item cooldown on charm horn activation"
+    },
+    "#SUPER_TRAINING": {
+      "name": "Super Training",
+      "notes": "Halved stack gain delay, double each stack's effects"
+    },
+    "#AGE_OLD_WISDOM": {
+      "name": "Age old wisdom",
+      "notes": "30% damage increase and double Eternity effect"
+    },
+    "#ARCANE_MASTERY": {
+      "name": "Arcane Mastery",
+      "notes": "Instantly fully stack Timeless. +1.0 Movement speed"
+    },
+    "#ICE_II": {
+      "name": "Ice II",
+      "notes": "Doubles slow effect"
+    },
+    "#WITCHCRAFT": {
+      "name": "witchcraft...",
+      "notes": "+10% damage buff"
+    },
+    "#HELL'S_SHADOWS": {
+      "name": "Hell's Shadows",
+      "notes": "bonus damage multiplier increased by 25%"
+    },
+    "#SOLAR_FLAME": {
+      "name": "Solar Flame",
+      "notes": "bonus damage threshold increased by 25%"
+    },
+    "#EXTRA_SILVER": {
+      "name": "Extra Silver",
+      "notes": "+10% max health damage"
+    },
+    "#THE_NIGHT_HUNTER": {
+      "name": "The Night Hunter",
+      "notes": "deal damage every 2nd bullet"
+    },
+    "#STATIKK_ELECTRICITY": {
+      "name": "statikk electricity",
+      "notes": "4 more chain lightning bullets"
+    },
+    "#MO'_LIGHTNING!": {
+      "name": "Mo' Lightning!",
+      "notes": "+3 chain lightning damage, targets, and increased chain range"
+    },
+    "#EMPEROR_OF_LIGHTNING": {
+      "name": "EMPEROR OF LIGHTNING",
+      "notes": "+5 chain lightning bullets and damage"
+    },
+    "#TRUE_SUN_GOD": {
+      "name": "True Sun God",
+      "notes": "+0.25 radius per heart, +0.5 dps per heart"
+    },
+    "#VOLTAGE_NOVA": {
+      "name": "Voltage Nova",
+      "notes": "+1.5 dps per heart"
+    },
+    "#THORN_MAELSTROM": {
+      "name": "Thron Maelstrom",
+      "notes": "+15 extra damage and increased range"
+    },
+    "#ICE_COLD_THORNS": {
+      "name": "Ice Cold Thorns",
+      "notes": "doubled ice projectiles from heart of ice"
+    },
+    "#OW!_SPLINTER": {
+      "name": "Ow! Splinter",
+      "notes": "+30 extra damage"
+    },
+    "#ABSOLUTE_CONVERGENCE": {
+      "name": "Absolute Convergence",
+      "notes": "aura is activated permanently"
+    },
+    "#FLAME_>_ICE": {
+      "name": "Flame > Ice",
+      "notes": "doubled dps"
+    },
+    "#ICE_>_FLAME": {
+      "name": "Ice > Flame",
+      "notes": "slow increased to 80%"
+    },
+
+    "#FOUR!": {
+      "name": "FOUR!",
+      "notes": "Missiles deal 2.5x damage"
+    },
+    "#BOW_MASTERY": {
+      "name": "Bow Mastery",
+      "notes": "Halved cooldown"
+    },
+    "#ENLIGHTENED_BULLETS": {
+      "name": "Enlightened Bullets",
+      "notes": "+15% damage buff"
+    },
+    "#TERROR_TO_THE_GUNDEAD": {
+      "name": "Terror to the Gundead",
+      "notes": "Halved cooldown"
+    },
+    "#BUNCHO_POTIONS": {
+      "name": "BunchO Potions",
+      "notes": "stacks up to 3"
+    },
+    "#COCKTAIL_POTION": {
+      "name": "Cocktail Potion",
+      "notes": "Using the refillable potion provides half the effect of each Buff Potions. Gun Friendship: Halved buff amounts. Lead Skin: Halved duration"
+    },
+    "#DEMACIAN_TRAITOR": {
+      "name": "Demacian Traitor",
+      "notes": "doubled damage and increased slow duration"
+    },
+    "#CHAOS_CONTROL!": {
+      "name": "CHAOS CONTROL!",
+      "notes": "Cooldown decreased to 20s"
+    },
+    "#SEVEN_SECONDS_REMAIN": {
+      "name": "Seven seconds remain...",
+      "notes": "Can move and attack in stasis"
+    },
+
+    "#BOUNCEMAXXING": {
+      "name": "Bouncemaxxing",
+      "notes": "boomerangs bounce 3 more times"
+    },
+    "#PASSIVE_CHARGE": {
+      "name": "Passive Charge",
+      "notes": "regains 2 ammo per second while not in use"
+    },
+    "#ME,_MISS?_NOT_BY_A_LONG_SHOT": {
+      "name": "\"Me, miss? Not by a long shot.\"",
+      "notes": "headshots deal double damage"
+    },
+    "#RUNAAN'S_BULLETS": {
+      "name": "Runaan's Bullets",
+      "notes": "Pow-Pow/Fishbones's split projectiles still deal full damage."
+    },
+    "#THREEPRONGED_SPEARS": {
+      "name": "Three-Pronged Spears",
+      "notes": "doubled spear recall damage"
+    },
+    "#EXP_SHARE": {
+      "name": "Exp. Share",
+      "notes": "doubled exp gained"
+    },
+    "#DUO_QUEUING": {
+      "name": "Duo queuing",
+      "notes": "Halves fire rate, Damage x2.5"
+    },
+    "#SPAM_PINGING": {
+      "name": "spam pinging",
+      "notes": "Enrage duration doubled"
+    },
+    "#HIGH_BLOOD_PRESSURE": {
+      "name": "HIGH BLOOD PRESSURE",
+      "notes": "Enrage's random values modified. Increases speed by 25% and decreases health by 40%"
+    },
+    "#EMOTIONAL_PINGS": {
+      "name": "Emotional pings",
+      "notes": "Damage x1.75"
     },
   }
 }

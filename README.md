@@ -233,7 +233,7 @@ Zeke's Convergence (B):
 ## Active Items:
 ![](https://i.ibb.co/nNnjs75f/galeforce-pixelart-sprite.png)
 Galeforce (B):
-- Effect: Dash (invincible and floating during the dash: dodgeroll properties) in the aimed direction, firing 3 homing missiles at the end. Each missile deals 25 damage and is affected by player damage modifiers. Goes on a 90s cooldown.
+- Effect: Dash (invincible and floating during the dash: dodgeroll properties) in the aimed direction, firing 3 homing missiles at the end. Each missile deals 25 damage and is affected by player damage modifiers. Goes on a 30s cooldown.
 - Synergies:
 	+ FOUR! [Whisper]: Missiles deal 2.5x damage
 	+ Bow Mastery [Bow/Charmed Bow/Gunbow]: Halved cooldown
@@ -255,7 +255,7 @@ Refillable Potion (C):
 
 ![](https://i.ibb.co/ZR5sZTJ5/stridebreaker-pixelart-sprite-small.png)
 Stridebreaker (B):
-- Effect: Activate to damage all enemies for 20 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 80% for 10s. Goes on a 25s cooldown.
+- Effect: Activate to damage all enemies for 20 dmg in a radius around the player. Damage scales with player's damage modifiers. Hit enemies are slowed by 80% for 10s. Goes on a 15s cooldown.
 - Synergies:
 	+ Demacian Traitor [Betrayer's Shield]: doubled damage and increased slow duration
 
@@ -359,15 +359,15 @@ Whisper (A):
 - Fire rate cannot be increased and instead equally increases damage multiplier.
 - Clip size cannot be increased and instead increases damage multiplier by 25% of clip size modifier.
 
-![]()
+![](https://i.ibb.co/fYB1Wsr9/pinger-idle-001.png)
 Pinger (D):
 - Stats: 
 - Fires pings that enrage enemies hit for 10 seconds. Enraged enemies have their health and movement speed randomized.
 - Synergies:
-	+ Duo Queuing [Friendship Cookie]: slows down fire rate, increases damage
-	+ Spam Pinging [Scattershot]: Enrage lasts longer
-	+ High blood pressure [Enraging Photo]: Enrage increases speed and decreases health 
-	+ Emotional Pings [Shotgun Full of Hate]: Increased damage
+	+ Duo Queuing [Friendship Cookie]: Halves fire rate, Damage x2.5
+	+ Spam Pinging [Scattershot]: Enrage duration doubled
+	+ High blood pressure [Enraging Photo]: Enrage's random values modified. Increases speed by 25% and decreases health by 40%
+	+ Emotional Pings [Shotgun Full of Hate]: Damage x1.75
 
 ## Contributors:
 - Dallan - ALL artwork (*don't check what they were before he helped out*)
