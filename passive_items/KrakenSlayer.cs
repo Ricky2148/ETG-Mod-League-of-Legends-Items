@@ -70,6 +70,7 @@ namespace LOLItems.passive_items
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE); ;
 
             item.quality = ItemQuality.S;
+            item.AddToSubShop(ItemBuilder.ShopType.Trorc);
             ID = item.PickupObjectId;
         }
 

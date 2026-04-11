@@ -262,6 +262,7 @@ namespace LOLItems.weapons
 
             gun.quality = PickupObject.ItemQuality.A;
             ETGMod.Databases.Items.Add(gun, false, "ANY");
+            gun.AddToSubShop(ItemBuilder.ShopType.Cursula);
             ID = gun.PickupObjectId;
 
             ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.MovementSpeed, 1f, StatModifier.ModifyMethod.MULTIPLICATIVE);

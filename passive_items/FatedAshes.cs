@@ -49,6 +49,7 @@ namespace LOLItems.passive_items
             item.UsesCustomCost = true;
             item.CustomCost = 20;
 
+            item.AddToSubShop(ItemBuilder.ShopType.Goopton);
             ID = item.PickupObjectId;
         }
 

@@ -56,6 +56,7 @@ namespace LOLItems.passive_items
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
             item.quality = PickupObject.ItemQuality.B;
+            item.AddToSubShop(ItemBuilder.ShopType.Cursula);
             ID = item.PickupObjectId;
 
             /*List<string> mandatoryConsoleIDs = new List<string>

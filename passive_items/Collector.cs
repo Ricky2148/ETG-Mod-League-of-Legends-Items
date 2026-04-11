@@ -57,6 +57,7 @@ namespace LOLItems.passive_items
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
             item.quality = PickupObject.ItemQuality.A;
+            item.AddToSubShop(ItemBuilder.ShopType.Trorc);
             ID = item.PickupObjectId;
         }
 

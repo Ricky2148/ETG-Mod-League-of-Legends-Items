@@ -57,6 +57,7 @@ namespace LOLItems.passive_items
             item.ArmorToGainOnInitialPickup = ArmorStat;
 
             item.quality = PickupObject.ItemQuality.B;
+            item.AddToSubShop(ItemBuilder.ShopType.Trorc);
             ID = item.PickupObjectId;
         }
 

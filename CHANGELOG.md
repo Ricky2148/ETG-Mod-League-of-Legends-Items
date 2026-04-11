@@ -1,7 +1,7 @@
-#1.0.2
+## 1.0.2
 fixed bug that caused the LOLItems items to be the only modded items appearing in the ammonomicon
 
-#1.1.0
+## 1.1.0
 added new items:
 - collector
 - frozen heart
@@ -16,7 +16,7 @@ added new items:
 updated code for consistency and efficiency
 change item sprites for real sprite pixel art
 
-#2.0.0
+## 2.0.0
 added new items:
 - shield of molten stone
 - cloak of starry night
@@ -45,7 +45,7 @@ added new shopkeeper:
 
 a whole lot of vfx updates and optimizations
 
-#2.0.1
+## 2.0.1
 added new items: 
 - talisman of ascension
 - refillable potion
@@ -54,13 +54,13 @@ fixed bugs with various items that caused them to break the game when used on th
 some items may become more buggy, im not sure
 talisman will likely be updated with better vfx and sfx in the future in a more content update
 
-#2.1.0
+## 2.1.0
 added new items:
 - virtue forms 1,2,3
 
 added some synergies to some weapons, balance changes, some other stuff i likely forgot lol
 
-#2.1.1
+## 2.1.1
 added new items:
 - silver bolts
 
@@ -70,27 +70,27 @@ fixed a bug that caused a high amount of errors when using puppeteer on an enemy
 adjusted cull effect
 adjusted galeforce dash
 
-#3.0.0
+## 3.0.0
 added synergies:
 	A LOT OF SYNERGIES
 
-#3.0.1
+## 3.0.1
 added new items:
 - detonation orb
 
 fixed a bug with stridebreaker freezing the game when dropped
 
-#3.0.2
+## 3.0.2
 modified some logic behind detonation orb to hopefully be less bugged and more consistent
 fixed virtue weapons having weird pickup hitboxes
 nerfed virtue: increased exp requirements
 
 added itemtips support
 
-#3.0.3
+## 3.0.3
 added itemtips descriptions for synergies
 
-#3.1.0
+## 3.1.0
 added new weapon: Pinger
 
 fixed a bug with zhonya's chaos control synergy
@@ -103,3 +103,13 @@ balance changes:
 - Shadowflame: no longer provides stat buffs, damage amp and threshold increased from 40% to 50%
 - Galeforce: rarity decreased from A to B, no longer provides stat buffs, missile base damage increased from 10 to 25, cooldown decreased from 90s to 30s
 - Stridebreaker: rarity decreased from A to B, no longer provides stat buffs, slach base damage increased from 10 to 20, slow% increased from 70% to 80% and slow duration increased from 3s to 10s
+
+## 3.1.1
+add items to sub shops
+- Cursula: Cloak of Starry Night, Shield of Molten Stone, Guardian Angel, Liandry's Torment, Manamune, Rod of Ages, Rylai's Crystal Scepter, Shadowflame, Talisman of Ascension, Aion Er'na, Soul Spear, Virtue
+- Trorc: Kraken Slayer, Collector, Thornmail, Hextech Rifle, Pow-Pow/Fishbones, Whisper
+- Goopton: Refillable Potion, Fated Ashes, Tear of the Goddess
+- Old Red: Perfectly Timed Stopwatch, Zhonya's Hourglass
+- Flynt: nothing lol
+
+fixed pinger having log prints constantly

@@ -55,6 +55,7 @@ namespace LOLItems.active_items
 
             item.usableDuringDodgeRoll = true;
             item.quality = PickupObject.ItemQuality.A;
+            item.AddToSubShop(ItemBuilder.ShopType.OldRed);
             ID = item.PickupObjectId;
         }
 

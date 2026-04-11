@@ -44,6 +44,7 @@ namespace LOLItems.active_items
             item.UsesCustomCost = true;
             item.CustomCost = 20;
 
+            item.AddToSubShop(ItemBuilder.ShopType.OldRed);
             ID = item.PickupObjectId;
         }
 

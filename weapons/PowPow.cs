@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections;
-using Gungeon;
-using MonoMod;
-using UnityEngine;
+﻿using Alexandria.BreakableAPI;
 using Alexandria.ItemAPI;
-using Alexandria.SoundAPI;
-using Alexandria.BreakableAPI;
-using BepInEx;
-using System.Collections.Generic;
-using LOLItems.passive_items;
-using System.Runtime.CompilerServices;
 using Alexandria.Misc;
+using Alexandria.SoundAPI;
+using BepInEx;
+using Gungeon;
+using LOLItems.custom_class_data;
+using LOLItems.passive_items;
+using MonoMod;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEngine;
 
 // balance this: figure out what rarity it should be
 // scattershot bugs powpow 
@@ -430,6 +431,7 @@ namespace LOLItems.weapons
 
             gun.quality = PickupObject.ItemQuality.B; //Sets the gun's quality rank. Use "EXCLUDED" if the gun should not appear in chests.
             ETGMod.Databases.Items.Add(gun, false, "ANY");  //Adds your gun to the databse.
+            gun.AddToSubShop(ItemBuilder.ShopType.Trorc);
             ID = gun.PickupObjectId; //Sets the Gun ID. 
             ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire, 1.0f, StatModifier.ModifyMethod.MULTIPLICATIVE);
         }

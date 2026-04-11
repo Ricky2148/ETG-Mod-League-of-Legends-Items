@@ -71,6 +71,7 @@ namespace LOLItems.active_items
 
             item.usableDuringDodgeRoll = true;
             item.quality = PickupObject.ItemQuality.A;
+            item.AddToSubShop(ItemBuilder.ShopType.Cursula);
             ID = item.PickupObjectId;
 
             item.timesUsed = 0;

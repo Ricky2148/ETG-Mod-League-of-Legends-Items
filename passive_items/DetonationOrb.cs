@@ -145,7 +145,7 @@ namespace LOLItems.passive_items
         public override void DisableEffect(PlayerController player)
         {
             base.DisableEffect(player);
-            Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
+
             if (player != null)
             {
                 player.PostProcessProjectile -= OnPostProcessProjectile;
@@ -168,6 +168,8 @@ namespace LOLItems.passive_items
             {
                 enemyTheBombTrackerList.Clear();
             }
+
+            Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
         }
 
         public override void Update()
@@ -425,8 +427,8 @@ namespace LOLItems.passive_items
                             {
                                 target.StopCoroutine(enemyTheBombTrackerList[target].timerCoroutine);
                             }
+                            //Plugin.Log($"target: {target}, enemyTheBombTrackerList: {enemyTheBombTrackerList[target]}");
                             enemyTheBombTrackerList[target].timerCoroutine = target.StartCoroutine(TheBombCooldown(target));
-                            //should probably do it with target.StartCoroutine
                         }
 
 

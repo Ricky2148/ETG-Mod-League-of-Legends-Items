@@ -1272,13 +1272,13 @@ namespace LOLItems.weapons
 
                     if (firstEnemy.healthHaver.IsBoss || firstEnemy.healthHaver.IsSubboss)
                     {
-                        Plugin.Log($"is boss/subboss");
+                        //Plugin.Log($"is boss/subboss");
                         return;
                     }
 
                     if (!enemyTiltedTrackerList.ContainsKey(firstEnemy))
                     {
-                        Plugin.Log($"not in list");
+                        //Plugin.Log($"not in list");
                         enemyTiltedTrackerList.Add(firstEnemy, new EnemyTiltedTracker
                         (
                             firstEnemy.StartCoroutine(HandleTilt(firstEnemy, TiltedDuration)),
@@ -1287,7 +1287,7 @@ namespace LOLItems.weapons
                     }
                     else
                     {
-                        Plugin.Log($"already in list");
+                        //Plugin.Log($"already in list");
                         //firstEnemy.StopCoroutine(enemyTiltedTrackerList[firstEnemy].timerCoroutine);
                         //firstEnemy.RemoveEffect(TiltedEffect);
 
@@ -1305,7 +1305,7 @@ namespace LOLItems.weapons
             TiltedEffect.SpeedMultiplier = UnityEngine.Random.Range(TiltedSpeedMin, TiltedSpeedMax);
             TiltedEffect.HealthMultiplier = UnityEngine.Random.Range(TiltedHealthMin, TiltedHealthMax);
 
-            Plugin.Log($"speed: {TiltedEffect.SpeedMultiplier}, health: {TiltedEffect.HealthMultiplier}");
+            //Plugin.Log($"speed: {TiltedEffect.SpeedMultiplier}, health: {TiltedEffect.HealthMultiplier}");
 
             enemy.ApplyEffect(TiltedEffect);
             /*

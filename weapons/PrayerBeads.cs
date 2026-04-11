@@ -518,6 +518,7 @@ namespace LOLItems.weapons
             ETGMod.Databases.Items.Add(gun, false, "ANY");  //Adds your gun to the databse.
             //gun.AddToSubShop(ItemBuilder.ShopType.Trorc); //Select which sub shops during a run can carry the gun
             //gun.AddToSubShop(ItemBuilder.ShopType.Flynt);
+            gun.AddToSubShop(ItemBuilder.ShopType.Cursula);
             ID = gun.PickupObjectId; //Sets the Gun ID. 
         }
 

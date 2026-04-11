@@ -55,6 +55,7 @@ namespace LOLItems.passive_items
             item.playsSFX = true;
             string[] sfxList = { "carefree_melody_SFX" };
             item.updateSFXList(sfxList);
+            item.AddToSubShop(ItemBuilder.ShopType.Cursula);
             ID = item.PickupObjectId;
         }
 

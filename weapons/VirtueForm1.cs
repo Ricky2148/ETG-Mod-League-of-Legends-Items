@@ -248,6 +248,7 @@ namespace LOLItems.weapons
 
             gun.quality = PickupObject.ItemQuality.C;
             ETGMod.Databases.Items.Add(gun, false, "ANY");
+            gun.AddToSubShop(ItemBuilder.ShopType.Cursula);
             ID = gun.PickupObjectId;
 
             GunTools.TrimGunSprites(gun);
