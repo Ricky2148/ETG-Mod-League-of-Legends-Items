@@ -152,18 +152,6 @@ namespace LOLItems.passive_items
                 player.PostProcessBeamTick -= OnPostProcessProjectile;
             }
 
-            /*if (enemyTheBombDmgStored != null)
-            {
-                enemyTheBombDmgStored.Clear();
-            }
-            if (enemyTheBombCoroutine != null)
-            {
-                enemyTheBombCoroutine.Clear();
-            }
-            if (activeVFXObjectList != null)
-            {
-                activeVFXObjectList.Clear();
-            }*/
             if (enemyTheBombTrackerList != null)
             {
                 enemyTheBombTrackerList.Clear();
@@ -291,40 +279,6 @@ namespace LOLItems.passive_items
                     enemyTheBombTrackerList[target].timerCoroutine = target.StartCoroutine(TheBombCooldown(target));
                 }
             }
-
-            /*if (hitRigidbody.healthHaver != null && hitRigidbody.healthHaver.IsAlive)
-            {
-                float dmgToStore = beam.Gun.DefaultModule.projectiles[0].baseData.damage * TheBombDmgScale * tickrate;
-                if (hitRigidbody.healthHaver.IsBoss || hitRigidbody.healthHaver.IsSubboss)
-                {
-                    dmgToStore *= 0.25f;
-                }
-                if (!enemyTheBombDmgStored.ContainsKey(target))
-                {
-                    enemyTheBombDmgStored.Add(target, dmgToStore);
-                    enemyTheBombCoroutine.Add(target, null);
-                }
-                else
-                {
-                    enemyTheBombDmgStored[target] += dmgToStore;
-                }
-
-                //Plugin.Log($"enemyTheBombDmgStored: {enemyTheBombDmgStored[hitRigidbody.aiActor]}, enemy hp: {hitRigidbody.aiActor.healthHaver.GetCurrentHealth()}");
-
-                // if the hit enemy's stack count is at max stacks, trigger charm effect and cooldown
-                if (enemyTheBombDmgStored[target] >= target.healthHaver.GetCurrentHealth() && target.healthHaver.GetCurrentHealth() != 0)
-                {
-                    DetonateTheBomb(target);
-                }
-                else
-                {
-                    if (enemyTheBombCoroutine[target] != null)
-                    {
-                        StopCoroutine(enemyTheBombCoroutine[target]);
-                    }
-                    enemyTheBombCoroutine[target] = StartCoroutine(TheBombCooldown(target));
-                }
-            }*/
         }
 
         private void OnPostProcessProjectile(Projectile proj, float f)
@@ -432,48 +386,7 @@ namespace LOLItems.passive_items
                         }
 
 
-                        //if dmgTrackingList doesn't contain the target, add the target and damage to dmgTrackerList and add target and null to timeTrackerList
-                        /*if (!enemyTheBombDmgStored.ContainsKey(target))
-                        {
-                            enemyTheBombDmgStored.Add(target, dmgToStore);
-                            enemyTheBombCoroutine.Add(target, null);
-                            GameObject vfxObject = UnityEngine.Object.Instantiate(IdleEffectVFX, target.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset, Quaternion.identity);
-                            var sprite = vfxObject.GetComponent<tk2dSprite>();
-
-                            if (sprite != null)
-                            {
-                                
-                            }
-
-                            vfxObject.GetComponent<VFXAnchorModule>().anchorAIActor = target;
-                            vfxObject.GetComponent<VFXAnchorModule>().offset = vfxOffset + new Vector3(0, target.specRigidbody.HitboxPixelCollider.UnitDimensions.y);
-
-                            Plugin.Log($"hitboxpixelcollider: {target.specRigidbody.HitboxPixelCollider.UnitDimensions}");
-
-                            activeVFXObjectList.Add(target, vfxObject);
-                        }
-                        // if dmgTrackingList does contain the target, add dmgToStore to damage stored in dmgTrackerList
-                        else
-                        {
-                            enemyTheBombDmgStored[target] += dmgToStore;
-                        }*/
-
-                        /*Plugin.Log($"enemyTheBombDmgStored: {enemyTheBombDmgStored[target]}, enemy hp: {target.healthHaver.GetCurrentHealth()}");
-
-                        //detonate damage if dmg stored is greater than target's current health
-                        if (enemyTheBombDmgStored[target] >= target.healthHaver.GetCurrentHealth() && target.healthHaver.GetCurrentHealth() != 0)
-                        {
-                            DetonateTheBomb(target);
-                        }
-                        // if dmg stored is not greater than enemy health, start timer and reset this timer with more applications
-                        else
-                        {
-                            if (enemyTheBombCoroutine[target] != null)
-                            {
-                                StopCoroutine(enemyTheBombCoroutine[target]);
-                            }
-                            enemyTheBombCoroutine[target] = StartCoroutine(TheBombCooldown(target));
-                        }*/
+                        
                     }
                 };
             }
@@ -481,45 +394,13 @@ namespace LOLItems.passive_items
 
         private System.Collections.IEnumerator TheBombCooldown(AIActor enemyActor) 
         {
-            //Plugin.Log($"bomb cooldown start: {enemyActor}");
-
             yield return new WaitForSeconds(TheBombDuration);
 
-            // issue comes when enemy is null here
-            //Plugin.Log($"bomb cooldown end: {enemyActor}");
             DetonateTheBomb(enemyActor);
-
-            /*if (enemyActor.healthHaver.IsAlive)
-            {
-                DetonateTheBomb(enemyActor);
-            }
-            else
-            {
-                StopCoroutine(enemyTheBombTrackerList[enemyActor].timerCoroutine);
-
-                if (enemyTheBombTrackerList[enemyActor].activeVFXObject != null)
-                {
-                    Destroy(enemyTheBombTrackerList[enemyActor].activeVFXObject);
-                }
-
-                enemyTheBombTrackerList.Remove(enemyActor);
-            }*/
-
-            //StopCoroutine(enemyTheBombCoroutine[enemyActor]);
         }
 
         private void DetonateTheBomb(AIActor enemyActor)
         {
-            //Plugin.Log("bomb detonated");
-
-            /*
-            if (activeVFXObjectList[enemyActor] != null)
-            {
-                Destroy(activeVFXObjectList[enemyActor]);
-            }
-            activeVFXObjectList[enemyActor] = enemyActor.PlayEffectOnActor(ExplodeEffectVFX, new Vector3(0 / 16f, 0 / 16f, -2f), true, false, false);
-            */
-
             AkSoundEngine.PostEvent("detOrb_SFX_loop_002" + "_stop", enemyActor.gameObject);
 
             if (enemyActor.healthHaver.IsAlive)
@@ -551,31 +432,6 @@ namespace LOLItems.passive_items
             }
 
             enemyTheBombTrackerList.Remove(enemyActor);
-
-            /*if (activeVFXObjectList[enemyActor] != null)
-            {
-                Destroy(activeVFXObjectList[enemyActor]);
-                activeVFXObjectList.Remove(enemyActor);
-            }
-
-            UnityEngine.Object.Instantiate(ExplodeEffectVFX, enemyActor.specRigidbody.UnitBottomCenter.ToVector3ZUp() + vfxOffset + new Vector3(0, enemyActor.specRigidbody.HitboxPixelCollider.UnitDimensions.y), Quaternion.identity);
-
-            enemyActor.healthHaver.ApplyDamage(
-                enemyTheBombDmgStored[enemyActor],
-                Vector2.zero,
-                "the_bomb_detonation_damage",
-                CoreDamageTypes.None,
-                DamageCategory.Normal,
-                ignoreInvulnerabilityFrames: true,
-                hitPixelCollider: null,
-                ignoreDamageCaps: true
-            );
-
-            StopCoroutine(enemyTheBombCoroutine[enemyActor]);
-            enemyTheBombCoroutine.Remove(enemyActor);
-            enemyTheBombDmgStored.Remove(enemyActor);*/
-
-            //Plugin.Log($"dmg storage: {enemyTheBombDmgStored}, coroutine storage: {enemyTheBombCoroutine}");
         }
     }
 }
