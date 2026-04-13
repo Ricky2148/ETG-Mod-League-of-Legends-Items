@@ -186,7 +186,8 @@ Shadowflame (A):
 
 ![](https://i.ibb.co/9HKyS9mc/sheen-pixelart-sprite.png)
 Sheen (D):
-- Effect: The first bullet of player's clip will deal an additional 10 damage.
+- Effect: provides Spellblade effect. Spellblade damage: 10 dmg
+- Spellblade: The next bullet that hits an enemy will deal additional damage. Goes on a 3s cooldown after dealing the damage.
 
 ![](https://i.ibb.co/4ZPNNB6p/silver-bolts-pixelart-sprite.png)
 Silver Bolts(C):

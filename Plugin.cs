@@ -64,22 +64,26 @@ namespace LOLItems
 
             #region Items
             BladeOfTheRuinedKing.Init();
-            ExperimentalHexplate.Init();
             GuardianAngel.Init();
             GuinsoosRageblade.Init();
             Hubris.Init();
             KrakenSlayer.Init();
+
+            FatedAshes.Init();
             LiandrysTorment.Init();
-            //MuramanaSynergyActivation.Init();
+
+            TearOfTheGoddess.Init();
             Manamune.Init();
             Muramana.Init();
+
             StatikkShiv.Init();
             Stridebreaker.Init();
             SunfireAegis.Init();
             Thornmail.Init();
+
+            PerfectlyTimedStopwatch.Init();
             ZhonyasHourglass.Init();
 
-            //new update?
             Collector.Init();
             FrozenHeart.Init();
             RodOfAges.Init();
@@ -89,28 +93,22 @@ namespace LOLItems
             RylaisCrystalScepter.Init();
             Shadowflame.Init();
             NavoriQuickblades.Init();
-
-            //testing
-            //CarefreeMelody.Init();
-            //debugItem.Init();
-
-            //guon stones
             BraumsShield.Init();
 
-            //new items
             ShieldOfMoltenStone.Init();
             CloakOfStarryNight.Init();
+
+            ExperimentalHexplate.Init();
             ZekesConvergence.Init();
             Redemption.Init();
 
-            //low tier items
             Sheen.Init();
-            FatedAshes.Init();
-            Cull.Init();
-            PerfectlyTimedStopwatch.Init();
-            TearOfTheGoddess.Init();
+            TrinityForce.Init();
+            DivineSunderer.Init();
+            EssenceReaver.Init();
+            LichBane.Init();
 
-            //next update items
+            Cull.Init();
             DetonationOrb.Init();
             RefillablePotion.Init();
             TalismanOfAscension.Init();
@@ -132,7 +130,7 @@ namespace LOLItems
             VirtueForm3.Add();
             SoulSpear.Add();
             //GauntletOfNeZuk.Add(); //UNFINISHED
-            Pinger.Add(); //Unfinished
+            Pinger.Add();
 
             #region NPCs
             Bubbs.Init();

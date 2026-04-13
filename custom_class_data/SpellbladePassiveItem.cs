@@ -3,68 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Alexandria.ItemAPI;
-using Alexandria;
-using LOLItems.custom_class_data;
 
-namespace LOLItems.passive_items
+namespace LOLItems.custom_class_data
 {
-    internal class Sheen : SpellbladePassiveItem
+    public class SpellbladePassiveItem : PassiveItem
     {
-        public static string ItemName = "Sheen";
+        public string damageIdentifier = "spellblade_template_damage";
 
-        private static float spellbladeDmg = 10f;
-        private static float spellbladeCooldown = 3f;
-        private static string spellbladeDamageIdentifier = "sheen_spellblade_damage";
+        private bool shouldApplySpellblade = false;
+        public float activationDmgValue = 10f;
+        public float activationCooldownValue = 3f;
 
-        public static int ID;
+        public bool baseDamageScalesWithPlayerStats = false;
+        public float damageStatScaleRatio = 1f;
 
-        public static void Init()
-        {
-            string itemName = ItemName;
-            string resourceName = "LOLItems/Resources/passive_item_sprites/sheen_pixelart_sprite";
+        public bool activationDealsPercentDamage = false;
+        public float percentDamageRatio = 0f;
 
-            GameObject obj = new GameObject(itemName);
+        private bool isOnCooldown = false;
+        private float CooldownTimer = 999999999f;
 
-            var item = obj.AddComponent<Sheen>();
-
-            ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
-
-            string shortDesc = "who makes a sword out of ice?";
-            string longDesc = "Grants Spellblade every few seconds. Spellblade: Empowers next bullet with some additional damage.\n\n" +
-                "A sword made out of ice... It's been magically enchanted to mend itself when shattered, but since it's made of ice, it always shatters...\n";
-
-            ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
-
-            item.quality = PickupObject.ItemQuality.D;
-
-            item.activationDmgValue = spellbladeDmg;
-            item.activationCooldownValue = spellbladeCooldown;
-            item.damageIdentifier = spellbladeDamageIdentifier;
-
-            item.UsesCustomCost = true;
-            item.CustomCost = 20;
-
-            ID = item.PickupObjectId;
-        }
+        public Action<PlayerController> OnSpellbladeProc;
 
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
-            Plugin.Log($"Player picked up {this.EncounterNameOrDisplayName}");
-        }
-
-        public override void DisableEffect(PlayerController player)
-        {
-            base.DisableEffect(player);
-            Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
-        }
-
-        /*public override void Pickup(PlayerController player)
-        {
-            base.Pickup(player);
-            Plugin.Log($"Player picked up {this.EncounterNameOrDisplayName}");
-
             player.OnReloadedGun += OnGunReloaded;
             player.PostProcessProjectile += OnPostProcessProjectile;
             shouldApplySpellblade = true;
@@ -73,8 +36,6 @@ namespace LOLItems.passive_items
         public override void DisableEffect(PlayerController player)
         {
             base.DisableEffect(player);
-            Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
-
             if (player != null)
             {
                 player.OnReloadedGun -= OnGunReloaded;
@@ -124,21 +85,37 @@ namespace LOLItems.passive_items
                     if (enemy.aiActor == null && enemy.GetComponentInParent<AIActor>() == null) return;
                     if (enemy.healthHaver != null)
                     {
+                        float dmgToDeal = activationDmgValue;
+
+                        if (baseDamageScalesWithPlayerStats)
+                        {
+                            dmgToDeal *= (Owner.stats.GetStatValue(PlayerStats.StatType.Damage) * damageStatScaleRatio);
+                        }
+
+                        if (activationDealsPercentDamage)
+                        {
+                            dmgToDeal += enemy.healthHaver.GetMaxHealth() * percentDamageRatio;
+                        }
+
                         enemy.healthHaver.ApplyDamage(
-                            spellbladeDmg,
+                            dmgToDeal,
                             Vector2.zero,
-                            "sheen_spellblade_damage",
+                            damageIdentifier,
                             CoreDamageTypes.None,
                             DamageCategory.Normal,
                             false
                         );
                     }
-                    Plugin.Log($"cooldown started, shouldApplySpellblade: {shouldApplySpellblade}, curTime: {BraveTime.ScaledTimeSinceStartup}, expected cooldown end time: {BraveTime.ScaledTimeSinceStartup + spellbladeCooldown}");
+                    Plugin.Log($"cooldown started, shouldApplySpellblade: {shouldApplySpellblade}, curTime: {BraveTime.ScaledTimeSinceStartup}, expected cooldown end time: {BraveTime.ScaledTimeSinceStartup + activationCooldownValue}");
                     shouldApplySpellblade = false;
                     isOnCooldown = true;
-                    CooldownTimer = BraveTime.ScaledTimeSinceStartup + spellbladeCooldown;
+                    CooldownTimer = BraveTime.ScaledTimeSinceStartup + activationCooldownValue;
+                    if (OnSpellbladeProc != null)
+                    {
+                        OnSpellbladeProc(m_owner);
+                    }
                 };
             }
-        }*/
+        }
     }
 }

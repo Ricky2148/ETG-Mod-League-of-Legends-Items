@@ -264,6 +264,19 @@ namespace LOLItems
             return complex;
         }
 
+        public static void RestorePercentAmmo(PlayerController source, float ammoRestorePercent)
+        {
+            for (int i = 0; i < source.inventory.AllGuns.Count; i++)
+            {
+                Gun gun = source.inventory.AllGuns[i];
+                if (!gun.InfiniteAmmo && gun.CanGainAmmo)
+                {
+                    int ammoToGain = Mathf.CeilToInt((float)gun.AdjustedMaxAmmo * ammoRestorePercent);
+                    gun.GainAmmo(ammoToGain);
+                }
+            }
+        }
+
         public static void AddItemToSynergy(this PickupObject obj, CustomSynergyType type)
         {
             AddItemToSynergy(type, obj.PickupObjectId);

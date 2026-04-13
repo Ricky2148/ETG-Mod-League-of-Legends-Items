@@ -73,6 +73,7 @@
     <Compile Include="custom_class_data\LootTableTools.cs" />
     <Compile Include="custom_class_data\OnPreDamagedPassiveItem.cs" />
     <Compile Include="custom_class_data\RicochetProjectileModule.cs" />
+    <Compile Include="custom_class_data\SpellbladePassiveItem.cs" />
     <Compile Include="custom_class_data\TrueWallPiercingRounds.cs" />
     <Compile Include="custom_class_data\VFXAnchorModule.cs" />
     <Compile Include="custom_class_data\VFXAnchorOnHandModule.cs" />
@@ -81,8 +82,11 @@
     <Compile Include="passive_items\CloakOfStarryNight.cs" />
     <Compile Include="passive_items\Cull.cs" />
     <Compile Include="passive_items\DetonationOrb.cs" />
+    <Compile Include="passive_items\DivineSunderer.cs" />
+    <Compile Include="passive_items\EssenceReaver.cs" />
     <Compile Include="passive_items\FatedAshes.cs" />
     <Compile Include="active_items\PerfectlyTimedStopwatch.cs" />
+    <Compile Include="passive_items\LichBane.cs" />
     <Compile Include="passive_items\Sheen.cs" />
     <Compile Include="passive_items\ShieldOfMoltenStone.cs" />
     <Compile Include="passive_items\Collector.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="passive_items\LiandrysTorment.cs" />
     <Compile Include="passive_items\Manamune.cs" />
     <Compile Include="passive_items\TearOfTheGoddess.cs" />
+    <Compile Include="passive_items\TrinityForce.cs" />
     <Compile Include="passive_items\ZekesConvergence.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -42,20 +42,20 @@ namespace LOLItems.passive_items
             string resourceName = "LOLItems/Resources/passive_item_sprites/puppeteer_pixelart_sprite";
 
             GameObject obj = new GameObject(itemName);
-            
+
             var item = obj.AddComponent<Puppeteer>();
-            
+
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
-            
+
             string shortDesc = "dance, boy, dance!";
             string longDesc = "Increase fire rate\nEvery bullet applies a stack to enemies hit. Once any enemy reaches max stacks, charms them. Goes on a cooldown.\n\n" +
                 "A marionette glove without its marionette. It allows you to control enemies but fills you with " +
                 "an uneasy feeling. You could swear there's a creepy laugh in the gungeon's corridors now.\n";
-            
+
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
-            
+
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            
+
             CharmEffect.duration = PullTheirStringsCharmDuration;
 
             item.quality = PickupObject.ItemQuality.B;
@@ -143,7 +143,7 @@ namespace LOLItems.passive_items
                         enemyCharmStacks.Clear();
                         aiActor.ApplyEffect(CharmEffect);
                         itemCooldownCoroutine = StartCoroutine(StartPullTheirStringsCooldown(player));
-                    }            
+                    }
                 }
             }
         }
