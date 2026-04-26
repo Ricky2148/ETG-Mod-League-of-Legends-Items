@@ -104,12 +104,19 @@ balance changes:
 - Galeforce: rarity decreased from A to B, no longer provides stat buffs, missile base damage increased from 10 to 25, cooldown decreased from 90s to 30s
 - Stridebreaker: rarity decreased from A to B, no longer provides stat buffs, slach base damage increased from 10 to 20, slow% increased from 70% to 80% and slow duration increased from 3s to 10s
 
-## 3.1.1
+## 3.2.0
 add items to sub shops
 - Cursula: Cloak of Starry Night, Shield of Molten Stone, Guardian Angel, Liandry's Torment, Manamune, Rod of Ages, Rylai's Crystal Scepter, Shadowflame, Talisman of Ascension, Aion Er'na, Soul Spear, Virtue
 - Trorc: Kraken Slayer, Collector, Thornmail, Hextech Rifle, Pow-Pow/Fishbones, Whisper
 - Goopton: Refillable Potion, Fated Ashes, Tear of the Goddess
 - Old Red: Perfectly Timed Stopwatch, Zhonya's Hourglass
 - Flynt: nothing lol
+
+changed sheen mechanics
+added new items that are upgrades to sheen
+- Trinity Force
+- Divine Sunderer
+- Essence Reaver
+- Lich Bane
 
 fixed pinger having log prints constantly

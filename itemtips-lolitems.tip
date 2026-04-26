@@ -1,7 +1,7 @@
 {
   "metadata": {
     "name": "League of Legends Items",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "url": "https://enter-the-gungeon.thunderstore.io/package/Ricky2148/League_of_Legends_Items/"
   },
   "items": {
@@ -101,13 +101,29 @@
       "name": "Sheen",
       "notes": "The first bullet of player's clip will deal an additional 10 damage."
     },
+    "LOLItems:trinity_force": {
+      "name": "Trinity Force",
+      "notes": "1.1x DMG, 1.1x ROF, 1 Heart. The first bullet of player's clip will deal an additional 20 damage."
+    },
+    "LOLItems:divine_sunderer": {
+      "name": "Divine Sunderer",
+      "notes": "The first bullet of player's clip will deal an additional 15 + 20% max health damage."
+    },
+    "LOLItems:essence_reaver": {
+      "name": "Essence Reaver",
+      "notes": "1.15x DMG. The first bullet of player's clip will deal an additional 15 damage scaling with player's stats. Restores 1% ammo each time spellblade is used."
+    },
+    "LOLItems:lich_bane": {
+      "name": "Lich Bane",
+      "notes": "The first bullet of player's clip will deal an additional 40 damage."
+    },
     "LOLItems:silver_bolts": {
       "name": "Silver Bolts",
       "notes": "Deal 5 + 15% max health damage every 3rd bullet"
     },
     "LOLItems:statikk_shiv": {
       "name": "Statikk Shiv",
-      "notes": "1.2x DMG, 1.1x ROF, The first 3 bullets of player's clip will chain lightning up to 5 enemies starting from the first enemy hit. Chain lightning deals 5 dmg."
+      "notes": "The first 5 bullets of player's clip will chain lightning up to 8 enemies starting from the first enemy hit. Chain lightning deals 10 dmg."
     },
     "LOLItems:sunfire_aegis": {
       "name": "Sunfire Aegis",

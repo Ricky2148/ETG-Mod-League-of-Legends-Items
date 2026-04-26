@@ -60,6 +60,21 @@ namespace LOLItems.passive_items
             Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
         }
 
+        public override void Update()
+        {
+            if (Owner != null)
+            {
+                if (Owner.HasSynergy(Synergy.BUILDS_INTO_TRINITY_FORCE) || Owner.HasSynergy(Synergy.BUILDS_INTO_DIVINE_SUNDERER) || Owner.HasSynergy(Synergy.BUILDS_INTO_ESSENCE_REAVER) || Owner.HasSynergy(Synergy.BUILDS_INTO_LICH_BANE))
+                {
+                    Owner.RemovePassiveItem(ID);
+
+                    LootEngine.SpawnCurrency(Owner.specRigidbody.UnitCenter, this.PurchasePrice);
+                }
+            }
+
+            base.Update();
+        }
+
         /*public override void Pickup(PlayerController player)
         {
             base.Pickup(player);

@@ -21,7 +21,7 @@ namespace LOLItems.passive_items
         public static void Init()
         {
             string itemName = ItemName;
-            string resourceName = "LOLItems/Resources/passive_item_sprites/sheen_pixelart_sprite";
+            string resourceName = "LOLItems/Resources/passive_item_sprites/lich_bane_pixelart_sprite";
 
             GameObject obj = new GameObject(itemName);
 
@@ -30,8 +30,9 @@ namespace LOLItems.passive_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
             string shortDesc = "lich's bane";
-            string longDesc = "Grants Spellblade every few seconds. Spellblade: Empowers next bullet with some additional damage.\n\n" +
-                "\n";
+            string longDesc = "Grants Spellblade every few seconds. Spellblade: Empowers next bullet with extreme additional damage.\n\n" +
+                "A petricite blade bathed in the blood of liches. The lingering magicks of the liches clings to the blade, desperate to continue inflicting harm upon anyone who is unfortunate enough to be on the receiving end. " +
+                "The dark magicks that infest this blade are extremely effective against the magic obsessed: granting it the name \"Lich Bane\"\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 

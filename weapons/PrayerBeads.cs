@@ -136,7 +136,7 @@ namespace LOLItems.weapons
             gun.DefaultModule.ammoCost = 1;
             gun.reloadTime = 0f; //reloadDuration;
             gun.DefaultModule.cooldownTime = fireRateStat; //Time between shots fired.  For Burst guns it's the time between each burst.
-            gun.DefaultModule.numberOfShotsInClip = ammoStat; //ammoStat;
+            gun.DefaultModule.numberOfShotsInClip = 9999; //ammoStat;
             gun.SetBaseMaxAmmo(ammoStat);
             /* GunHandedness sets how the gun is held.
              * OneHanded and TwoHanded control how hands hold the gun.

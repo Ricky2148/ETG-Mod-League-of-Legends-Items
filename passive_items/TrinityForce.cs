@@ -25,7 +25,7 @@ namespace LOLItems.passive_items
         public static void Init()
         {
             string itemName = ItemName;
-            string resourceName = "LOLItems/Resources/passive_item_sprites/sheen_pixelart_sprite";
+            string resourceName = "LOLItems/Resources/passive_item_sprites/trinity_force_pixelart_sprite";
 
             GameObject obj = new GameObject(itemName);
 
@@ -33,9 +33,9 @@ namespace LOLItems.passive_items
 
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
-            string shortDesc = "not zelda";
-            string longDesc = "Grants Spellblade every few seconds. Spellblade: Empowers next bullet with some additional damage.\n\n" +
-                "\n";
+            string shortDesc = "*not affiliated with Zelda*";
+            string longDesc = "+1 Heart, Increase damage and fire rate\nGrants Spellblade every few seconds. Spellblade: Empowers next bullet with high additional damage.\n\n" +
+                "The pinnacle of balance. A charm of legend rumored to belong to a far away land. You feel stronger with it, especially your Power, Wisdom, and Courage.\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 

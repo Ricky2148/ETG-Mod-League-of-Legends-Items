@@ -115,7 +115,7 @@ namespace LOLItems.weapons
             gun.DefaultModule.ammoCost = 3;
             gun.reloadTime = 0f;
             gun.DefaultModule.cooldownTime = fireRateStat; //Time between shots fired.  For Burst guns it's the time between each burst.
-            gun.DefaultModule.numberOfShotsInClip = ammoStat;
+            gun.DefaultModule.numberOfShotsInClip = 9999;
             gun.SetBaseMaxAmmo(ammoStat);
 
             gun.DefaultModule.angleFromAim = 0f; //Degree offset from your aim angle the module fires. Useful for guns with multiple modules that fire in a spread.

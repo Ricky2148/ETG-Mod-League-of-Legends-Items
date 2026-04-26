@@ -17,15 +17,15 @@ namespace LOLItems.passive_items
         public static string ItemName = "Statikk Shiv";
 
         // stats pool for item
-        private static float DamageStat = 1.2f;
-        private static float RateOfFireStat = 1.1f;
+        //private static float DamageStat = 1.2f;
+        //private static float RateOfFireStat = 1.1f;
 
-        public int BaseElectroSparkShotCount = 3;
-        private static float ElectroSparkDamage = 5f;
-        private static float ElectroSparkChainCount = 5f;
-        private static float ElectroSparkChainRange = 5f;
+        //public int BaseElectroSparkShotCount = 3;
+        private static float ElectroSparkDamage = 10f;
+        private static float ElectroSparkChainCount = 8f;
+        private static float ElectroSparkChainRange = 8f;
 
-        private int ElectroSparkShotCount = 3;
+        private int ElectroSparkShotCount = 5;
         private int ElectroSparkShotCountTracker = 0;
 
         public bool STATIKKELECTRICITYActivated = false;
@@ -52,14 +52,14 @@ namespace LOLItems.passive_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
             string shortDesc = "*shocks you*";
-            string longDesc = "Increase damage and fire rate\nFirst 3 bullets of clip applies a chain lightning to enemies hit.\n\n" +
+            string longDesc = "Increase damage and fire rate\nFirst 5 bullets of clip applies a chain lightning to enemies hit.\n\n" +
                 "Supposed to be a replica of Zeus's Lightning Bolt." +
                 "\njust a shiv with a taser\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.RateOfFire, RateOfFireStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
 
             item.quality = PickupObject.ItemQuality.A;
             ID = item.PickupObjectId;

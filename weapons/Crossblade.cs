@@ -78,7 +78,7 @@ namespace LOLItems.weapons
             gun.DefaultModule.ammoCost = 1;
             gun.reloadTime = reloadDuration;
             gun.DefaultModule.cooldownTime = fireRateStat; 
-            gun.DefaultModule.numberOfShotsInClip = ammoStat;
+            gun.DefaultModule.numberOfShotsInClip = 9999;
             gun.SetBaseMaxAmmo(ammoStat);
 
             gun.gunHandedness = GunHandedness.OneHanded;

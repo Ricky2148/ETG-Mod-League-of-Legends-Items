@@ -2275,6 +2275,10 @@
     <EmbeddedResource Include="Resources\hit_effects\pings_hit_frames\ping_vision_022.png" />
     <EmbeddedResource Include="Resources\hit_effects\pings_hit_frames\ping_vision_023.png" />
     <EmbeddedResource Include="Resources\hit_effects\pings_hit_frames\ping_vision_024.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\divine_sunderer_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\essence_reaver_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\lich_bane_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\passive_item_sprites\trinity_force_pixelart_sprite.png" />
     <Content Include="Resources\Sounds\gen-gungeon-audio-bank.py" />
     <EmbeddedResource Include="Resources\active_item_sprites\redemption_item_sprite.png" />
     <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_item_sprite.png" />

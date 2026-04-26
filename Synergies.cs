@@ -144,6 +144,13 @@ namespace LOLItems
             NewSynergy(LOLItems.Synergy.HELLS_SHADOWS, "Hell's Shadows", new[] { IName(Shadowflame.ItemName) }, new[] { "pitchfork", "demon_head" });
             NewSynergy(LOLItems.Synergy.SOLAR_FLAME, "Solar Flame", new[] { IName(Shadowflame.ItemName), "sunlight_javelin" });
 
+            //Sheen
+            NewSynergy(LOLItems.Synergy.BUILDS_INTO_TRINITY_FORCE, "builds into Trinity Force", new[] { IName(Sheen.ItemName), IName(TrinityForce.ItemName) });
+            NewSynergy(LOLItems.Synergy.BUILDS_INTO_DIVINE_SUNDERER, "builds into Divine Sunderer", new[] { IName(Sheen.ItemName), IName(DivineSunderer.ItemName) });
+            NewSynergy(LOLItems.Synergy.BUILDS_INTO_ESSENCE_REAVER, "builds into Essence Reaver", new[] { IName(Sheen.ItemName), IName(EssenceReaver.ItemName) });
+            NewSynergy(LOLItems.Synergy.BUILDS_INTO_LICH_BANE, "builds into Lich Bane", new[] { IName(Sheen.ItemName), IName(LichBane.ItemName) });
+
+
             //Silver Bolts
             NewSynergy(LOLItems.Synergy.EXTRA_SILVER, "Extra Silver", new[] { IName(SilverBolts.ItemName), "silver_bullets" });
             NewSynergy(LOLItems.Synergy.THE_NIGHT_HUNTER, "The Night Hunter", new[] { IName(SilverBolts.ItemName), "crossbow" });
@@ -390,6 +397,10 @@ namespace LOLItems
         DUO_QUEUING,
         SPAM_PINGING,
         HIGH_BLOOD_PRESSURE,
-        EMOTIONAL_PINGS
+        EMOTIONAL_PINGS,
+        BUILDS_INTO_DIVINE_SUNDERER,
+        BUILDS_INTO_TRINITY_FORCE,
+        BUILDS_INTO_ESSENCE_REAVER,
+        BUILDS_INTO_LICH_BANE,
     };
 }

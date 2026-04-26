@@ -53,7 +53,7 @@ namespace LOLItems.passive_items
             item.effectDuration = 1f;
             item.triggersOutline = true;
             item.triggersGlow = true;
-            item.outlineColor = new Color(178f * 0.7f, 34f * 0.7f, 34f * 0.7f);
+            item.outlineColor = new Color(138f * 0.7f, 43f * 0.7f, 226f * 0.7f);
 
             item.playsSFX = true;
             string[] sfxList = { "carefree_melody_SFX" };

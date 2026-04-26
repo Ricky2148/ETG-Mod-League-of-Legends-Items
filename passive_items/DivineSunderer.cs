@@ -23,7 +23,7 @@ namespace LOLItems.passive_items
         public static void Init()
         {
             string itemName = ItemName;
-            string resourceName = "LOLItems/Resources/passive_item_sprites/sheen_pixelart_sprite";
+            string resourceName = "LOLItems/Resources/passive_item_sprites/divine_sunderer_pixelart_sprite";
 
             GameObject obj = new GameObject(itemName);
 
@@ -31,9 +31,10 @@ namespace LOLItems.passive_items
 
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
-            string shortDesc = "anti-tank";
-            string longDesc = "Grants Spellblade every few seconds. Spellblade: Empowers next bullet with some additional damage.\n\n" +
-                "\n";
+            string shortDesc = "Bigger = Fall-er?";
+            string longDesc = "Grants Spellblade every few seconds. Spellblade: Empowers next bullet with additional damage and % max health damage.\n\n" +
+                "A two handed axe that once belonged to an immortal jackal-headed Ascended. Using this tool, he oversaw the growth of his kingdom and laid judgement once it fell into despair. " +
+                "Afterwards, he laid down his weapon and simply left. No one knows where he is.\n";
 
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "LOLItems");
 

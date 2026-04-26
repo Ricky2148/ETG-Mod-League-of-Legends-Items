@@ -188,6 +188,31 @@ Shadowflame (A):
 Sheen (D):
 - Effect: provides Spellblade effect. Spellblade damage: 10 dmg
 - Spellblade: The next bullet that hits an enemy will deal additional damage. Goes on a 3s cooldown after dealing the damage.
+- Synergy:
+	+ Builds into Trinity Force
+	+ Builds into Divine Sunderer
+	+ Builds into Essence Reaver
+	+ Builds into Lich Bane
+
+![](https://i.ibb.co/VcTwYC7b/trinity-Force-001.png)
+Trinity Force (A):
+- Effect: provides Spellblade effect. Spellblade damage: 20 dmg
+- Spellblade: The next bullet that hits an enemy will deal additional damage. Goes on a 3s cooldown after dealing the damage.
+
+![](https://i.ibb.co/3mn29JrD/divine-Sunderer-001.png)
+Divine Sunderer (B):
+- Effect: provides Spellblade effect. Spellblade damage: 15 + 20% max hp dmg
+- Spellblade: The next bullet that hits an enemy will deal additional damage. Goes on a 3s cooldown after dealing the damage.
+
+![](https://i.ibb.co/GQFzvT1W/essence-Reaver-001.png)
+Essence Reaver (A):
+- Effect: provides Spellblade effect. Spellblade damage: 15 dmg. Affected by player's stats
+- Spellblade: The next bullet that hits an enemy will deal additional damage. Restores a small amount of ammo each time spellblade is used. Goes on a 3s cooldown after dealing the damage.
+
+![](https://i.ibb.co/Jj63xKZN/lich-Bane-001.png)
+Lich Bane (S):
+- Effect: provides Spellblade effect. Spellblade damage: 40 dmg
+- Spellblade: The next bullet that hits an enemy will deal additional damage. Goes on a 3s cooldown after dealing the damage.
 
 ![](https://i.ibb.co/4ZPNNB6p/silver-bolts-pixelart-sprite.png)
 Silver Bolts(C):
@@ -198,8 +223,7 @@ Silver Bolts(C):
 
 ![](https://i.ibb.co/yn60RZtt/statikk-shiv-pixelart-sprite.png)
 Statikk Shiv (A):
-- Stats: 1.2x DMG, 1.1x ROF
-- Effect: The first 3 bullets of player's clip will chain lightning up to 5 enemies starting from the first enemy hit. Chain lightning deals 5 dmg.
+- Effect: The first 5 bullets of player's clip will chain lightning up to 8 enemies starting from the first enemy hit. Chain lightning deals 10 dmg.
 - Synergies:
 	+ Statikk Electricity [Thunderclap/Laser Lotus]: 4 more chain lightning bullets
 	+ Mo' Lightning [Shock Rounds]: +3 chain lightning damage, targets, and increased chain range
