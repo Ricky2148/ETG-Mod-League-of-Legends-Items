@@ -16,13 +16,13 @@ Blade of the Ruined King (S):
 	+ For Isolde! [Excaliber/Blasphemy]: All bullets apply slow
 
 ![](https://i.ibb.co/0pjmTSCR/cloak-of-starry-night-pixelart-sprite-outline.png)
-Cloak of Starry Night (B):
+Cloak of Starry Night (C):
 - Effect: 20% chance to deny taking damage.
 - Synergy: 
 	+ Heaven and Earth Combined [Shield of Molten Stone]: Proc chance increases to 30% for both items
 
 ![](https://i.ibb.co/nxcr93X/shield-of-molten-stone-pixelart-sprite-outline.png)
-Shield of Molten Stone (B):
+Shield of Molten Stone (C):
 - Effect: 20% chance to deny taking damage.
 
 ![](https://i.ibb.co/Wv5Ln26w/the-collector-pixelart-sprite.png)
@@ -301,7 +301,7 @@ Perfectly Timed Stopwatch (D):
 ![](https://i.ibb.co/KjLxCdnz/zhonyas-hourglass-pixelart-sprite-small.png)
 Zhonya's Hourglass (A):
 - Stats: 2 Armor
-- Effect: Activate to enter a stasis for 2.5s. During stasis, you are invulnerable, cannot move, and cannot fire your weapon. After the stasis, activate a blank. Goes on a 120s cooldown.
+- Effect: Activate to enter a stasis for 2.5s. During stasis, you are invulnerable, cannot move, and cannot fire your weapon. After the stasis, activate a blank. Goes on a 45s cooldown.
 - Synergies:
 	+ Chaos Control [Chaos Ammolet & Chaos Bullets]: Cooldown decreased to 20s
 	+ Seven seconds remain... [Super Hot Watch]: Can move and attack in stasis

@@ -130,7 +130,17 @@ namespace LOLItems.passive_items
                 // makes player character invulnerable, reset health, take no inputs from player, and remove revive effect
                 player.healthHaver.TriggerInvulnerabilityPeriod(4.1f);
                 //player.TriggerInvulnerableFrames(4.1f);
-                player.healthHaver.ForceSetCurrentHealth(player.healthHaver.GetMaxHealth() / 2);
+                //player.healthHaver.ForceSetCurrentHealth(player.healthHaver.GetMaxHealth() / 2);
+
+                if (!player.ForceZeroHealthState)
+                {
+                    player.healthHaver.ForceSetCurrentHealth(player.healthHaver.GetMaxHealth() / 2);
+                }
+                else
+                {
+                    player.healthHaver.Armor += ArmorStat;
+                }
+
                 player.CurrentInputState = PlayerInputState.NoInput;
                 player.healthHaver.OnPreDeath -= Rebirth;
 

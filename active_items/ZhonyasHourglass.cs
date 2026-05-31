@@ -18,14 +18,14 @@ namespace LOLItems.active_items
         public static string ItemName = "Zhonya's Hourglass";
 
         // stats pool for item
-        private static float DamageStat = 1.05f;
+        //private static float DamageStat = 1.05f;
         private static float ArmorStat = 2.0f;
-        private bool hasGainedArmor = false;
+        private bool hasGainedArmor;
         private static float StasisDuration = 2.5f;
         private static float StasisCooldown = 120f;
 
         public bool CHAOSCONTROLActivated = false;
-        private static float CHAOSCONTROLStasisCooldown = 100f;
+        private static float CHAOSCONTROLStasisCooldown = 45f;
         public bool SEVENSECONDSREMAINActivated = false;
 
         public static int ID;
@@ -42,7 +42,7 @@ namespace LOLItems.active_items
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
 
             string shortDesc = "Borrowed Time";
-            string longDesc = "Slightly increase damage\nEnter stasis, where you're invulnerable but also can't do anything for a duration, then activates a blank.\n\n" +
+            string longDesc = "Enter stasis, where you're invulnerable but also can't do anything for a duration, then activates a blank.\n\n" +
                 "A sand stopwatch that allows the user to suspend their life for a few moments. " +
                 "It's believed that a pharaoh used it to reminisce his last moments during his empire's fall.\n";
 
@@ -51,7 +51,9 @@ namespace LOLItems.active_items
             item.consumable = false;
 
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.AdditionalItemCapacity, 1);
-            ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+            //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Damage, DamageStat, StatModifier.ModifyMethod.MULTIPLICATIVE);
+
+            item.hasGainedArmor = false;
 
             item.usableDuringDodgeRoll = true;
             item.quality = PickupObject.ItemQuality.A;
@@ -62,17 +64,15 @@ namespace LOLItems.active_items
         // subscribe to the player events
         public override void Pickup(PlayerController player)
         {
-            base.Pickup(player);
-            Plugin.Log($"Player picked up {this.EncounterNameOrDisplayName}");
+            if (!m_pickedUpThisRun) player.healthHaver.Armor += ArmorStat;
 
-            if (!hasGainedArmor) player.healthHaver.Armor += ArmorStat;
-            hasGainedArmor = true;
+            Plugin.Log($"Player picked up {this.EncounterNameOrDisplayName}");
+            base.Pickup(player);
         }
 
         public DebrisObject Drop(PlayerController player)
         {
             Plugin.Log($"Player dropped or got rid of {this.EncounterNameOrDisplayName}");
-
             return base.Drop(player);
         }
 

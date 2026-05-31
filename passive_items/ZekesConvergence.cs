@@ -292,7 +292,7 @@ namespace LOLItems.passive_items
                 sprite.usesOverrideMaterial = true;
 
                 sprite.renderer.material.shader = ShaderCache.Acquire("Brave/Internal/SimpleAlphaFadeUnlit");
-                sprite.renderer.material.SetFloat("_Fade", 0.5f);
+                sprite.renderer.material.SetFloat("_Fade", 0.3f);
             }
 
             /*if (EffectVFX != null && player != null)

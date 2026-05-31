@@ -119,20 +119,25 @@ namespace LOLItems
             List<int> LootTable = new List<int>()
             {
                 BladeOfTheRuinedKing.ID,
-                ExperimentalHexplate.ID,
                 GuardianAngel.ID,
                 GuinsoosRageblade.ID,
                 Hubris.ID,
                 KrakenSlayer.ID,
+
+                FatedAshes.ID,
                 LiandrysTorment.ID,
+
+                TearOfTheGoddess.ID,
                 Manamune.ID,
+
                 StatikkShiv.ID,
                 Stridebreaker.ID,
                 SunfireAegis.ID,
                 Thornmail.ID,
+
+                PerfectlyTimedStopwatch.ID,
                 ZhonyasHourglass.ID,
-                    
-                //new update?
+
                 Collector.ID,
                 FrozenHeart.ID,
                 RodOfAges.ID,
@@ -142,30 +147,27 @@ namespace LOLItems
                 RylaisCrystalScepter.ID,
                 Shadowflame.ID,
                 NavoriQuickblades.ID,
-
-                //guon stones
                 BraumsShield.ID,
 
-                //new items
                 ShieldOfMoltenStone.ID,
                 CloakOfStarryNight.ID,
+
+                ExperimentalHexplate.ID,
                 ZekesConvergence.ID,
                 Redemption.ID,
 
-                //low tier items
                 Sheen.ID,
-                FatedAshes.ID,
-                Cull.ID,
-                PerfectlyTimedStopwatch.ID,
-                TearOfTheGoddess.ID,
+                TrinityForce.ID,
+                DivineSunderer.ID,
+                EssenceReaver.ID,
+                LichBane.ID,
 
-                //next update items
+                Cull.ID,
                 DetonationOrb.ID,
                 RefillablePotion.ID,
                 TalismanOfAscension.ID,
                 SilverBolts.ID,
-    
-                //weapons
+
                 PowPow.ID,
                 HextechRifle.ID,
                 ElectricRifle.ID,
@@ -174,8 +176,7 @@ namespace LOLItems
                 Crossblade.ID,
                 VirtueForm1.ID,
                 SoulSpear.ID,
-                //GauntletOfNeZuk.Add(); UNFINISHED
-                Pinger.ID, //unfinished
+                Pinger.ID,
             };
 
             ShopKeeperLootTable = LootTableTools.CreateLootTable();

@@ -120,3 +120,10 @@ added new items that are upgrades to sheen
 - Lich Bane
 
 fixed pinger having log prints constantly
+
+## 3.2.1
+fixed guardian angel revive not working with armor only characters
+fixed zhonya's hourglass giving the player the pickup armor again on subsequent pickups (could get infinite armor)
+cloak of starry night and shield of molten stone rarity lowered from B to C tier
+adjusted zeke's convergence vfx to be more transparent
+added the new items to bubbs's shop inventory

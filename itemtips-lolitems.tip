@@ -123,7 +123,7 @@
     },
     "LOLItems:statikk_shiv": {
       "name": "Statikk Shiv",
-      "notes": "The first 5 bullets of player's clip will chain lightning up to 8 enemies starting from the first enemy hit. Chain lightning deals 10 dmg."
+      "notes": "After reloading, the first 5 bullets of player's clip will chain lightning up to 8 enemies starting from the first enemy hit. Chain lightning deals 10 dmg."
     },
     "LOLItems:sunfire_aegis": {
       "name": "Sunfire Aegis",
@@ -165,7 +165,7 @@
     },
     "LOLItems:zhonya's_hourglass": {
       "name": "Zhonya's Hourglass",
-      "notes": "2 Armor, Activate to enter a stasis for 2.5s. During stasis, you are invulnerable, cannot move, and cannot fire your weapon. After the stasis, activate a blank. Goes on a 120s cooldown."
+      "notes": "2 Armor, Activate to enter a stasis for 2.5s. During stasis, you are invulnerable, cannot move, and cannot fire your weapon. After the stasis, activate a blank. Goes on a 45s cooldown."
     },
 
 

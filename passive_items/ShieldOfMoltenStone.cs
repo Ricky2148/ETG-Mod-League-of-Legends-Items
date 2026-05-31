@@ -43,7 +43,7 @@ namespace LOLItems.passive_items
             //ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Health, HealthStat, StatModifier.ModifyMethod.ADDITIVE);
             //item.ArmorToGainOnInitialPickup = ArmorStat;
 
-            item.quality = PickupObject.ItemQuality.B;
+            item.quality = PickupObject.ItemQuality.C;
 
             item.procChance = preDamageProcChance;
             item.triggersInvulnerability = true;
