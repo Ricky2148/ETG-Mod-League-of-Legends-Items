@@ -65,6 +65,7 @@
     <Compile Include="active_items\TalismanOfAscension.cs" />
     <Compile Include="active_items\TeemoShrooms.cs" />
     <Compile Include="custom_class_data\AdvancedPlayerOrbitalItem.cs" />
+    <Compile Include="custom_class_data\CrateSpawnController.cs" />
     <Compile Include="custom_class_data\CustomLightningChainEnemiesModifierAOE.cs" />
     <Compile Include="custom_class_data\Databases.cs" />
     <Compile Include="custom_class_data\EasyTrailBullet.cs" />
@@ -2279,6 +2280,7 @@
     <EmbeddedResource Include="Resources\passive_item_sprites\essence_reaver_pixelart_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\lich_bane_pixelart_sprite.png" />
     <EmbeddedResource Include="Resources\passive_item_sprites\trinity_force_pixelart_sprite.png" />
+    <EmbeddedResource Include="Resources\FishmongerShrine.png" />
     <Content Include="Resources\Sounds\gen-gungeon-audio-bank.py" />
     <EmbeddedResource Include="Resources\active_item_sprites\redemption_item_sprite.png" />
     <EmbeddedResource Include="Resources\active_item_sprites\stridebreaker_item_sprite.png" />

@@ -7,6 +7,7 @@ using LOLItems.custom_class_data;
 using LOLItems.guon_stones;
 using LOLItems.passive_items;
 using LOLItems.weapons;
+using ModularMod;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -105,7 +106,6 @@ namespace LOLItems.active_items
         {
             //StartCoroutine(EffectCoroutine(player));
 
-            //HelpfulMethods.CustomNotification("smth1", "smth2", this.sprite);
 
             //LootEngine.SpawnItem(PickupObjectDatabase.GetByName("Muramana").gameObject, player.CenterPosition, Vector2.down, 0);
 

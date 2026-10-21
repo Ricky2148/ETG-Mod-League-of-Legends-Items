@@ -9,8 +9,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-// vfx should be a white spark ball looking thing, on effect application, the vfx is thrown above the enemies head, it starts small, then grows larger with more damage
-// maybe start changing colors, would want it to instantly change to red when it would detonate to execute the target. Every time you refresh the duration, it just increases the duration without refreshing the vfx or vfx's loop
+// bug with thornmail activation damage, if enemy has detOrb stacked on it, then the thornmail damage doesn't go through
 // might have to rewrite the entire logic, fuck me man
 
 namespace LOLItems.passive_items

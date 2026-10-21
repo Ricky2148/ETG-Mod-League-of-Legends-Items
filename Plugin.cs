@@ -7,6 +7,7 @@ using LOLItems.active_items;
 using LOLItems.guon_stones;
 using LOLItems.passive_items;
 using LOLItems.weapons;
+using ModularMod;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -47,20 +48,9 @@ namespace LOLItems
             SoundManager.LoadSoundbanksFromAssembly();
 
             _Harmony = new Harmony(GUID);
-            //_Harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            /*
-            if (_Harmony == null)
-            {
-                Log("harmony is null");
-                _Harmony.PatchAll();
-            }
-            else
-            {
-                Log("harmony is not null");
-                //_Harmony.PatchAll(Assembly.GetExecutingAssembly());
-            }
-            */
+            //TESTING
+            debugItem.Init();
 
             #region Items
             BladeOfTheRuinedKing.Init();
@@ -115,7 +105,7 @@ namespace LOLItems
             SilverBolts.Init();
             #endregion
 
-            //weapons
+            #region Weapons
             //BasicGun.Add();
             //TemplateGun.Add();
             PowPow.Add();
@@ -131,6 +121,9 @@ namespace LOLItems
             SoulSpear.Add();
             //GauntletOfNeZuk.Add(); //UNFINISHED
             Pinger.Add();
+            #endregion
+
+            CrateSpawnController.Init();
 
             #region NPCs
             Bubbs.Init();

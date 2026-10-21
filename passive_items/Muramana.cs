@@ -157,14 +157,14 @@ namespace LOLItems.passive_items
 
         private void VFXLogic(Gun previous, Gun current, bool newGun)
         {
-            Plugin.Log($"thing happen | current gun: {current.gunHandedness}");
+            //Plugin.Log($"thing happen | current gun: {current.gunHandedness}");
             if (current != null)
             {
                 if (current.gunHandedness == GunHandedness.HiddenOneHanded || current.gunHandedness == GunHandedness.NoHanded)
                 {
                     if (activeVFXObject != null)
                     {
-                        Plugin.Log($"destroy vfx | current gun: {current.gunHandedness}");
+                        //Plugin.Log($"destroy vfx | current gun: {current.gunHandedness}");
                         Destroy(activeVFXObject);
                     }
                 }
@@ -172,7 +172,7 @@ namespace LOLItems.passive_items
                 {
                     if (activeVFXObject == null)
                     {
-                        Plugin.Log($"restore vfx | current gun: {current.gunHandedness}");
+                        //Plugin.Log($"restore vfx | current gun: {current.gunHandedness}");
                         activeVFXObject = PlayVFXEffectOnHand(Owner.primaryHand);
                     }
                 }
