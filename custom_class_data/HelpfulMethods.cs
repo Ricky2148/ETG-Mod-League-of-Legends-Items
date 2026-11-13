@@ -317,5 +317,10 @@ namespace LOLItems
                 }
             }
         }
+
+        public static string GetItemNameConsoleName(string itemName)
+        {
+            return ($"{Plugin.ITEM_PREFIX}:{itemName.ToID().ToLowerInvariant()}");
+        }
     }
 }

@@ -7,7 +7,6 @@ using LOLItems.active_items;
 using LOLItems.guon_stones;
 using LOLItems.passive_items;
 using LOLItems.weapons;
-using ModularMod;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -30,6 +29,7 @@ namespace LOLItems
     [BepInPlugin(GUID, NAME, VERSION)]
     public class Plugin : BaseUnityPlugin
     {
+        public const string ITEM_PREFIX = "LOLItems"; //just the last part of GUID
         public const string GUID = "Ricky2148.etg.LOLItems";
         public const string NAME = "League of legends Items";
         public const string VERSION = "3.2.1";
@@ -119,11 +119,9 @@ namespace LOLItems
             VirtueForm2.Add();
             VirtueForm3.Add();
             SoulSpear.Add();
-            //GauntletOfNeZuk.Add(); //UNFINISHED
+            GauntletOfNeZuk.Add(); //UNFINISHED
             Pinger.Add();
             #endregion
-
-            CrateSpawnController.Init();
 
             #region NPCs
             Bubbs.Init();

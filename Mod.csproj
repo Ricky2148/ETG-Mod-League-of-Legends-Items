@@ -65,7 +65,6 @@
     <Compile Include="active_items\TalismanOfAscension.cs" />
     <Compile Include="active_items\TeemoShrooms.cs" />
     <Compile Include="custom_class_data\AdvancedPlayerOrbitalItem.cs" />
-    <Compile Include="custom_class_data\CrateSpawnController.cs" />
     <Compile Include="custom_class_data\CustomLightningChainEnemiesModifierAOE.cs" />
     <Compile Include="custom_class_data\Databases.cs" />
     <Compile Include="custom_class_data\EasyTrailBullet.cs" />
@@ -902,6 +901,8 @@
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_intro_027.jtk2d" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\nezuk_charge1_projectile_001.png" />
+    <EmbeddedResource Include="Resources\weapon_sprites\ProjectileCollection\nezuk_charge2_projectile_001.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_intro_015.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_intro_016.png" />
     <EmbeddedResource Include="Resources\weapon_sprites\WeaponCollection\pinger_intro_017.png" />

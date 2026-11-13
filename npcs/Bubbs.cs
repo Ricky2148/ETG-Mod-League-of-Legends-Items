@@ -93,7 +93,7 @@ namespace LOLItems
             ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "{wb}That’s the spirit!{w} The financial spirit, however, is lacking.");
             ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "Sorry, but seawater doesn’t pay the bills.");
             ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "{wr}If only enthusiasm were a currency!{w} You’d be rich indeed.");
-            ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "That price is, {wj}regrettably{w}, non-negotiable—even for pioneers.");
+            ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "That price is, {wj}regrettably{w}, non-negotiable even for pioneers.");
             ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "Oh, don’t worry. Many great expeditions ended before they began.");
             ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "Perhaps a smaller trinket? To, ah, {ws}stay afloat?{w}");
             ETGMod.Databases.Strings.Core.AddComplex("#BUBBS_NOSALE_TALK", "{wr}Close!{w} Now, just a few more clams in the purse, as they say.");

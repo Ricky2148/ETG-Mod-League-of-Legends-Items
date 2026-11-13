@@ -9,6 +9,7 @@ using Alexandria.BreakableAPI;
 using BepInEx;
 using System.Collections.Generic;
 using LOLItems.custom_class_data;
+using Alexandria.Misc;
 
 
 namespace LOLItems.weapons
@@ -18,6 +19,37 @@ namespace LOLItems.weapons
         public static string internalName = "gauntlet_of_nezuk"; //Internal name of the gun as used by console commands
         public static int ID; //The Gun ID stored by the game.  Can be used by other functions to call your custom gun.
         public static string realName = "Gauntlet of Ne'Zuk";
+
+        private static int ammoStat = 1000;
+        private static float fireRateStat = 0.6f;
+        private static float tierOneChargeTime = 0.5f;
+        private static float tierTwoChargeTime = 1.5f;
+        private static int spreadAngle = 0;
+
+        private int risingSpellForceStacks = 0;
+        private float risingSpellForceFireRatePerStack = 0.15f;
+        private int risingSpellForceStackCap = 5;
+        private Coroutine risingSpellForceDecayCoroutine;
+
+        private static float projectileDamageStat = 10f;
+        private static float projectileSpeedStat = 35f;
+        private static float projectileRangeStat = 12f;
+        private static float projectileForceStat = 5f;
+
+        private static float chargeProjectileDamageStat = projectileDamageStat * 2.0f;
+        private static float chargeProjectileSpeedStat = projectileSpeedStat;
+        private static float chargeProjectileRangeStat = projectileRangeStat * 1.25f;
+        private static float chargeProjectileForceStat = projectileForceStat * 1.5f;
+
+        private static float chargeProjectile2DamageStat = projectileDamageStat * 4.0f;
+        private static float chargeProjectile2SpeedStat = projectileSpeedStat * 0.75f;
+        private static float chargeProjectile2RangeStat = 250f;
+        private static float chargeProjectile2ForceStat = 0f;
+
+        private static string projOneIdentifierName = "auto_attack_projectile";
+        private static string projTwoIdentifierName = "q_projectile";
+        private static string projThreeIdentifierName = "ult_projectile";
+
         public static void Add()
         {
             string FULLNAME = realName; //Full name of your gun 
@@ -63,15 +95,15 @@ namespace LOLItems.weapons
             SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null); //Play_WPN_Gun_Shot_01 is your weapon's base shot sound.
             SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null); //Play_WPN_Gun_Reload_01 is your weapon's base reload sound.
             
-            gun.DefaultModule.angleVariance = 0; //How far from where you're aiming that bullets can deviate. 0 equals perfect accuracy.
+            gun.DefaultModule.angleVariance = spreadAngle; //How far from where you're aiming that bullets can deviate. 0 equals perfect accuracy.
             gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.Charged; //Sets the firing style of the gun.
             gun.gunClass = GunClass.CHARGE; // Sets the gun's class which is used by category based effects.
             gun.DefaultModule.sequenceStyle = ProjectileModule.ProjectileSequenceStyle.Random; //Sets how the gun handles multiple different projectiles
             gun.DefaultModule.ammoCost = 1;
-            gun.reloadTime = 1f;
-            gun.DefaultModule.cooldownTime = 0.1f; //Time between shots fired.  For Burst guns it's the time between each burst.
-            gun.DefaultModule.numberOfShotsInClip = 15;
-            gun.SetBaseMaxAmmo(150);
+            gun.reloadTime = 0f;
+            gun.DefaultModule.cooldownTime = fireRateStat; //Time between shots fired.  For Burst guns it's the time between each burst.
+            gun.DefaultModule.numberOfShotsInClip = 9999;
+            gun.SetBaseMaxAmmo(ammoStat);
             /* GunHandedness sets how the gun is held.
              * OneHanded and TwoHanded control how hands hold the gun.
              * AutoDetect will select between one and two handed based on the json/jtk2d.
@@ -99,40 +131,81 @@ namespace LOLItems.weapons
             /* First line instantiates the projectile and uses an existing projectile to set default visuals and properties based on gun ID.
              * Full list of IDs and names can be found here https://raw.githubusercontent.com/ModTheGungeon/ETGMod/master/Assembly-CSharp.Base.mm/Content/gungeon_id_map/items.txt
              * List of visual effects https://enterthegungeon.wiki.gg/wiki/Weapon_Visual_Effects */
-            Projectile projectile = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.Heroine) as Gun).DefaultModule.projectiles[0]);
+            Projectile projectile1 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
+            projectile1.name = projOneIdentifierName;
             /* If you want to use a charged projectile from a gun with multiple stages of shots, use a format like the below */
             //Projectile projectile = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById(613) as Gun).singleModule.chargeProjectiles[1].Projectile);
             /* The following line can be used to output the full details of the properties of a given gun or projectile for if you'd like to replicated certain aspects.
              * This example takes the projectile we just set up then outputs the details to your game folder under Enter the Gungeon\Resources\defaultLog.txt */
             //Alexandria.Misc.DebugUtility.LogPropertiesAndFields<Projectile>(projectile, $"Projectile Properties and Fields: ");
-            gun.DefaultModule.projectiles[0] = projectile; //Assigns the projectile to the gun.
+            gun.DefaultModule.projectiles[0] = projectile1; //Assigns the projectile to the gun.
             /* Adjust Impact Visuals */
-            projectile.hitEffects.alwaysUseMidair = true;  //Use end of range visual if it hits something
-            projectile.hitEffects.midairInheritsFlip = true; //Should impact be directional facing?
-            projectile.hitEffects.midairInheritsRotation = true; //Should the visual rotate with the gun's orientation?
+            projectile1.hitEffects.alwaysUseMidair = true;  //Use end of range visual if it hits something
+            projectile1.hitEffects.midairInheritsFlip = true; //Should impact be directional facing?
+            projectile1.hitEffects.midairInheritsRotation = true; //Should the visual rotate with the gun's orientation?
             /* You can also copy individual properties using a format like this: */
-            projectile.hitEffects.tileMapHorizontal = (PickupObjectDatabase.GetById(41) as Gun).DefaultModule.projectiles[0].hitEffects.tileMapHorizontal;
-            projectile.hitEffects.tileMapVertical = (PickupObjectDatabase.GetById(41) as Gun).DefaultModule.projectiles[0].hitEffects.tileMapVertical;
+            projectile1.hitEffects.tileMapHorizontal = (PickupObjectDatabase.GetById(41) as Gun).DefaultModule.projectiles[0].hitEffects.tileMapHorizontal;
+            projectile1.hitEffects.tileMapVertical = (PickupObjectDatabase.GetById(41) as Gun).DefaultModule.projectiles[0].hitEffects.tileMapVertical;
 
             /* The following block is needed so that cloned copies of your projectile have the same properties. */
-            projectile.gameObject.SetActive(false);
-            FakePrefab.MarkAsFakePrefab(projectile.gameObject);
-            UnityEngine.Object.DontDestroyOnLoad(projectile);
+            projectile1.gameObject.SetActive(false);
+            FakePrefab.MarkAsFakePrefab(projectile1.gameObject);
+            UnityEngine.Object.DontDestroyOnLoad(projectile1);
 
             /* Adjusting base properties */
-            projectile.baseData.damage = 5f;
-            projectile.baseData.speed = 25f;
-            projectile.baseData.range = 100f;
-            projectile.baseData.force = 10f; //Knockback strength
-            projectile.transform.parent = gun.barrelOffset;
-            projectile.shouldRotate = true; //If the projectile should rotate to match the direction it was shot and you don't want your default projectile's setting
-            projectile.AdditionalScaleMultiplier = 1f; //Further modify the projectile's size
+            projectile1.baseData.damage = projectileDamageStat;
+            projectile1.baseData.speed = projectileSpeedStat;
+            projectile1.baseData.range = projectileRangeStat;
+            projectile1.baseData.force = projectileForceStat;
+            projectile1.transform.parent = gun.barrelOffset;
+            projectile1.shouldRotate = true;
+            projectile1.AdditionalScaleMultiplier = 1f;
 
-            /* Optionally sets a custom Projectile Sprite if you don't want to use the default.
-             * The first value is the sprite name in sprites\ProjectileCollection without the extension.
-             * tk2dBaseSprite.Anchor.MiddleCenter controls where the sprite is anchored. MiddleCenter will work in most cases.
-             * The first set of numbers is visual dimensions of the sprite while the last set of numbers is the hitbox.  Generally the hitbox should be a little smaller than the visuals. */
-            //projectile.SetProjectileSpriteRight($"{SPRITENAME}_projectile_001", 20, 8, true, tk2dBaseSprite.Anchor.MiddleCenter, 18, 6); //Note that your sprite will stretch to match the visual dimensions
+            projectile1.SetProjectileSpriteRight("nezuk_charge1_projectile_001", 27, 9, true, tk2dBaseSprite.Anchor.MiddleCenter, 23, 7);
+
+            // CHARGE PROJECTILE
+
+            // The following settings are for if your gun uses additional projectiles when charged.
+            // In general, you would assign properties in the same way as your "projectile" but by just using different names like "chargedprojectile" instead. 
+            // You also would not assign the projectiles to the gun with DefaultModule since they will get called by the charging code.
+            Projectile chargeProjectile1 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
+            chargeProjectile1.name = projTwoIdentifierName;
+            chargeProjectile1.gameObject.SetActive(false);
+            FakePrefab.MarkAsFakePrefab(chargeProjectile1.gameObject);
+            UnityEngine.Object.DontDestroyOnLoad(chargeProjectile1);
+
+            chargeProjectile1.baseData.damage = chargeProjectileDamageStat;
+            chargeProjectile1.baseData.speed = chargeProjectileSpeedStat;
+            chargeProjectile1.baseData.range = chargeProjectileRangeStat;
+            chargeProjectile1.baseData.force = chargeProjectileForceStat;
+            chargeProjectile1.transform.parent = gun.barrelOffset;
+            chargeProjectile1.shouldRotate = true;
+            chargeProjectile1.AdditionalScaleMultiplier = 1f;
+            // Add shooting sounds to your pojectiles by incrementing Play_WPN_Gun_Shot_01.
+            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_02", "Play_WPN_grasshopper_shot_01"); //Sound for second projectile.
+            chargeProjectile1.SetProjectileSpriteRight("nezuk_charge2_projectile_001", 19, 15, true, tk2dBaseSprite.Anchor.MiddleCenter, 11, 5);
+
+            // Sets up a third projectile to go with a third charge tier.
+            Projectile chargeProjectile2 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.MarineSidearm) as Gun).DefaultModule.projectiles[0]);
+            chargeProjectile2.name = projThreeIdentifierName;
+            chargeProjectile2.gameObject.SetActive(false);
+            FakePrefab.MarkAsFakePrefab(chargeProjectile2.gameObject);
+            UnityEngine.Object.DontDestroyOnLoad(chargeProjectile2);
+            chargeProjectile2.baseData.damage = chargeProjectile2DamageStat;
+            chargeProjectile2.baseData.speed = chargeProjectile2SpeedStat;
+            chargeProjectile2.baseData.range = chargeProjectile2RangeStat;
+            chargeProjectile2.baseData.force = chargeProjectile2ForceStat;
+            chargeProjectile2.transform.parent = gun.barrelOffset;
+            chargeProjectile2.shouldRotate = true;
+            chargeProjectile2.AdditionalScaleMultiplier = 3f;
+
+            chargeProjectile2.gameObject.GetOrAddComponent<TrueWallPiercingRounds>();
+
+            PierceProjModifier ultPierce = chargeProjectile2.gameObject.GetOrAddComponent<PierceProjModifier>();
+            ultPierce.penetratesBreakables = true;
+            ultPierce.penetration = 999;
+
+            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_03", "Play_WPN_bsg_shot_01"); //Sound for third projectile.
 
             //OPTIONAL ADDITIONAL PROPERTIES
             /* Properties default to whatever you copied your base gun from, but you an adjust them manually as needed. */
@@ -218,37 +291,6 @@ namespace LOLItems.weapons
              * Useful for synergy modules that fire additional shots but shouldn't interfere with the main module from reloading. */
             //mod.ignoredForReloadPurposes = true; 
 
-            /* Hungry allows bullets to consume enemy bullets, getting larger and gaining effects like damage when it happens. */
-            //HungryProjectileModifier eat = projectile.gameObject.AddComponent<HungryProjectileModifier>(); //Initilaize the property.
-            //eat.HungryRadius = 5f; //How far away the bullet can eat other bullets from.
-            //eat.DamagePercentGainPerSnack = 0.5f; //Increases damage based on how many bullets eaten.
-            //eat.MaximumBulletsEaten = 3; //Limit how many bullets each shot can eat.
-            //eat.MaxMultiplier = 3f; //Limit how high the damage increase can get.
-
-            //On-Hit Effects
-            /* bleed */
-            //projectile.AppliesBleed = true;
-            //projectile.BleedApplyChance = 0.5f;
-            /* Charm */
-            //projectile.AppliesCharm = true;
-            //projectile.CharmApplyChance = 0.5f;
-            /* Cheese */
-            //projectile.AppliesCheese = true;
-            //projectile.CheeseApplyChance = 0.5f;
-            /* Fire */
-            //projectile.AppliesFire = true;
-            //projectile.FireApplyChance = 0.5f;
-            /* freeze */
-            //projectile.AppliesFreeze = true;
-            //projectile.FreezeApplyChance = 0.5f;
-            /* poison */
-            //projectile.AppliesPoison = true;
-            //projectile.PoisonApplyChance = 0.5f;
-            /* stun */
-            //projectile.AppliesStun = true;
-            //projectile.StunApplyChance = 0.5f;
-            //projectile.AppliedStunDuration = 2f;
-
             //Animate Projectile
             /*
             // Animating your projectile is similar to setting up the custom sprite except each parameter is set as a group.
@@ -288,65 +330,113 @@ namespace LOLItems.weapons
                                                 projectileManualOffsets, projectileOverrideColliderSizes, projectileOverrideColliderOffsets, projectileOverrideProjectilesToCopyFrom, ProjectileWrapMode);
             */
 
-
-            // CHARGE PROJECTILE
-
-            // The following settings are for if your gun uses additional projectiles when charged.
-            // In general, you would assign properties in the same way as your "projectile" but by just using different names like "chargedprojectile" instead. 
-            // You also would not assign the projectiles to the gun with DefaultModule since they will get called by the charging code.
-            Projectile chargeprojectile = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.Particulator) as Gun).DefaultModule.projectiles[0]); //Initialize chargedprojectile.
-            chargeprojectile.gameObject.SetActive(false);
-            FakePrefab.MarkAsFakePrefab(chargeprojectile.gameObject);
-            UnityEngine.Object.DontDestroyOnLoad(chargeprojectile);
-
-            chargeprojectile.baseData.damage = 30f;
-            chargeprojectile.baseData.speed = 25f;
-            chargeprojectile.baseData.range = 100f;
-            chargeprojectile.baseData.force = 5f;
-            chargeprojectile.transform.parent = gun.barrelOffset;
-            chargeprojectile.AdditionalScaleMultiplier = 1f;
-            // Add shooting sounds to your pojectiles by incrementing Play_WPN_Gun_Shot_01.
-            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_02", "Play_WPN_grasshopper_shot_01"); //Sound for second projectile.
-
-            // Sets up a third projectile to go with a third charge tier.
-            Projectile chargeprojectile2 = UnityEngine.Object.Instantiate<Projectile>((PickupObjectDatabase.GetById((int)Items.Rpg) as Gun).DefaultModule.projectiles[0]); //Initialize chargedprojectile.
-            chargeprojectile2.gameObject.SetActive(false);
-            FakePrefab.MarkAsFakePrefab(chargeprojectile2.gameObject);
-            UnityEngine.Object.DontDestroyOnLoad(chargeprojectile2);
-            chargeprojectile2.baseData.damage = 70f;
-            chargeprojectile2.baseData.speed = 25f;
-            chargeprojectile2.baseData.range = 100f;
-            chargeprojectile2.baseData.force = 10f;
-            chargeprojectile2.transform.parent = gun.barrelOffset;
-            chargeprojectile2.AdditionalScaleMultiplier = 3f;
-            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_03", "Play_WPN_bsg_shot_01"); //Sound for third projectile.
-            
-            
-
             // Sets the properties of charging including the time it takes to charge.
             ProjectileModule.ChargeProjectile chargeProj1 = new ProjectileModule.ChargeProjectile
             {
-                Projectile = projectile, //Assigns a projectile to the charge state
+                Projectile = projectile1, //Assigns a projectile to the charge state
                 ChargeTime = 0f, //How long to hold the trigger before getting to this charge state.  Set the first one to 0 to allow regular firing the base shot.
             };
             ProjectileModule.ChargeProjectile chargeProj2 = new ProjectileModule.ChargeProjectile
             {
-                Projectile = chargeprojectile,
-                ChargeTime = 1f,
+                Projectile = chargeProjectile1,
+                ChargeTime = tierOneChargeTime,
+                AmmoCost = 2,
             };
             ProjectileModule.ChargeProjectile chargeProj3 = new ProjectileModule.ChargeProjectile
             {
-                Projectile = chargeprojectile2,
-                ChargeTime = 3f, //Means this charge state will be reached after 3 seconds total, not 3 seconds since the previous state.
+                Projectile = chargeProjectile2,
+                ChargeTime = tierTwoChargeTime, //Means this charge state will be reached after 3 seconds total, not 3 seconds since the previous state.
+                AmmoCost = 10,
             };
             gun.DefaultModule.chargeProjectiles = new List<ProjectileModule.ChargeProjectile> {chargeProj1, chargeProj2, chargeProj3}; //Assigns charged projectiles to the gun.
             
 
-            gun.quality = PickupObject.ItemQuality.B; //Sets the gun's quality rank. Use "EXCLUDED" if the gun should not appear in chests.
+            gun.quality = PickupObject.ItemQuality.EXCLUDED; //Sets the gun's quality rank. Use "EXCLUDED" if the gun should not appear in chests.
             ETGMod.Databases.Items.Add(gun, false, "ANY");  //Adds your gun to the databse.
             //gun.AddToSubShop(ItemBuilder.ShopType.Trorc); //Select which sub shops during a run can carry the gun
             //gun.AddToSubShop(ItemBuilder.ShopType.Flynt);
             ID = gun.PickupObjectId; //Sets the Gun ID. 
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+        }
+
+        public override void OnPostFired(PlayerController player, Gun gun)
+        {
+            base.OnPostFired(player, gun);
+        }
+
+        public override void PostProcessProjectile(Projectile projectile)
+        {
+            Plugin.Log($"projectile name: {projectile.name}");
+            if (projectile.name == (projTwoIdentifierName + "(Clone)") || projectile.name == (projThreeIdentifierName + "(Clone)"))
+            {
+                Plugin.Log($"rising spell force stack on hit: {projectile.name}");
+                projectile.OnHitEnemy += (projHit, enemy, fatal) =>
+                {
+                    if (enemy == null) return;
+                    AIActor firstEnemy = null;
+                    if (enemy.aiActor != null)
+                    {
+                        firstEnemy = enemy.aiActor;
+                    }
+                    else if (enemy.GetComponentInParent<AIActor>() != null)
+                    {
+                        firstEnemy = enemy.GetComponentInParent<AIActor>();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    if (enemy.healthHaver != null)
+                    {
+                        if (risingSpellForceStacks < risingSpellForceStackCap)
+                        {
+                            risingSpellForceStacks++;
+                            ItemBuilder.RemoveCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire);
+                            ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire, 1.0f + (risingSpellForceStacks * risingSpellForceFireRatePerStack), StatModifier.ModifyMethod.MULTIPLICATIVE);
+                            Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
+
+                            //gun.spriteAnimator.OverrideTimeScale = 1f + (risingSpellForceStacks * risingSpellForceFireRatePerStack);
+
+                            if (risingSpellForceDecayCoroutine != null)
+                            {
+                                StopCoroutine(risingSpellForceDecayCoroutine);
+                            }
+                            risingSpellForceDecayCoroutine = StartCoroutine(RisingSpellForceDecayCoroutine(Player, Player.CurrentGun));
+
+                            base.Update();
+                        }
+                    }
+                };
+            }
+
+            base.PostProcessProjectile(projectile);
+        }
+
+        public override void OnFinishAttack(PlayerController player, Gun gun)
+        {
+            /*
+            if (risingSpellForceDecayCoroutine != null)
+            {
+                StopCoroutine(risingSpellForceDecayCoroutine);
+            }
+            risingSpellForceDecayCoroutine = StartCoroutine(RisingSpellForceDecayCoroutine(player, gun));
+            */
+
+            base.OnFinishAttack(player, gun);
+        }
+
+        private System.Collections.IEnumerator RisingSpellForceDecayCoroutine(PlayerController player, Gun gun)
+        {
+            yield return new WaitForSeconds(6f);
+            risingSpellForceStacks = 0;
+            ItemBuilder.RemoveCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire);
+            player.stats.RecalculateStatsWithoutRebuildingGunVolleys(player);
+
+            //gun.spriteAnimator.OverrideTimeScale = 1f;
         }
     }
 }

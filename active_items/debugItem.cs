@@ -7,7 +7,6 @@ using LOLItems.custom_class_data;
 using LOLItems.guon_stones;
 using LOLItems.passive_items;
 using LOLItems.weapons;
-using ModularMod;
 using System;
 using System.Collections;
 using System.Collections.Generic;
