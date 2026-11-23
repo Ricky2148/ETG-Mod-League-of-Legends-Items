@@ -67,6 +67,7 @@
     <Compile Include="custom_class_data\AdvancedPlayerOrbitalItem.cs" />
     <Compile Include="custom_class_data\CustomLightningChainEnemiesModifierAOE.cs" />
     <Compile Include="custom_class_data\Databases.cs" />
+    <Compile Include="custom_class_data\DontLoseDamageOnPierce.cs" />
     <Compile Include="custom_class_data\EasyTrailBullet.cs" />
     <Compile Include="custom_class_data\GameActorCrippleEffect.cs" />
     <Compile Include="custom_class_data\HealthHaverOnPreDeathActionModule.cs" />

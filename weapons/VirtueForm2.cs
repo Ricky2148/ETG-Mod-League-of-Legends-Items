@@ -279,6 +279,7 @@ namespace LOLItems.weapons
             wave.damagesWalls = false;
 
             TrueWallPiercingRounds wallPiercingRounds = wave.gameObject.GetOrAddComponent<TrueWallPiercingRounds>();
+            wave.gameObject.GetOrAddComponent<DontLoseDamageOnPierce>();
 
             //wave.BulletScriptSettings.surviveRigidbodyCollisions = true;
             //wave.BulletScriptSettings.surviveTileCollisions = true;

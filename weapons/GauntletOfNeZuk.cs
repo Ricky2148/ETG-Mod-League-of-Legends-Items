@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using LOLItems.custom_class_data;
 using Alexandria.Misc;
 
+//balance the item, figure out how to remove damage reduction after piecing enemies
 
 namespace LOLItems.weapons
 {
@@ -41,10 +42,13 @@ namespace LOLItems.weapons
         private static float chargeProjectileRangeStat = projectileRangeStat * 1.25f;
         private static float chargeProjectileForceStat = projectileForceStat * 1.5f;
 
-        private static float chargeProjectile2DamageStat = projectileDamageStat * 4.0f;
+        private static float chargeProjectile2DamageStat = projectileDamageStat * 12.5f;
         private static float chargeProjectile2SpeedStat = projectileSpeedStat * 0.75f;
         private static float chargeProjectile2RangeStat = 250f;
         private static float chargeProjectile2ForceStat = 0f;
+
+        private static float trueshotBarrageCooldownSeconds = 15f; //testing value, real value should be like 90
+        private Coroutine trueshotBarrageCooldownCoroutine;
 
         private static string projOneIdentifierName = "auto_attack_projectile";
         private static string projTwoIdentifierName = "q_projectile";
@@ -92,8 +96,8 @@ namespace LOLItems.weapons
             //gun.gunSwitchGroup = (PickupObjectDatabase.GetById(56) as Gun).gunSwitchGroup; //Example using a vanilla gun's ID.
             /* OR */
             gun.gunSwitchGroup = $"LOLItems_{FULLNAME.ToID()}"; //Unique name for your gun's sound group. In this example it uses your console name but with an underscore.
-            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null); //Play_WPN_Gun_Shot_01 is your weapon's base shot sound.
-            SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null); //Play_WPN_Gun_Reload_01 is your weapon's base reload sound.
+            //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Shot_01", null); //Play_WPN_Gun_Shot_01 is your weapon's base shot sound.
+            //SoundManager.AddCustomSwitchData("WPN_Guns", gun.gunSwitchGroup, "Play_WPN_Gun_Reload_01", null); //Play_WPN_Gun_Reload_01 is your weapon's base reload sound.
             
             gun.DefaultModule.angleVariance = spreadAngle; //How far from where you're aiming that bullets can deviate. 0 equals perfect accuracy.
             gun.DefaultModule.shootStyle = ProjectileModule.ShootStyle.Charged; //Sets the firing style of the gun.
@@ -200,6 +204,7 @@ namespace LOLItems.weapons
             chargeProjectile2.AdditionalScaleMultiplier = 3f;
 
             chargeProjectile2.gameObject.GetOrAddComponent<TrueWallPiercingRounds>();
+            chargeProjectile2.gameObject.GetOrAddComponent<DontLoseDamageOnPierce>();
 
             PierceProjModifier ultPierce = chargeProjectile2.gameObject.GetOrAddComponent<PierceProjModifier>();
             ultPierce.penetratesBreakables = true;
@@ -340,13 +345,13 @@ namespace LOLItems.weapons
             {
                 Projectile = chargeProjectile1,
                 ChargeTime = tierOneChargeTime,
-                AmmoCost = 2,
+                AmmoCost = 3,
             };
             ProjectileModule.ChargeProjectile chargeProj3 = new ProjectileModule.ChargeProjectile
             {
                 Projectile = chargeProjectile2,
                 ChargeTime = tierTwoChargeTime, //Means this charge state will be reached after 3 seconds total, not 3 seconds since the previous state.
-                AmmoCost = 10,
+                AmmoCost = 5,
             };
             gun.DefaultModule.chargeProjectiles = new List<ProjectileModule.ChargeProjectile> {chargeProj1, chargeProj2, chargeProj3}; //Assigns charged projectiles to the gun.
             
@@ -371,7 +376,7 @@ namespace LOLItems.weapons
         public override void PostProcessProjectile(Projectile projectile)
         {
             Plugin.Log($"projectile name: {projectile.name}");
-            if (projectile.name == (projTwoIdentifierName + "(Clone)") || projectile.name == (projThreeIdentifierName + "(Clone)"))
+            if (projectile.name == (projTwoIdentifierName + "(Clone)"))
             {
                 Plugin.Log($"rising spell force stack on hit: {projectile.name}");
                 projectile.OnHitEnemy += (projHit, enemy, fatal) =>
@@ -400,15 +405,65 @@ namespace LOLItems.weapons
                             Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
 
                             //gun.spriteAnimator.OverrideTimeScale = 1f + (risingSpellForceStacks * risingSpellForceFireRatePerStack);
-
-                            if (risingSpellForceDecayCoroutine != null)
-                            {
-                                StopCoroutine(risingSpellForceDecayCoroutine);
-                            }
-                            risingSpellForceDecayCoroutine = StartCoroutine(RisingSpellForceDecayCoroutine(Player, Player.CurrentGun));
-
-                            base.Update();
                         }
+
+                        if (risingSpellForceDecayCoroutine != null)
+                        {
+                            StopCoroutine(risingSpellForceDecayCoroutine);
+                        }
+                        risingSpellForceDecayCoroutine = StartCoroutine(RisingSpellForceDecay(Player, Player.CurrentGun));
+
+                        base.Update();
+                    }
+                };
+            }
+
+            if (projectile.name == (projThreeIdentifierName + "(Clone)"))
+            {
+                Player.CurrentGun.DefaultModule.chargeProjectiles[2].ChargeTime = 9999f;
+
+                if (trueshotBarrageCooldownCoroutine != null)
+                {
+                    StopCoroutine(trueshotBarrageCooldownCoroutine);
+                }
+                trueshotBarrageCooldownCoroutine = StartCoroutine(TrueshotBarrageCooldown(Player, Player.CurrentGun));
+
+                Plugin.Log($"TRUESHOT BARRAGE | rising spell force stack on hit: {projectile.name}");
+                projectile.OnHitEnemy += (projHit, enemy, fatal) =>
+                {
+                    if (enemy == null) return;
+                    AIActor firstEnemy = null;
+                    if (enemy.aiActor != null)
+                    {
+                        firstEnemy = enemy.aiActor;
+                    }
+                    else if (enemy.GetComponentInParent<AIActor>() != null)
+                    {
+                        firstEnemy = enemy.GetComponentInParent<AIActor>();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                    if (enemy.healthHaver != null)
+                    {
+                        if (risingSpellForceStacks < risingSpellForceStackCap)
+                        {
+                            risingSpellForceStacks++;
+                            ItemBuilder.RemoveCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire);
+                            ItemBuilder.AddCurrentGunStatModifier(gun, PlayerStats.StatType.RateOfFire, 1.0f + (risingSpellForceStacks * risingSpellForceFireRatePerStack), StatModifier.ModifyMethod.MULTIPLICATIVE);
+                            Player.stats.RecalculateStatsWithoutRebuildingGunVolleys(Player);
+
+                            //gun.spriteAnimator.OverrideTimeScale = 1f + (risingSpellForceStacks * risingSpellForceFireRatePerStack);
+                        }
+
+                        if (risingSpellForceDecayCoroutine != null)
+                        {
+                            StopCoroutine(risingSpellForceDecayCoroutine);
+                        }
+                        risingSpellForceDecayCoroutine = StartCoroutine(RisingSpellForceDecay(Player, Player.CurrentGun));
+
+                        base.Update();
                     }
                 };
             }
@@ -429,7 +484,7 @@ namespace LOLItems.weapons
             base.OnFinishAttack(player, gun);
         }
 
-        private System.Collections.IEnumerator RisingSpellForceDecayCoroutine(PlayerController player, Gun gun)
+        private System.Collections.IEnumerator RisingSpellForceDecay(PlayerController player, Gun gun)
         {
             yield return new WaitForSeconds(6f);
             risingSpellForceStacks = 0;
@@ -437,6 +492,16 @@ namespace LOLItems.weapons
             player.stats.RecalculateStatsWithoutRebuildingGunVolleys(player);
 
             //gun.spriteAnimator.OverrideTimeScale = 1f;
+        }
+
+        private System.Collections.IEnumerator TrueshotBarrageCooldown(PlayerController player, Gun gun)
+        {
+            yield return new WaitForSeconds(trueshotBarrageCooldownSeconds);
+            gun.DefaultModule.chargeProjectiles[2].ChargeTime = tierTwoChargeTime;
+            player.stats.RecalculateStatsWithoutRebuildingGunVolleys(player);
+            GameUIRoot.Instance.RegisterDefaultLabel(player.sprite.transform, new Vector3(player.sprite.GetBounds().max.x + 0f, player.sprite.GetBounds().min.y + 0f, 0f), "Trueshot Barrage Available");
+            yield return new WaitForSeconds(5f);
+            GameUIRoot.Instance.DeregisterDefaultLabel(player.sprite.transform);
         }
     }
 }
